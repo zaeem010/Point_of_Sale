@@ -17,6 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Pos\Controllers\" />
+    <Folder Include="Areas\Pos\Views\" />
     <Folder Include="wwwroot\Uploads\" />
   </ItemGroup>
 
