@@ -1,0 +1,360 @@
+﻿@model PurchaseVM
+@{
+    ViewData["Title"] = "Create-New-Purchases";
+}
+<style>
+    .select2-container {
+        height: calc(1.5em + .75rem + 2px) !important;
+    }
+</style>
+<div id="countofdetails" class="d-none">@Model.PurchaseMaster.PurchaseDetailList.Count()</div>
+<div class="page-content">
+    <div class="row">
+        <div class="col-xl-12 mx-auto">
+            <hr>
+            <div class="card border-top border-0 border-4 border-primary">
+                <div class="card-body p-5">
+                    <div class="card-title d-flex align-items-center">
+                        <div>
+                            <i class="bx bxs-file me-1 font-22 text-primary"></i>
+                        </div>
+                        <h5 class="mb-0 text-primary">Purchase Registration</h5>
+                    </div>
+                    <hr>
+                    <form class="row g-3" action="Javascript:Save()" method="post">
+                        <div class="col-md-4">
+                            <label class="form-label">Supplier</label>
+                            <span class="text-danger"><i class="fadeIn animated bx bx-star"></i></span>&nbsp;
+                            <span class="fs-5"><a class="badge bg-primary" data-bs-toggle="modal" data-bs-target="#AddSupplier"><i class="fadeIn animated bx bx-plus-circle"></i></a> </span>
+                            <div class="input-group mb-3">
+                                <select asp-for="PurchaseMaster.ThirdLevelId" asp-items="Model.SupplierList" class="form-control" style="width: 100%">
+                                    <option value="">Select</option>
+                                </select>
+                            </div>
+                            <span asp-validation-for="PurchaseMaster.ThirdLevelId" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Inv Date</label> <span class="text-danger"><i class="fadeIn animated bx bx-star"></i></span>
+                            <input type="date" asp-for="PurchaseMaster.InvDate" class="form-control">
+                            <span asp-validation-for="PurchaseMaster.InvDate" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Remakrs</label>
+                            <input asp-for="PurchaseMaster.Remarks" class="form-control">
+                            <span asp-validation-for="PurchaseMaster.Remarks" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Cargo</label>
+                            <select asp-for="PurchaseMaster.CargoId" asp-items="Model.CargoList" class="form-control" style="width: 100%">
+                                <option value="">Select</option>
+                            </select>
+                        </div>
+                        <h6> Vehicle Information</h6>
+                        <hr />
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="form-label">Name</label>
+                                <span class="text-danger"><i class="fadeIn animated bx bx-star"></i></span>
+                                &nbsp;
+                                <span class="fs-5"><a class="badge bg-primary" data-bs-toggle="modal" data-bs-target="#AddName"><i class="fadeIn animated bx bx-plus-circle"></i></a> </span>
+                                <select class="form-control" id="VName" asp-items="Model.ModelList">
+                                    <option value="">Select</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Model</label> <span class="text-danger"><i class="fadeIn animated bx bx-star"></i></span>
+                                <select class="form-control" id="VModel">
+                                    <option value="">Select</option>
+                                    <option value="2000">2000</option>
+                                    <option value="2001">2001</option>
+                                    <option value="2002">2002</option>
+                                    <option value="2003">2003</option>
+                                    <option value="2004">2004</option>
+                                    <option value="2005">2005</option>
+                                    <option value="2006">2006</option>
+                                    <option value="2007">2007</option>
+                                    <option value="2008">2008</option>
+                                    <option value="2009">2009</option>
+                                    <option value="2010">2010</option>
+                                    <option value="2011">2011</option>
+                                    <option value="2012">2012</option>
+                                    <option value="2013">2013</option>
+                                    <option value="2014">2014</option>
+                                    <option value="2015">2015</option>
+                                    <option value="2016">2016</option>
+                                    <option value="2017">2017</option>
+                                    <option value="2018">2018</option>
+                                    <option value="2019">2019</option>
+                                    <option value="2020">2020</option>
+                                    <option value="2021">2021</option>
+                                    <option value="2022">2022</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2024">2024</option>
+                                    <option value="2025">2025</option>
+                                    <option value="2026">2026</option>
+                                    <option value="2027">2027</option>
+                                    <option value="2028">2028</option>
+                                    <option value="2029">2029</option>
+                                    <option value="2030">2030</option>
+                                    <option value="2031">2031</option>
+                                    <option value="2032">2032</option>
+                                    <option value="2033">2033</option>
+                                    <option value="2034">2034</option>
+                                    <option value="2035">2035</option>
+                                    <option value="2036">2036</option>
+                                    <option value="2037">2037</option>
+                                    <option value="2038">2038</option>
+                                    <option value="2039">2039</option>
+                                    <option value="2040">2040</option>
+                                    <option value="2041">2041</option>
+                                    <option value="2042">2042</option>
+                                    <option value="2043">2043</option>
+                                    <option value="2044">2044</option>
+                                    <option value="2045">2045</option>
+                                    <option value="2046">2046</option>
+                                    <option value="2047">2047</option>
+                                    <option value="2048">2048</option>
+                                    <option value="2049">2049</option>
+                                    <option value="2050">2050</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Chassis No</label> <span class="text-danger"><i class="fadeIn animated bx bx-star"></i></span>
+                                <input type="text" id="VChassis" class="form-control" />
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Engine No</label> <span class="text-danger"><i class="fadeIn animated bx bx-star"></i></span>
+                                <input type="text" id="VEngine" class="form-control" />
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Key No</label> <span class="text-danger"><i class="fadeIn animated bx bx-star"></i></span>
+                                <input type="text" id="VKey" class="form-control" />
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Color</label> <span class="text-danger"><i class="fadeIn animated bx bx-star"></i></span>
+                                <select id="VColor" class="form-control">
+                                    <option value="Red">Red</option>
+                                    <option value="Black">Black</option>
+                                    <option value="White">White</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2 top">
+                                <label class="form-label">Bike No</label>
+                                <input type="text" id="VBikeNo" value="New" class="form-control" />
+                            </div>
+                            <div class="col-md-2 top">
+                                <label class="form-label">Rate</label> <span class="text-danger"><i class="fadeIn animated bx bx-star"></i></span>
+                                <input type="text" id="VRate" value="0" class="form-control" />
+                            </div>
+                            <div class="col-md-2 top">
+                                <label class="form-label">Cargo</label>
+                                <input type="text" id="VCargo" value="0" class="form-control" />
+                            </div>
+                            <div class="col-md-2 top">
+                                <label class="form-label">Discount</label>
+                                <input type="text" id="VDis" value="0" class="form-control" />
+                            </div>
+                            <div class="col-md-3 top">
+                                <label class="form-label">Total</label>
+                                <div class="input-group mb-3">
+                                    <input readonly id="Vtotal" value="0" class="form-control" />
+                                    <a class="btn btn-primary" id="Adding"> Add</a>
+                                </div>
+
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-sm mb-0" id="Items" style="height:250px;overflow-y:auto">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col"></th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Model</th>
+                                            <th scope="col">Chassis</th>
+                                            <th scope="col">engine</th>
+                                            <th scope="col">Key</th>
+                                            <th scope="col">color</th>
+                                            <th scope="col">bike</th>
+                                            <th scope="col">Rate</th>
+                                            <th scope="col">cargo</th>
+                                            <th scope="col">Dis</th>
+                                            <th scope="col">total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @for (int i = 0; i < Model.PurchaseMaster.PurchaseDetailList.Count(); i++)
+                                        {
+                                            <tr>
+                                                <td><a class="badge bg-danger" onclick="return deleteRow(this)"><i class="bx bx-trash"></i></a></td>
+                                                <td>@Model.PurchaseMaster.PurchaseDetailList[i].VName </td>
+                                                <td>@Model.PurchaseMaster.PurchaseDetailList[i].ModelNo</td>
+                                                <td>@Model.PurchaseMaster.PurchaseDetailList[i].ChassisNo </td>
+                                                <td>@Model.PurchaseMaster.PurchaseDetailList[i].EngineNo </td>
+                                                <td>@Model.PurchaseMaster.PurchaseDetailList[i].KeyNo </td>
+                                                <td>@Model.PurchaseMaster.PurchaseDetailList[i].Color </td>
+                                                <td>@Model.PurchaseMaster.PurchaseDetailList[i].BikeNo </td>
+                                                <td>@Model.PurchaseMaster.PurchaseDetailList[i].Rate </td>
+                                                <td>@Model.PurchaseMaster.PurchaseDetailList[i].CargoRate </td>
+                                                <td>@Model.PurchaseMaster.PurchaseDetailList[i].Discount </td>
+                                                <td>@Model.PurchaseMaster.PurchaseDetailList[i].Total </td>
+                                            </tr>
+                                        }
+                                        @*<tr>
+                            <td><a class="badge bg-danger" onclick="return deleteRow(this)"><i class="bx bx-trash"></i></a></td>
+                            <td>@Model.PurchaseMaster.PurchaseDetailList[i].VName <input type="hidden" name="PurchaseDetailList[@i].VName" value="@Model.PurchaseMaster.PurchaseDetailList[i].VName" /></td>
+                            <td>@Model.PurchaseMaster.PurchaseDetailList[i].ModelNo <input type="hidden" name="PurchaseDetailList[@i].ModelNo" value="@Model.PurchaseMaster.PurchaseDetailList[i].ModelNo" /></td>
+                            <td>@Model.PurchaseMaster.PurchaseDetailList[i].ChassisNo <input type="hidden" name="PurchaseDetailList[@i].ChassisNo" value="@Model.PurchaseMaster.PurchaseDetailList[i].ChassisNo" /></td>
+                            <td>@Model.PurchaseMaster.PurchaseDetailList[i].EngineNo <input type="hidden" name="PurchaseDetailList[@i].EngineNo" value="@Model.PurchaseMaster.PurchaseDetailList[i].EngineNo" /></td>
+                            <td>@Model.PurchaseMaster.PurchaseDetailList[i].KeyNo <input type="hidden" name="PurchaseDetailList[@i].KeyNo" value="@Model.PurchaseMaster.PurchaseDetailList[i].KeyNo" /></td>
+                            <td>@Model.PurchaseMaster.PurchaseDetailList[i].Color <input type="hidden" name="PurchaseDetailList[@i].Color" value="@Model.PurchaseMaster.PurchaseDetailList[i].Color" /></td>
+                            <td>@Model.PurchaseMaster.PurchaseDetailList[i].BikeNo <input type="hidden" name="PurchaseDetailList[@i].BikeNo" value="@Model.PurchaseMaster.PurchaseDetailList[i].BikeNo" /></td>
+                            <td>@Model.PurchaseMaster.PurchaseDetailList[i].Rate <input type="hidden" name="PurchaseDetailList[@i].Rate" value="@Model.PurchaseMaster.PurchaseDetailList[i].Rate" /></td>
+                            <td>@Model.PurchaseMaster.PurchaseDetailList[i].CargoRate <input type="hidden" name="PurchaseDetailList[@i].CargoRate" value="@Model.PurchaseMaster.PurchaseDetailList[i].CargoRate" /></td>
+                            <td>@Model.PurchaseMaster.PurchaseDetailList[i].Discount <input type="hidden" name="PurchaseDetailList[@i].Discount" value="@Model.PurchaseMaster.PurchaseDetailList[i].Discount" /></td>
+                            <td>@Model.PurchaseMaster.PurchaseDetailList[i].Total <input type="hidden" name="PurchaseDetailList[@i].Total" value="@Model.PurchaseMaster.PurchaseDetailList[i].Total" /></td>
+                        </tr>*@
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-4 d-none">
+                                <label class="form-label">Sub Total</label>
+                                <input readonly class="form-control" asp-for="PurchaseMaster.SubTotal" />
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Cargo Total</label>
+                                <input readonly class="form-control" asp-for="PurchaseMaster.CargoTotal" />
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Net Total</label>
+                                <input readonly class="form-control" asp-for="PurchaseMaster.NetTotal" />
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Paid Amount</label>
+                                <input class="form-control" asp-for="PurchaseMaster.PaidTotal" />
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Balance Amount</label>
+                                <input readonly class="form-control" asp-for="PurchaseMaster.BalanceTotal" />
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary px-5">Submit/Update</button>
+                        </div>
+                        <input type="hidden" asp-for="PurchaseMaster.Id" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end row-->
+</div>
+<div class="col">
+    <!-- Modal -->
+    <div class="modal fade" id="AddSupplier" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Supplier</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="row g-3"  action="Javascript:saveSupplier();">
+                        <div class="col-md-4">
+                            <label class="form-label">Name</label>
+                            <input type="text" asp-for="Supplier.Name" class="form-control">
+                            <span class="text-danger" asp-validation-for="Supplier.Name"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Company Name</label>
+                            <input asp-for="Supplier.Company" class="form-control">
+                            <span class="text-danger" asp-validation-for="Supplier.Company"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Address</label>
+                            <input asp-for="Supplier.Address" class="form-control">
+                            <span class="text-danger" asp-validation-for="Supplier.Address"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">NTN</label>
+                            <input asp-for="Supplier.NTN" class="form-control">
+                            <span class="text-danger" asp-validation-for="Supplier.NTN"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">GST in %</label>
+                            <input asp-for="Supplier.Gst" class="form-control">
+                            <span class="text-danger" asp-validation-for="Supplier.Gst"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Special Discount in %</label>
+                            <input asp-for="Supplier.SpDis" class="form-control">
+                            <span class="text-danger" asp-validation-for="Supplier.SpDis"></span>
+                        </div>
+                        <hr />
+                        <h6>Bank Details</h6>
+                        <div class="col-md-4">
+                            <label class="form-label">Bank Name</label>
+                            <input asp-for="Supplier.BanckName" class="form-control">
+                            <span class="text-danger" asp-validation-for="Supplier.BanckName"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Account No</label>
+                            <input asp-for="Supplier.AccountNo" class="form-control">
+                            <span class="text-danger" asp-validation-for="Supplier.AccountNo"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Account Holder</label>
+                            <input asp-for="Supplier.AccountHolder" class="form-control">
+                            <span class="text-danger" asp-validation-for="Supplier.AccountHolder"></span>
+                        </div>
+
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary px-5">Submit/Update</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Bike Name-->
+<div class="col">
+    <!-- Modal -->
+    <div class="modal fade" id="AddName" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Vehicle</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="row g-3" action="Javascript:saveVehicle();">
+                        <div class="col-md-4">
+                            <label class="form-label">Name</label>
+                            <input type="text" asp-for="ModelNo.Name" class="form-control">
+                            <span class="text-danger" asp-validation-for="ModelNo.Name"></span>
+                        </div>
+
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary px-5">Submit/Update</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/AddEditPurchase.js" asp-append-version="true"></script>
+<partial name="_ValidationScriptsPartial" />

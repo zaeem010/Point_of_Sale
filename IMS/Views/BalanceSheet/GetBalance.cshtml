@@ -1,0 +1,215 @@
+﻿@model BalanceVM
+@{
+    ViewData["Title"] = "Company Balance Sheet";
+    double totalAsset = 0; double totalLiability = 0; double totalCapital = 0;
+}
+<div class="page-content">
+    <!--breadcrumb-->
+    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+        <div class="breadcrumb-title pe-3">Balance Sheet</div>
+        <div class="ps-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0 p-0">
+                    <li class="breadcrumb-item">
+                        <a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">Company Balance Sheet</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!--end breadcrumb-->
+    <hr />
+    <div class="card">
+        <div class="card-body">
+            <form class="row g-3" asp-action="GetBalance" method="post">
+                <div class="col-md-4">
+                    <label class="form-label">Start Date</label> <span class="text-danger"><i class="fadeIn animated bx bx-star"></i></span>
+                    <input type="date" asp-for="StDate" onchange="endatechange()" class="form-control">
+                    <span asp-validation-for="StDate" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">End Date</label> <span class="text-danger"><i class="fadeIn animated bx bx-star"></i></span>
+                    <input type="date" asp-for="EnDate" class="form-control">
+                    <span asp-validation-for="EnDate" class="text-danger"></span>
+                </div>
+
+                <hr />
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary px-5">Submit/Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <hr />
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-6 col-xs-6" style="border:1px solid #CCCCCC">
+                    <div class="main-box">
+                        <header class="main-box-header clearfix">
+                            <h4><B>Assets</B></h4>
+                        </header>
+                        <div class="main-box-body clearfix">
+                            <div class="table-responsive">
+                                <table id="table-exampless" class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Account No</th>
+                                            <th style="width:170px">Account Name</th>
+                                            <th>Balances </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.Assets)
+                                        {
+                                            totalAsset += item.Balance;
+                                            <tr>
+                                                <td>@item.ThirdLevelId  </td>
+                                                <td>@item.AccountName </td>
+                                                <td>
+                                                    <b>
+                                                        @{ 
+                                                            <span>@item.Balance.ToString("#,##0.00") &nbsp;</span>
+                                                            if (item.Balance >= 0) 
+                                                            {
+                                                              <span>Dr</span>
+                                                            }else
+                                                            {
+                                                               <span>Dr</span>
+                                                            }
+                                                        }
+                                                    </b>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            <th><button class="btn btn-primary">@totalAsset.ToString("#,##0.00")</button></th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-xs-6" style="border:1px solid #CCCCCC">
+                    <div class="main-box">
+                        <header class="main-box-header clearfix">
+                            <h4><B>Liability</B></h4>
+                        </header>
+                        <div class="main-box-body clearfix">
+                            <div class="table-responsive">
+                                <table id="table-exampledd" class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Account No</th>
+                                            <th>Account Name</th>
+                                            <th>Balances </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item2 in Model.Liability)
+                                        {
+                                            totalLiability += item2.Balance;
+                                            <tr>
+                                                <td>@item2.ThirdLevelId</td>
+                                                <td>@item2.AccountName</td>
+                                                <td>
+                                                    <b>
+                                                        @{
+                                                            <span>@item2.Balance.ToString("#,##0.00") &nbsp;</span>
+                                                            if (item2.Balance >= 0)
+                                                            {
+                                                                <span>Dr</span>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span>Dr</span>
+                                                            }
+                                                        }
+                                                    </b>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            <th><button class="btn btn-primary">@totalLiability.ToString("#,##0.00")</button></th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main-box">
+                        <header class="main-box-header clearfix">
+                            <h4><B>Capital</B></h4>
+                        </header>
+                        <div class="main-box-body clearfix">
+                            <div class="table-responsive">
+                                <table id="table-exampledd" class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Account No</th>
+                                            <th>Account Name</th>
+                                            <th>Balances </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.Capital)
+                                        {
+                                            totalCapital += item.Balance;
+                                            <tr>
+                                                <td>@item.ThirdLevelId</td>
+                                                <td>@item.AccountName</td>
+                                                <td>
+                                                    <b>
+                                                        @{
+                                                            <span>@item.Balance.ToString("#,##0.00") &nbsp;</span>
+                                                            if (item.Balance >= 0)
+                                                            {
+                                                                <span>Dr</span>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span>Dr</span>
+                                                            }
+                                                        }
+                                                    </b>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            <th><button class="btn btn-primary">@totalCapital.ToString("#,##0.00")</button></th>
+                                        </tr>
+                                    </thead>
+                                    <thead>
+                                        <tr>
+                                        <tr>
+                                            <th></th>
+                                            <th>Liability + Capital =  </th>
+                                            <th><button class="btn btn-primary">@((totalLiability + totalCapital).ToString("#,##0.00"))</button></th>
+                                        </tr>
+                                    </thead>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/js/Ledger.js" asp-append-version="true"></script>
+<partial name="_ValidationScriptsPartial" />

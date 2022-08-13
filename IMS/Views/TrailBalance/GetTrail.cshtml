@@ -1,0 +1,296 @@
+﻿@model TrailVM
+@{
+    ViewData["Title"] = "Group Trail Balance";
+}
+<div class="page-content">
+    <!--breadcrumb-->
+    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+        <div class="breadcrumb-title pe-3">Trail Balance</div>
+        <div class="ps-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0 p-0">
+                    <li class="breadcrumb-item">
+                        <a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">Detail Trail Balance</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!--end breadcrumb-->
+    <hr />
+    <div class="card">
+        <div class="card-body">
+            <form class="row g-3" asp-action="GetTrail" method="post">
+                <div class="col-md-4">
+                    <label class="form-label">Start Date</label> <span class="text-danger"><i class="fadeIn animated bx bx-star"></i></span>
+                    <input type="date" asp-for="StDate" onchange="endatechange()" class="form-control">
+                    <span asp-validation-for="StDate" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">End Date</label> <span class="text-danger"><i class="fadeIn animated bx bx-star"></i></span>
+                    <input type="date" asp-for="EnDate" class="form-control">
+                    <span asp-validation-for="EnDate" class="text-danger"></span>
+                </div>
+
+                <hr />
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary px-5">Submit/Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <hr />
+    <div class="card">
+        <div class="card-body">
+
+            <div class="row">
+                <div class="col-sm-4">
+                    <img height="80" width="90" src="/no-image.png" style="border:thin;margin-left:5px" class="img-fluid" />
+                </div>
+                <div class="col-sm-4">
+                    <h2 class="text-center"><b>Trail Balance</b></h2>
+                    <h6 class="text-center text-primary"><b><u>Between</u></b></h6>
+                    <h6 class="text-center text-primary"><b>@Model.StDate.ToString("dd-MMM-yyyy")  To  @Model.EnDate.ToString("dd-MMM-yyyy") </b></h6>
+                </div>
+                <div class="col-sm-4">
+                </div>
+            </div>
+
+
+            <div class="table-responsive">
+                <table id="table-example" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th colspan="2" style="border-left: 1px solid #000;"><center>Opening Balance</center></th>
+                            <th colspan="2" style="border-left: 1px solid #000;"><center>Running Balance</center></th>
+                            <th colspan="2" style="border-left: 1px solid #000;"><center>Final Balance</center></th>
+                        </tr>
+                        <tr>
+                            <th>Account No.</th>
+                            <th>Account Title</th>
+                            <th style="border-left: 1px solid #000;">DEBIT</th>
+                            <th>CREDIT</th>
+                            <th style="border-left: 1px solid #000;">DEBIT</th>
+                            <th>CREDIT</th>
+                            <th style="border-left: 1px solid #000;">DEBIT</th>
+                            <th>CREDIT</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background-color:grey;color:white;font-size:15px">
+                            <td colspan="8">
+                                <b>Assets</b>
+                            </td>
+                        </tr>
+                        @foreach (var Li in Model.Balances.Where(z => z.HeadId == 1))
+                        {
+                            <tr>
+                                <td> @Li.ThirdlevelId</td>
+                                <td> @Li.AccountName</td>
+                                <td style="border-left: 1px solid #000;"> @Li.ADr.ToString("#,##0.00")</td>
+                                <td> @Li.ACr.ToString("#,##0.00")</td>
+                                <td style="border-left: 1px solid #000;"> @Li.TDr.ToString("#,##0.00")</td>
+                                <td> @Li.TCr.ToString("#,##0.00")</td>
+                                <td style="border-left: 1px solid #000;">
+                                    @if (Li.Balance > 0)
+                                    {
+                                        @Li.Balance.ToString("#,##0.00");
+                                    }
+                                    else
+                                    {
+                                        <span>0.00</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (Li.Balance < 0)
+                                    {
+                                        @Li.Balance.ToString("#,##0.00");
+                                    }
+                                    else
+                                    {
+                                        <span>0.00</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tbody>
+                        <tr style="background-color:grey;color:white;font-size:15px">
+                            <td colspan="8">
+                                <b>Liability</b>
+                            </td>
+                        </tr>
+                        @foreach (var Li in Model.Balances.Where(z => z.HeadId == 2))
+                        {
+                            <tr>
+                                <td> @Li.ThirdlevelId</td>
+                                <td> @Li.AccountName</td>
+                                <td style="border-left: 1px solid #000;"> @Li.ADr.ToString("#,##0.00")</td>
+                                <td> @Li.ACr.ToString("#,##0.00")</td>
+                                <td style="border-left: 1px solid #000;"> @Li.TDr.ToString("#,##0.00")</td>
+                                <td> @Li.TCr.ToString("#,##0.00")</td>
+                                <td style="border-left: 1px solid #000;">
+                                    @if (Li.Balance > 0)
+                                    {
+                                        @Li.Balance.ToString("#,##0.00");
+                                    }
+                                    else
+                                    {
+                                        <span>0.00</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (Li.Balance < 0)
+                                    {
+                                        @Li.Balance.ToString("#,##0.00");
+                                    }
+                                    else
+                                    {
+                                        <span>0.00</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                    <tbody>
+                        <tr style="background-color:grey;color:white;font-size:15px">
+                            <td colspan="8">
+                                <b>Capital</b>
+                            </td>
+                        </tr>
+                        @foreach (var Li in Model.Balances.Where(z => z.HeadId == 3))
+                        {
+                            <tr>
+                                <td> @Li.ThirdlevelId</td>
+                                <td> @Li.AccountName</td>
+                                <td style="border-left: 1px solid #000;"> @Li.ADr.ToString("#,##0.00")</td>
+                                <td> @Li.ACr.ToString("#,##0.00")</td>
+                                <td style="border-left: 1px solid #000;"> @Li.TDr.ToString("#,##0.00")</td>
+                                <td> @Li.TCr.ToString("#,##0.00")</td>
+                                <td style="border-left: 1px solid #000;">
+                                    @if (Li.Balance > 0)
+                                    {
+                                        @Li.Balance.ToString("#,##0.00");
+                                    }
+                                    else
+                                    {
+                                        <span>0.00</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (Li.Balance < 0)
+                                    {
+                                        @Li.Balance.ToString("#,##0.00");
+                                    }
+                                    else
+                                    {
+                                        <span>0.00</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tbody>
+                        <tr style="background-color:grey;color:white;font-size:15px">
+                            <td colspan="8">
+                                <b>Revenue</b>
+                            </td>
+                        </tr>
+                        @foreach (var Li in Model.Balances.Where(z => z.HeadId == 4))
+                        {
+                            <tr>
+                                <td> @Li.ThirdlevelId</td>
+                                <td> @Li.AccountName</td>
+                                <td style="border-left: 1px solid #000;"> @Li.ADr.ToString("#,##0.00")</td>
+                                <td> @Li.ACr.ToString("#,##0.00")</td>
+                                <td style="border-left: 1px solid #000;"> @Li.TDr.ToString("#,##0.00")</td>
+                                <td> @Li.TCr.ToString("#,##0.00")</td>
+                                <td style="border-left: 1px solid #000;">
+                                    @if (Li.Balance > 0)
+                                    {
+                                        @Li.Balance.ToString("#,##0.00");
+                                    }
+                                    else
+                                    {
+                                        <span>0.00</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (Li.Balance < 0)
+                                    {
+                                        @Li.Balance.ToString("#,##0.00");
+                                    }
+                                    else
+                                    {
+                                        <span>0.00</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tbody>
+                        <tr style="background-color:grey;color:white;font-size:15px">
+                            <td colspan="8">
+                                <b>Expense</b>
+                            </td>
+                        </tr>
+                        @foreach (var Li in Model.Balances.Where(z => z.HeadId == 5))
+                        {
+                            <tr>
+                                <td> @Li.ThirdlevelId</td>
+                                <td> @Li.AccountName</td>
+                                <td style="border-left: 1px solid #000;"> @Li.ADr.ToString("#,##0.00")</td>
+                                <td> @Li.ACr.ToString("#,##0.00")</td>
+                                <td style="border-left: 1px solid #000;"> @Li.TDr.ToString("#,##0.00")</td>
+                                <td> @Li.TCr.ToString("#,##0.00")</td>
+                                <td style="border-left: 1px solid #000;">
+                                    @if (Li.Balance > 0)
+                                    {
+                                        @Li.Balance.ToString("#,##0.00");
+                                    }
+                                    else
+                                    {
+                                        <span>0.00</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (Li.Balance < 0)
+                                    {
+                                        @Li.Balance.ToString("#,##0.00");
+                                    }
+                                    else
+                                    {
+                                        <span>0.00</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th style="border-left: 1px solid #000;">
+                                <button class="btn btn-warning">@Model.NADr.ToString("#,##0.00")</button>
+                            </th>
+                            <th>
+                                <button class="btn btn-danger">@Model.NACr.ToString("#,##0.00")</button>
+                            </th>
+                            <th style="border-left: 1px solid #000;"><button class="btn btn-primary">@Model.NTDr.ToString("#,##0.00")</button></th>
+                            <th><button class="btn btn-info">@Model.NTCr.ToString("#,##0.00")</button></th>
+                            <th style="border-left: 1px solid #000;"><button class="btn btn-success">@(Model.GDr.ToString("#,##0.00"))</button></th>
+                            <th><button class="btn" style="background-color:#2C3E50;color:white">@Model.GCr.ToString("#,##0.00")</button></th>
+                        </tr>
+
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/Ledger.js" asp-append-version="true"></script>
+<partial name="_ValidationScriptsPartial" />

@@ -1,0 +1,45 @@
+﻿@model TrailVM
+@{
+    ViewData["Title"] = "Group Trail Balance";
+}
+<div class="page-content">
+    <!--breadcrumb-->
+    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+        <div class="breadcrumb-title pe-3">Trail Balance</div>
+        <div class="ps-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0 p-0">
+                    <li class="breadcrumb-item">
+                        <a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">Detail Trail Balance</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!--end breadcrumb-->
+    <hr />
+    <div class="card">
+        <div class="card-body">
+            <form class="row g-3" asp-action="GetTrail" method="post">
+                <div class="col-md-4">
+                    <label class="form-label">Start Date</label> <span class="text-danger"><i class="fadeIn animated bx bx-star"></i></span>
+                    <input type="date" asp-for="StDate" onchange="endatechange()" class="form-control">
+                    <span asp-validation-for="StDate" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">End Date</label> <span class="text-danger"><i class="fadeIn animated bx bx-star"></i></span>
+                    <input type="date" asp-for="EnDate" class="form-control">
+                    <span asp-validation-for="EnDate" class="text-danger"></span>
+                </div>
+
+                <hr />
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary px-5">Submit/Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="/js/Ledger.js" asp-append-version="true"></script>
+<partial name="_ValidationScriptsPartial" />

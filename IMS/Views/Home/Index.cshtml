@@ -1,0 +1,121 @@
+﻿@model HomeVM
+@{
+    ViewData["Title"] = "Home Page";
+}
+<div class="page-content">
+    <div class="card">
+        <div class="card-body">
+            <div class="accordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Quick Links
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="btn-group" role="group">
+                                        <a asp-action="Index" asp-controller="Customer" class="btn btn-outline-primary">Customer List</a>
+                                        <a asp-action="Create" asp-controller="Customer" class="btn btn-outline-primary">Add Customer</a>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="btn-group" role="group">
+                                        <a asp-action="Index" asp-controller="Supplier" class="btn btn-outline-primary">Supplier List</a>
+                                        <a asp-action="Create" asp-controller="Supplier" class="btn btn-outline-primary">Add Supplier</a>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="btn-group" role="group">
+                                        <a asp-action="Index" asp-controller="Purchase" class="btn btn-outline-primary">All Purchase</a>
+                                        <a asp-action="Create" asp-controller="Purchase" class="btn btn-outline-primary">New Purchase</a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                @*<div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Accordion Item #2
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">	<strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.</div>
+                    </div>
+                </div>*@
+                
+            </div>
+        </div>
+    </div>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4">
+        <div class="col">
+            <div class="card radius-10 border-start border-0 border-3 border-info">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <p class="mb-0 text-secondary">Total Orders</p>
+                            <h4 class="my-1 text-info">4805</h4>
+                            <p class="mb-0 font-13">+2.5% from last week</p>
+                        </div>
+                        <div class="widgets-icons-2 rounded-circle bg-gradient-scooter text-white ms-auto">
+                            <i class='bx bxs-cart'></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card radius-10 border-start border-0 border-3 border-danger">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <p class="mb-0 text-secondary">Total Revenue</p>
+                            <h4 class="my-1 text-danger">$84,245</h4>
+                            <p class="mb-0 font-13">+5.4% from last week</p>
+                        </div>
+                        <div class="widgets-icons-2 rounded-circle bg-gradient-bloody text-white ms-auto">
+                            <i class='bx bxs-wallet'></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card radius-10 border-start border-0 border-3 border-success">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <p class="mb-0 text-secondary">Bounce Rate</p>
+                            <h4 class="my-1 text-success">34.6%</h4>
+                            <p class="mb-0 font-13">-4.5% from last week</p>
+                        </div>
+                        <div class="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto">
+                            <i class='bx bxs-bar-chart-alt-2'></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card radius-10 border-start border-0 border-3 border-warning">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <p class="mb-0 text-secondary">Total Customers</p>
+                            <h4 class="my-1 text-warning">@Model.Customers</h4>
+                        </div>
+                        <div class="widgets-icons-2 rounded-circle bg-gradient-blooker text-white ms-auto">
+                            <i class='bx bxs-group'></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--end row-->
+</div>

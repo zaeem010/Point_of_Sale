@@ -1,0 +1,58 @@
+﻿@model VoucherVM
+@{
+    ViewData["Title"] = "Bank Payment Voucher Report";
+    Layout = "~/Views/Shared/_Report.cshtml";
+    int sr = 0;
+}
+
+<div class="row pb-5 p-5">
+    <div class="text-right col-md-12">
+        <h3><b>Bank Payment Voucher</b></h3>
+        <h5><b>Voucher #:</b> <span>@Model.VoucherMaster.GeneralId</span></h5>
+        <h5><b>Date Of Invoice:</b> <span>@Model.VoucherMaster.VoucherDate.ToString("dd-MMM-yyyy")</span></h5>
+        <h5><b>Bank Name:</b> <span>@Model.VoucherMaster.ThirdLevel.AccountTitle</span></h5>
+    </div>
+</div>
+<hr class="my-5">
+<div class="row p-5">
+    <div class="col-md-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Sr#</th>
+                    <th>Paid To</th>
+                    <th>Explanation</th>
+                    <th>Clereance Date</th>
+                    <th>Cheque No</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var lst in Model.VoucherMaster.VoucherDetail)
+                {
+                    <tr>
+                        <td>@{sr++;}@sr</td>
+                        <td>@lst.ThirdLevel.AccountTitle</td>
+                        <td>@lst.Narration</td>
+                        <td>
+                            @if (lst.CleDate.Year.ToString() != "1")
+                            {
+                                <span>@lst.CleDate.ToString("dd-MM-yyyy")</span>
+                            }
+                        </td>
+                        <td>@lst.CheckNo</td>
+                        <td style="color:green"><b>@lst.Amount.ToString("#,##0.00")</b></td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Total in Words</th>
+                    <th colspan="3">@Model.InWords Only -/</th>
+                    <th>Total</th>
+                    <th>@Model.VoucherMaster.TAmount.ToString("#,##0.00")</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>

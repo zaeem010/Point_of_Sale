@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!--favicon-->
+    <link rel="icon" href="/assets/images/favicon-32x32.png" type="image/png" />
+    <title>@ViewData["Title"]</title>
+    <style type="text/css">
+        body {
+            margin-top: 50px;
+            margin-bottom: 120px;
+        }
+
+        img {
+            height: 80px;
+            margin-bottom: -20px
+        }
+
+        hr {
+            color: black;
+            border-top: 1px solid;
+        }
+
+        thead tr {
+            background-color: #dce8e7;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body p-0">
+                        <div class="row p-5">
+                            <div class="col-md-6">
+                                <img src="/no-image.png">
+                                <br>
+                                <br>
+                                <h3>Compnay by Khan</h3>
+                                <h5 style="width: 200px">Multan Pakistan</h5>
+                                <h5>Khanzaeem010@gmail.com </h5>
+                                <h5>03075378081</h5>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <button class="btn btn-primary d-print-none" onclick="window.print();">Print</button>
+                            </div>
+                        </div>
+                        <hr class="my-5">
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="text-left">
+            <h4><b>Terms & Conditions:</b></h4>
+            <h6>Invoice was created on a computer and is valid without the signature and seal.</h6>
+        </div>
+    </div>
+</body>
+</html>
+

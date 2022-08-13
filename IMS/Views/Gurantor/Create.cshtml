@@ -1,0 +1,108 @@
+﻿@model Gurantor
+@{
+    ViewData["Title"] = "Add New Gurantor";
+    string front = "/no-image.png"; string back = "/no-image.png"; string userimg = "/no-image.png";
+    if (Model.CnicFront != null)
+    {
+        front = "/Uploads/" + Model.CnicFront;
+    }
+    if (Model.CnicBack != null)
+    {
+        back = "/Uploads/" + Model.CnicBack;
+    }
+    if (Model.ImageUrl != null)
+    {
+        userimg = "/Uploads/" + Model.ImageUrl;
+    }
+}
+
+<script src="~/js/AddEditCustomer.js"></script>
+<div class="page-content">
+    <!--breadcrumb-->
+    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+        <div class="breadcrumb-title pe-3">Gurantor</div>
+        <div class="ps-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0 p-0">
+                    <li class="breadcrumb-item">
+                        <a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">Add new Gurantor</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="ms-auto">
+            <a asp-action="Index" class="btn btn-outline-primary px-5">Gurantor List</a>
+        </div>
+    </div>
+    <!--end breadcrumb-->
+    <div class="row">
+        <div class="col-xl-12 mx-auto">
+            <hr>
+            <div class="card border-top border-0 border-4 border-primary">
+                <div class="card-body p-5">
+                    <div class="card-title d-flex align-items-center">
+                        <div>
+                            <i class="bx bxs-user me-1 font-22 text-primary"></i>
+                        </div>
+                        <h5 class="mb-0 text-primary">Gurantor Registration</h5>
+                    </div>
+                    <hr>
+                    <form class="row g-3" asp-action="Save" enctype="multipart/form-data" method="post">
+                        <div class="col-md-4">
+                            <label class="form-label">Name</label>
+                            <input type="text" asp-for="Name" class="form-control">
+                            <span class="text-danger" asp-validation-for="Name"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Father Name</label>
+                            <input asp-for="FatherName" class="form-control">
+                            <span class="text-danger" asp-validation-for="FatherName"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Contact No</label>
+                            <input asp-for="ContactNo" class="form-control">
+                            <span class="text-danger" asp-validation-for="ContactNo"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Cheque No</label>
+                            <input asp-for="ChequeNo" class="form-control">
+                            <span class="text-danger" asp-validation-for="ChequeNo"></span>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <label class="form-label">Cnic</label>
+                            <input asp-for="Cnic" class="form-control">
+                            <span class="text-danger" asp-validation-for="Cnic"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Cnic Front</label>
+                            <input type="file" onchange="CninFront(event);" name="Front" class="form-control">
+                            <img src="@front" id="Front" height="150" width="150" alt="Cnic Front" />
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Cnic Back</label>
+                            <input type="file" onchange="CninBack(event);" name="Back" class="form-control">
+                            <img src="@back" id="Back" height="150" width="150" alt="Cnic Back" />
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Image</label>
+                            <input type="file" onchange="Userimg(event);" name="Img" class="form-control">
+                            <img src="@userimg" id="Img" height="150" width="150" alt="User Image" />
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary px-5">Submit/Update</button>
+                        </div>
+                        <input type="hidden" asp-for="Id" />
+                        <input type="hidden" asp-for="CnicFront" />
+                        <input type="hidden" asp-for="CnicBack" />
+                        <input type="hidden" asp-for="ImageUrl" />
+                        <input type="hidden" asp-for="Verify" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end row-->
+</div>
+<partial name="_ValidationScriptsPartial" />

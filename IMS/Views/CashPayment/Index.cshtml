@@ -1,0 +1,91 @@
+﻿@model List<VoucherMaster>
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="page-content">
+    <!--breadcrumb-->
+    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+        <div class="breadcrumb-title pe-3">Cash Payment</div>
+        <div class="ps-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0 p-0">
+                    <li class="breadcrumb-item">
+                        <a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">Cash Paid Details</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="ms-auto">
+            <a asp-action="Create" class="btn btn-outline-primary px-5">Pay Using Cash</a>
+        </div>
+    </div>
+    <!--end breadcrumb-->
+    <hr />
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="example" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Action</th>
+                            <th>Date</th>
+                            <th>Account Name</th>
+                            <th>Amount</th>
+                            <th>Narration</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var Li in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <a class="badge bg-info collapsed" data-bs-toggle="collapse" data-bs-target="#Details-@Li.Id" aria-expanded="false" aria-controls="Details-@Li.Id">
+                                        <i class="bx bx-plus"></i>
+                                    </a>
+                                    <a asp-action="Edit" asp-route-Id="@Li.Id" class="badge bg-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Click To Edit"><i class="bx bx-pencil"></i></a>
+                                    <a onclick="window.open('/CashPayment/Report/@Li.Id', '_blank', 'location=yes,height=650,width=800,scrollbars=yes,status=yes');" class="badge bg-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Click To Print"><i class="bx bxs-printer"></i></a>
+                                </td>
+                                <td>@Li.VoucherDate.ToString("dd-MMM-yyyy")</td>
+                                <td>@Li.ThirdLevel.AccountTitle</td>
+                                <td>@Li.TAmount.ToString("#,##0.00")</td>
+                                <td>@Li.Remarks</td>
+                            </tr>
+                            <tr>
+                                <td colspan="5">
+                                    <div id="Details-@Li.Id" class="accordion-collapse collapse" aria-labelledby="Details-@Li.Id" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">
+                                            <table class="table dt-responsive table-striped table-bordered nowrap">
+                                                <thead class="bordered-darkorange">
+                                                    <tr class="bg-info">
+                                                        <th>Sr No</th>
+                                                        <th>Account Name</th>
+                                                        <th>Amount</th>
+                                                        <th>Narration</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @{ int i = 1; }
+                                                    @foreach (var item in Li.VoucherDetail)
+                                                    {
+                                                        <tr>
+                                                            <td> @i</td>
+                                                            @{ i++; }
+                                                            <td>@item.ThirdLevel.AccountTitle</td>
+                                                            <td>@item.Amount.ToString("#,##0.00")</td>
+                                                            <td>@item.Narration</td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

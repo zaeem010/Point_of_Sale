@@ -1,0 +1,120 @@
+﻿@model LedgerVM
+@{
+    ViewData["Title"] = "Detail Ledger";
+    int i = 0;var count = Model.Transcations.Count();
+    double SumDr = 0;double SumCr = 0;double Balance =0 ;
+}
+<div class="page-content">
+    <!--breadcrumb-->
+    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+        <div class="breadcrumb-title pe-3">Ledger</div>
+        <div class="ps-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0 p-0">
+                    <li class="breadcrumb-item">
+                        <a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">Detail Ledger</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!--end breadcrumb-->
+    <hr />
+    <div class="card">
+        <div class="card-body">
+            <form class="row g-3" asp-action="GetLedger" method="post">
+                <div class="col-md-4">
+                    <label class="form-label">Select Bank</label> <span class="text-danger"><i class="fadeIn animated bx bx-star"></i></span>
+                    <select asp-items="Model.AccountList" asp-for="LedgerAccountNo" class="form-control" style="width: 100%">
+                        <option value="">Select</option>
+                    </select>
+                    <span asp-validation-for="LedgerAccountNo" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Start Date</label> <span class="text-danger"><i class="fadeIn animated bx bx-star"></i></span>
+                    <input type="date" asp-for="StDate" class="form-control">
+                    <span asp-validation-for="StDate" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">End Date</label> <span class="text-danger"><i class="fadeIn animated bx bx-star"></i></span>
+                    <input type="date" asp-for="EnDate" class="form-control">
+                    <span asp-validation-for="EnDate" class="text-danger"></span>
+                </div>
+
+                <hr />
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary px-5">Submit/Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <hr />
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="accounts" class="table dt-responsive table-striped table-bordered nowrap">
+                    <thead class="bordered-darkorange">
+                        <tr style="background-color:#2196F3;color:white">
+                            <th colspan="4">(Account Holder Name : <u>@Model.Transcations.Select(c=>c.ThirdLevel.AccountTitle).FirstOrDefault()</u>)</th>
+
+                            <th colspan="3">( Opening Balance Pkr : <u> @Model.OpBalance.ToString("#,##0.00"))</u></th>
+                        </tr>
+                        <tr>
+                            <th style="width:50px">Date</th>
+                            <th>Vtype</th>
+                            <th>Description</th>
+                            <th>DEBIT</th>
+                            <th>CREDIT</th>
+                            <th>Balance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Transcations.OrderBy(c => c.HeadId))
+                        {
+                            Balance = Model.OpBalance;
+                            SumDr += item.Dr;
+                            SumCr += item.Cr;
+                            if (item.HeadId == 1 || item.HeadId == 5)
+                            {
+                                Balance = (Balance + (SumDr - SumCr));
+                            }
+                            else
+                            {
+                                Balance = (Balance + (SumCr - SumDr));
+                            }
+                            <tr>
+                                <td style="width:100px">@item.TransDate.ToString("dd-MMM-yyyy")</td>
+                                <td>@item.Vtype</td>
+                                <td>@item.TransDesc</td>
+                                <td>@item.Dr.ToString("#,##0.00")</td>
+                                <td>@item.Cr.ToString("#,##0.00")</td>
+
+                                @if (++i != count)
+                                {
+                                    <td>@((Balance).ToString("#,##0.00"))</td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        @Model.Balance.ToString("#,##0.00")
+                                    </td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr style="border:2px solid #CCCCCC">
+                            <th style="text-align:center;" colspan="3"> <label class="badge bg-primary" style="font-size: 15px">Grand Total</label></th>
+                            <th style="border:2px solid #CCCCCC"><label class="badge bg-success" style="font-size: 15px">@Model.T_Dr.ToString("#,##0.00")</label></th>
+                            <th style="border:2px solid #CCCCCC"><label class="badge bg-danger" style="font-size: 15px">@Model.T_Cr.ToString("#,##0.00")</label></th>
+                            <th style="border:2px solid #CCCCCC"><label class="badge bg-info" style="font-size: 15px">@Model.Balance.ToString("#,##0.00")</label></th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/js/Ledger.js" asp-append-version="true"></script>
+<partial name="_ValidationScriptsPartial" />
