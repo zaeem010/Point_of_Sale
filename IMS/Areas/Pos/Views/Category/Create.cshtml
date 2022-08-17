@@ -1,6 +1,11 @@
 ﻿@model Category
 @{
     ViewData["Title"] = "Create Category";
+    string userimg = "/no-image.png";
+    if (Model.ImagePath != null)
+    {
+        userimg = "/Uploads/" + Model.ImagePath;
+    }
 }
 <div class="page-content">
     <!--breadcrumb-->
@@ -35,13 +40,14 @@
                     <hr>
                     <form class="row g-3" asp-area="Pos" asp-action="Save" enctype="multipart/form-data" method="post">
                         <div class="col-md-4">
-                            <label class="form-label">Image</label>
-                            <input type="file" name="Img" class="form-control">
-                        </div>
-                        <div class="col-md-4">
                             <label class="form-label">Name</label>
                             <input type="text" asp-for="Name" class="form-control">
                             <span class="text-danger" asp-validation-for="Name"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Image</label>
+                            <input type="file" onchange="imgchange(event);" name="Img" class="form-control">
+                            <img src="@userimg" id="Img" height="150" width="150" alt="User Image" />
                         </div>
 
                         <div class="col-12">
@@ -56,4 +62,5 @@
     </div>
     <!--end row-->
 </div>
+
 <partial name="_ValidationScriptsPartial" />

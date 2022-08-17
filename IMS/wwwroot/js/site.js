@@ -28,6 +28,17 @@ $(document).ready(function () {
     //    maxDate: new Date().fp_incr(0),
     //});
 });
+//Customimage
+function imgchange(event) {
+    var reader = new FileReader();
+    reader.onload = function () {
+        var output = document.getElementById('Img');
+        output.src = reader.result;
+    }
+    reader.readAsDataURL(event.target.files[0]);
+};
+//Customimage
+
 $(function () {
 	$('[data-bs-toggle="popover"]').popover();
 	$('[data-bs-toggle="tooltip"]').tooltip();
@@ -52,9 +63,9 @@ function ShowToaster(type, text) {
             break;
     }
     Lobibox.notify(toasterType, {
-        pauseDelayOnHover: true,
-        continueDelayOnInactiveTab: false,
-        position: 'top right',
+        pauseDelayOnHover: false,
+        continueDelayOnInactiveTab: true,
+        position: 'center top',
         showClass: 'rollIn',
         hideClass: 'rollOut',
         icon: 'bx bx-check-circle',

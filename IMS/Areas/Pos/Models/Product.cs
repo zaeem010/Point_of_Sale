@@ -15,8 +15,11 @@ namespace IMS.Areas.Pos.Models
         public string Name { get; set; }
         [MaxLength(455)]
         public string Sku { get; set; }
+        [Required(ErrorMessage = "Required")]
         public double SalePrice { get; set; }
+        [Required(ErrorMessage = "Required")]
         public double PurchasePrice { get; set; }
+        [Required(ErrorMessage = "Required")]
         public double OpeningStock { get; set; }
         [MaxLength(45)]
         public string Unit { get; set; }
@@ -26,6 +29,7 @@ namespace IMS.Areas.Pos.Models
         [Required(ErrorMessage = "Required")]
         public long CategoryId { get; set; }
         public virtual Category Category { get; set; }
+        public bool Status { get; set; } = true;
     }
     
 }

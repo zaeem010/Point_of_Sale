@@ -39,10 +39,17 @@
                     <tbody>
                         @foreach (var Li in Model)
                         {
+                            string imagepath = "/no-image.png";
+                            if (Li.ImagePath != null)
+                            {
+                                imagepath = "/Uploads/" + Li.ImagePath;
+                            }
                             <tr>
                                 <td>
-                                    <a asp-action="Edit" asp-route-Id="@Li.Id" class="badge bg-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Click To Edit"><i class="bx bx-pencil"></i></a>
+                                    <a asp-action="Edit" asp-route-Id="@Li.Id" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Click To Edit"><i class="bx bx-pencil"></i></a>
+                                    <a asp-action="Delete" asp-route-Id="@Li.Id" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Click To Delete"><i class="bx bx-trash"></i></a>
                                     @*<a asp-action="Card" asp-route-Id="@Li.Id" class="badge bg-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Click To View Card"><i class="bx bx-card"></i></a>*@
+                                <img src="@imagepath" alt="Image" style="height:50px;width:50px" />
                                 </td>
                                 <td>@Li.Sku</td>
                                 <td>@Li.Name</td>

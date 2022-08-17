@@ -1,6 +1,11 @@
 ﻿@model Product
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Add new Product";
+    string userimg = "/no-image.png";
+    if (Model.ImagePath!= null)
+    {
+        userimg = "/Uploads/" + Model.ImagePath;
+    }
 }
 <div class="page-content">
     <!--breadcrumb-->
@@ -21,41 +26,65 @@
         </div>
     </div>
     <!--end breadcrumb-->
-    <div class="row">
-        <div class="col-xl-12 mx-auto">
-            <hr>
-            <div class="card border-top border-0 border-4 border-primary">
-                <div class="card-body p-5">
-                    <div class="card-title d-flex align-items-center">
-                        <div>
-                            <i class="bx bxs-user me-1 font-22 text-primary"></i>
-                        </div>
-                        <h5 class="mb-0 text-primary">Product Registration</h5>
-                    </div>
-                    <hr>
-                    <form class="row g-3" asp-action="Save" enctype="multipart/form-data" method="post">
-                        <div class="col-md-4">
-                            <label class="form-label">Category</label>
-                            <select asp-for="CategoryId" asp-items="@ViewBag.Catlist" class="form-control">
-                                <option value="">Select</option>
-                            </select>
-                            <span class="text-danger" asp-validation-for="CategoryId"></span>
-                        </div>
-                        @*<div class="col-md-4">
-                            <label class="form-label">Name</label>
-                            <input type="text" asp-for="Name" class="form-control">
-                            <span class="text-danger" asp-validation-for="Name"></span>
-                        </div>*@
-                        
-                        <div class="col-12">
-                            <button type="submit" class="btn btn-primary px-5">Submit/Update</button>
-                        </div>
-                        <input type="hidden" asp-for="Id" />
-                    </form>
+    <hr />
+    <div class="card">
+        <div class="card-body">
+            <form class="row g-3" asp-action="Save" enctype="multipart/form-data" method="post">
+                <div class="col-md-3">
+                    <label class="form-label">Category</label>
+                    <select asp-for="CategoryId" asp-items="@ViewBag.Catlist" class="form-control">
+                        <option value="">Select</option>
+                    </select>
+                    <span class="text-danger" asp-validation-for="CategoryId"></span>
                 </div>
-            </div>
+                <div class="col-md-3">
+                    <label class="form-label">Barcode/Sku</label>
+                    <input type="text" asp-for="Sku" class="form-control">
+                    <span class="text-danger" asp-validation-for="Sku"></span>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Name</label>
+                    <input type="text" asp-for="Name" class="form-control">
+                    <span class="text-danger" asp-validation-for="Name"></span>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Unit</label>
+                    <select asp-for="Unit" class="form-control">
+                        <option value="None">None</option>
+                        <option value="Kg">Kg</option>
+                        <option value="Ltr">Ltr</option>
+                        <option value="Pcs">Pcs</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Purchase Price</label>
+                    <input type="text" asp-for="PurchasePrice" class="form-control">
+                    <span class="text-danger" asp-validation-for="PurchasePrice"></span>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Sale Price</label>
+                    <input type="text" asp-for="SalePrice" class="form-control">
+                    <span class="text-danger" asp-validation-for="SalePrice"></span>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Previous Stock</label>
+                    <input type="text" asp-for="OpeningStock" class="form-control">
+                    <span class="text-danger" asp-validation-for="OpeningStock"></span>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Image</label>
+                    <input type="file" onchange="imgchange(event);" name="Img" class="form-control">
+                    <img src="@userimg" id="Img" height="150" width="150" alt="User Image" />
+                </div>
+
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary px-5">Submit/Update</button>
+                </div>
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="ImagePath" />
+            </form>
         </div>
     </div>
-    <!--end row-->
 </div>
+
 <partial name="_ValidationScriptsPartial" />
