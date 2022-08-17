@@ -12,6 +12,13 @@ $(document).ready(function () {
         height: 'resolve',
         theme: "classic"
     });
+    $("#CategoryId").select2({
+        closeOnSelect: true,
+        placeholder: "Select Category",
+        width: 'resolve',
+        height: 'resolve',
+        theme: "classic"
+    });
 
     //$('.datepicker').flatpickr({
     //    altInput: true,

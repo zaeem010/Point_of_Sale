@@ -36,11 +36,20 @@
                 <a asp-action="Create" asp-controller="Supplier"><i class="bx bx-right-arrow-alt"></i>Add Supplier</a>
             </li>
             <li>
-                <a asp-action="Index" asp-controller="Cargo"><i class="bx bx-right-arrow-alt"></i>Cargo</a>
+                <a asp-area="Pos" asp-action="Index" asp-controller="Category" ><i class="bx bx-right-arrow-alt"></i>Category</a>
             </li>
             <li>
-                <a asp-action="Index" asp-controller="ModelNo"><i class="bx bx-right-arrow-alt"></i>Models</a>
+                <a asp-area="Pos" asp-action="Index" asp-controller="Product" ><i class="bx bx-right-arrow-alt"></i>Product List</a>
             </li>
+            <li>
+                <a asp-area="Pos" asp-action="Create" asp-controller="Product" ><i class="bx bx-right-arrow-alt"></i>Add Product</a>
+            </li>
+            @*<li>
+            <a asp-action="Index" asp-controller="Cargo"><i class="bx bx-right-arrow-alt"></i>Cargo</a>
+        </li>
+        <li>
+            <a asp-action="Index" asp-controller="ModelNo"><i class="bx bx-right-arrow-alt"></i>Models</a>
+        </li>*@
         </ul>
     </li>
     <li>

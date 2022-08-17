@@ -1,0 +1,59 @@
+﻿@model Category
+@{
+    ViewData["Title"] = "Create Category";
+}
+<div class="page-content">
+    <!--breadcrumb-->
+    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+        <div class="breadcrumb-title pe-3">Category</div>
+        <div class="ps-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0 p-0">
+                    <li class="breadcrumb-item">
+                        <a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">Add new Category</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="ms-auto">
+            <a asp-action="Index" class="btn btn-outline-primary px-5">Category List</a>
+        </div>
+    </div>
+    <!--end breadcrumb-->
+    <div class="row">
+        <div class="col-xl-12 mx-auto">
+            <hr>
+            <div class="card border-top border-0 border-4 border-primary">
+                <div class="card-body p-5">
+                    <div class="card-title d-flex align-items-center">
+                        <div>
+                            <i class="bx bxs-user me-1 font-22 text-primary"></i>
+                        </div>
+                        <h5 class="mb-0 text-primary">Category Registration</h5>
+                    </div>
+                    <hr>
+                    <form class="row g-3" asp-area="Pos" asp-action="Save" enctype="multipart/form-data" method="post">
+                        <div class="col-md-4">
+                            <label class="form-label">Image</label>
+                            <input type="file" name="Img" class="form-control">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Name</label>
+                            <input type="text" asp-for="Name" class="form-control">
+                            <span class="text-danger" asp-validation-for="Name"></span>
+                        </div>
+
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary px-5">Submit/Update</button>
+                        </div>
+                        <input type="hidden" asp-for="Id" />
+                        <input type="hidden" asp-for="ImagePath" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end row-->
+</div>
+<partial name="_ValidationScriptsPartial" />

@@ -23,6 +23,7 @@ namespace IMS.Areas.Pos.Models
         [MaxLength(455)]
         public string ImagePath { get; set; }
         //
+        [Required(ErrorMessage = "Required")]
         public long CategoryId { get; set; }
         public virtual Category Category { get; set; }
     }
