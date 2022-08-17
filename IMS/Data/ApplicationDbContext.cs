@@ -1,4 +1,5 @@
-﻿using IMS.Models;
+﻿using IMS.Areas.Pos.Models;
+using IMS.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -38,6 +39,9 @@ namespace IMS.Data
         //Vouchers
         public DbSet<VoucherMaster> VoucherMaster { get; set; }
         public DbSet<VoucherDetail> VoucherDetail { get; set; }
-
+        //Pos MetaData
+        public DbSet<Product> Product { get; set; }
+        public DbSet<Stock> Stock { get; set; }
+        public DbSet<Category> Category { get; set; }
     }
 }
