@@ -39,6 +39,82 @@ namespace IMS.Migrations
                     b.ToTable("Category");
                 });
 
+            modelBuilder.Entity("IMS.Areas.Pos.Models.PosPurchaseDetail", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("PosPurchaseMasterId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("ProductId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("ProductName")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<double>("PurchasePrice")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Qty")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Sku")
+                        .HasMaxLength(455)
+                        .HasColumnType("nvarchar(455)");
+
+                    b.Property<double>("Total")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Unit")
+                        .HasMaxLength(55)
+                        .HasColumnType("nvarchar(55)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PosPurchaseMasterId");
+
+                    b.ToTable("PosPurchaseDetail");
+                });
+
+            modelBuilder.Entity("IMS.Areas.Pos.Models.PosPurchaseMaster", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("InvDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("NetTotal")
+                        .HasColumnType("float");
+
+                    b.Property<double>("PaidTotal")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Remarks")
+                        .HasMaxLength(455)
+                        .HasColumnType("nvarchar(455)");
+
+                    b.Property<double>("SubTotal")
+                        .HasColumnType("float");
+
+                    b.Property<int>("ThirdlevelId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("VType")
+                        .HasMaxLength(55)
+                        .HasColumnType("nvarchar(55)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ThirdlevelId");
+
+                    b.ToTable("PosPurchaseMaster");
+                });
+
             modelBuilder.Entity("IMS.Areas.Pos.Models.Product", b =>
                 {
                     b.Property<long>("Id")
@@ -968,6 +1044,26 @@ namespace IMS.Migrations
                     b.HasDiscriminator().HasValue("User");
                 });
 
+            modelBuilder.Entity("IMS.Areas.Pos.Models.PosPurchaseDetail", b =>
+                {
+                    b.HasOne("IMS.Areas.Pos.Models.PosPurchaseMaster", null)
+                        .WithMany("PosPurchaseDetailList")
+                        .HasForeignKey("PosPurchaseMasterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("IMS.Areas.Pos.Models.PosPurchaseMaster", b =>
+                {
+                    b.HasOne("IMS.Models.ThirdLevel", "ThirdLevel")
+                        .WithMany()
+                        .HasForeignKey("ThirdlevelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ThirdLevel");
+                });
+
             modelBuilder.Entity("IMS.Areas.Pos.Models.Product", b =>
                 {
                     b.HasOne("IMS.Areas.Pos.Models.Category", "Category")
@@ -1264,6 +1360,11 @@ namespace IMS.Migrations
                         .IsRequired();
 
                     b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("IMS.Areas.Pos.Models.PosPurchaseMaster", b =>
+                {
+                    b.Navigation("PosPurchaseDetailList");
                 });
 
             modelBuilder.Entity("IMS.Models.Customer", b =>

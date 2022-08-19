@@ -24,22 +24,19 @@
                         <div class="dropdown-menu dropdown-menu-end">
                             <div class="row row-cols-3 g-3 p-3">
                                 <div class="col text-center">
-                                    <a asp-action="Index" asp-controller="Customer" class="btn btn-outline-primary">Customer List</a>
-                                </div>
-                                <div class="col text-center">
                                     <a asp-action="Create" asp-controller="Customer" class="btn btn-outline-primary">Add Customer</a>
-                                </div>
-                                <div class="col text-center">
-                                    <a asp-action="Index" asp-controller="Supplier" class="btn btn-outline-primary">Supplier List</a>
                                 </div>
                                 <div class="col text-center">
                                     <a asp-action="Create" asp-controller="Supplier" class="btn btn-outline-primary">Add Supplier</a>
                                 </div>
                                 <div class="col text-center">
-                                    <a asp-action="Index" asp-controller="Purchase" class="btn btn-outline-primary">All Purchase</a>
+                                    <a asp-action="Create" asp-controller="Purchase" class="btn btn-outline-primary">New Purchase</a>
                                 </div>
                                 <div class="col text-center">
-                                    <a asp-action="Create" asp-controller="Purchase" class="btn btn-outline-primary">New Purchase</a>
+                                    <a asp-action="Create" asp-controller="SubCategory" asp-area="Pos" class="btn btn-outline-primary">Add Sub Cat</a>
+                                </div>
+                                <div class="col text-center">
+                                    <a asp-action="Create" asp-controller="Product" asp-area="Pos" class="btn btn-outline-primary">Add Product</a>
                                 </div>
                             </div>
                         </div>
