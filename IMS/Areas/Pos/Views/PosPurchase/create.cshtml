@@ -1,0 +1,230 @@
+﻿@model IMS.Areas.Pos.Models.PurchaseVM
+@{
+    ViewData["Title"] = "Create New Purchase";
+}
+<style>
+    .select2-container {
+        width: 100% !important;
+    }
+</style>
+<div id="countofdetails" class="d-none">@Model.PosPurchaseMaster.PosPurchaseDetailList.Count()</div>
+<div class="page-content">
+    <!--breadcrumb-->
+    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+        <div class="breadcrumb-title pe-3">Purchase</div>
+        <div class="ps-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0 p-0">
+                    <li class="breadcrumb-item">
+                        <a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">New Purchase</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="ms-auto">
+            <a asp-action="Index" class="btn btn-outline-primary px-5">Purchase List</a>
+        </div>
+    </div>
+    <!--end breadcrumb-->
+    <hr />
+    <div class="card">
+        <div class="card-body">
+            <form class="row g-3" action="Javascript:Save()" method="post" id="PosPurchaseForm">
+                <div class="col-md-3">
+                    <label class="form-label">Supplier</label>
+                    <span class="text-danger"><i class="fadeIn animated bx bx-star"></i></span>&nbsp;
+                    <span class="fs-5"><a class="badge bg-primary" data-bs-toggle="modal" data-bs-target="#AddSupplier"><i class="fadeIn animated bx bx-plus-circle"></i></a> </span>
+                    <div class="input-group mb-3">
+                        <select asp-for="PosPurchaseMaster.ThirdlevelId" asp-items="Model.SupplierList" class="form-control" style="width: 100%">
+                            <option value="">Select</option>
+                        </select>
+                    </div>
+                    <span asp-validation-for="PosPurchaseMaster.ThirdlevelId" class="text-danger"></span>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Remakrs</label>
+                    <input asp-for="PosPurchaseMaster.Remarks" class="form-control">
+                    <span asp-validation-for="PosPurchaseMaster.Remarks" class="text-danger"></span>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Inv Date</label> <span class="text-danger"><i class="fadeIn animated bx bx-star"></i></span>
+                    <input type="date" asp-for="PosPurchaseMaster.InvDate" class="form-control">
+                    <span asp-validation-for="PosPurchaseMaster.InvDate" class="text-danger"></span>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Category</label>
+                    <select class="form-control" id="Cat" onchange="GetSubCategoryList(this.value)" asp-items="Model.CategoryList">
+                        <option value="">Select</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Sub Category</label>
+                    <select class="form-control" id="SubCat" onchange="GetProductBysubList(this.value)" asp-items="Model.SubCategoryList">
+                        <option value="">Select</option>
+                    </select>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="form-label">Product</label>
+                        <span class="text-danger"><i class="fadeIn animated bx bx-star"></i></span>
+                        &nbsp;
+                        <select class="form-control" onchange="GetProduct(this.value)" id="Product" asp-items="Model.ProductList">
+                            <option value="">Select</option>
+                        </select>
+                    </div>
+                    <div class="col-md-1">
+                        <label class="form-label">Unit</label>
+                        <input type="text" readonly id="Unit" class="form-control" />
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Amount</label>
+                        <input type="text" id="Amount" class="form-control" />
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Qty</label>
+                        <input type="text" id="Qty" value="1" class="form-control" />
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="form-label">Total</label>
+                        <div class="input-group mb-3">
+                            <input readonly id="total" value="0" class="form-control" />
+                            <a class="btn btn-primary"> Add</a>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-sm mb-0" id="Items" style="height:250px;overflow-y:auto">
+                            <thead>
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Unit</th>
+                                    <th scope="col">Amount</th>
+                                    <th scope="col">Qty</th>
+                                    <th scope="col">total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (int i = 0; i < Model.PosPurchaseMaster.PosPurchaseDetailList.Count(); i++)
+                                {
+                                    <tr>
+                                        <td><a class="badge bg-danger" onclick="return deleteRow(this)"><i class="bx bx-trash"></i></a></td>
+                                        <td class="d-none">@Model.PosPurchaseMaster.PosPurchaseDetailList[i].ProductId</td>
+                                        <td>@Model.PosPurchaseMaster.PosPurchaseDetailList[i].ProductName</td>
+                                        <td>@Model.PosPurchaseMaster.PosPurchaseDetailList[i].Unit</td>
+                                        <td>@Model.PosPurchaseMaster.PosPurchaseDetailList[i].PurchasePrice</td>
+                                        <td>@Model.PosPurchaseMaster.PosPurchaseDetailList[i].Qty</td>
+                                        <td class="totalprice">@Model.PosPurchaseMaster.PosPurchaseDetailList[i].Total </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-md-4 d-none">
+                        <label class="form-label">Sub Total</label>
+                        <input readonly class="form-control" asp-for="PosPurchaseMaster.SubTotal" />
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Net Total</label>
+                        <input readonly class="form-control" asp-for="PosPurchaseMaster.NetTotal" />
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Paid Amount</label>
+                        <input class="form-control" asp-for="PosPurchaseMaster.PaidTotal" />
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Balance Amount</label>
+                        <input readonly class="form-control" asp-for="PosPurchaseMaster.BalanceTotal" />
+                    </div>
+                </div>
+                <div class="col-12">
+                    <button onclick="submitform();" class="btn btn-primary px-5">Submit/Update</button>
+                </div>
+                <input type="hidden" asp-for="PosPurchaseMaster.Id" />
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="col">
+    <!-- Modal -->
+    <div class="modal fade" id="AddSupplier" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Supplier</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="row g-3" action="Javascript:saveSupplier();">
+                        <div class="col-md-4">
+                            <label class="form-label">Name</label>
+                            <input type="text" asp-for="Supplier.Name" class="form-control">
+                            <span class="text-danger" asp-validation-for="Supplier.Name"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Company Name</label>
+                            <input asp-for="Supplier.Company" class="form-control">
+                            <span class="text-danger" asp-validation-for="Supplier.Company"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Address</label>
+                            <input asp-for="Supplier.Address" class="form-control">
+                            <span class="text-danger" asp-validation-for="Supplier.Address"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">NTN</label>
+                            <input asp-for="Supplier.NTN" class="form-control">
+                            <span class="text-danger" asp-validation-for="Supplier.NTN"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">GST in %</label>
+                            <input asp-for="Supplier.Gst" class="form-control">
+                            <span class="text-danger" asp-validation-for="Supplier.Gst"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Special Discount in %</label>
+                            <input asp-for="Supplier.SpDis" class="form-control">
+                            <span class="text-danger" asp-validation-for="Supplier.SpDis"></span>
+                        </div>
+                        <hr />
+                        <h6>Bank Details</h6>
+                        <div class="col-md-4">
+                            <label class="form-label">Bank Name</label>
+                            <input asp-for="Supplier.BanckName" class="form-control">
+                            <span class="text-danger" asp-validation-for="Supplier.BanckName"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Account No</label>
+                            <input asp-for="Supplier.AccountNo" class="form-control">
+                            <span class="text-danger" asp-validation-for="Supplier.AccountNo"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Account Holder</label>
+                            <input asp-for="Supplier.AccountHolder" class="form-control">
+                            <span class="text-danger" asp-validation-for="Supplier.AccountHolder"></span>
+                        </div>
+
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary px-5">Submit/Update</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/AddEditPosPurchase.js" asp-append-version="true"></script>
+<partial name="_ValidationScriptsPartial" />
