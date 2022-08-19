@@ -28,7 +28,9 @@ namespace IMS.Areas.Pos.Models
         //
         [Required(ErrorMessage = "Required")]
         public long CategoryId { get; set; }
+        public long SubCategoryId { get; set; }
         public virtual Category Category { get; set; }
+        public virtual SubCategory SubCategory { get; set; }
         public bool Status { get; set; } = true;
     }
     

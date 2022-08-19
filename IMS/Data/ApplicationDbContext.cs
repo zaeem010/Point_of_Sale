@@ -43,5 +43,6 @@ namespace IMS.Data
         public DbSet<Product> Product { get; set; }
         public DbSet<Stock> Stock { get; set; }
         public DbSet<Category> Category { get; set; }
+        public DbSet<SubCategory> SubCategory { get; set; }
     }
 }

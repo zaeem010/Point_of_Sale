@@ -27,7 +27,10 @@ namespace IMS.Areas.Pos.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var Li = await _db.Product.Where(c=>c.Status).ToListAsync();
+            var Li = await _db.Product
+                .Include(c=>c.Category)
+                .Include(c=>c.SubCategory)
+                .Where(c=>c.Status).ToListAsync();
             return View(Li);
         }
         [Route("/Pos/Product/Create")]

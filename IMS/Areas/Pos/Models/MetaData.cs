@@ -30,4 +30,15 @@ namespace IMS.Areas.Pos.Models
         public string Name { get; set; }
         public string ImagePath { get; set; }
     }
+    public class SubCategory
+    {
+        [Key]
+        public long Id { get; set; }
+        [Required(ErrorMessage = "Required")]
+        public long CategoryId { get; set; }
+        [Required(ErrorMessage = "Required")]
+        [MaxLength(455)]
+        public string Name { get; set; }
+        public virtual Category Category { get; set; }
+    }
 }

@@ -28,12 +28,12 @@
                     <thead>
                         <tr>
                             <th>Action</th>
+                            <th>Category</th>
+                            <th>Sub Cat</th>
                             <th>Sku/Barcode</th>
                             <th>Name</th>
                             <th>Purchase Price</th>
                             <th>Sale Price</th>
-                            <th>Unit</th>
-                            <th>Previous Stock</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -51,12 +51,18 @@
                                     @*<a asp-action="Card" asp-route-Id="@Li.Id" class="badge bg-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Click To View Card"><i class="bx bx-card"></i></a>*@
                                 <img src="@imagepath" alt="Image" style="height:50px;width:50px" />
                                 </td>
+                                <td>@Li.Category.Name</td>
+                                <td>
+                                    @{ if (Li.SubCategory != null)
+                                       {
+                                        <span>@Li.SubCategory.Name</span>
+                                       }
+                                    }
+                                </td>
                                 <td>@Li.Sku</td>
                                 <td>@Li.Name</td>
                                 <td>@Li.PurchasePrice</td>
                                 <td>@Li.SalePrice</td>
-                                <td>@Li.Unit</td>
-                                <td>@Li.OpeningStock</td>
                             </tr>
                         }
                     </tbody>
