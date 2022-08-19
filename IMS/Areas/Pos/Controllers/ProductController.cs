@@ -45,6 +45,13 @@ namespace IMS.Areas.Pos.Controllers
             ViewBag.Catlist = List;
             return View(new Product());
         }
+        [Route("/Pos/Product/GetSubCategoryList")]
+        [HttpGet]
+        public async Task<JsonResult> GetSubCategoryList(long Id)
+        {
+            var Li = await _db.SubCategory.Where(x => x.CategoryId.Equals(Id)).ToListAsync();
+            return Json(Li);
+        }
         [Route("/Pos/Product/Save")]
         [HttpPost]
         public async Task<IActionResult> Save(Product Product)

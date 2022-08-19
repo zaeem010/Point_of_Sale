@@ -3,7 +3,12 @@
 
 // Write your JavaScript code.
 $(document).ready(function () {
-    $('#example').DataTable();
+    $('#example').DataTable({
+        "lengthMenu": [
+            [50, 100,200, -1],
+            [50,100, 200, "All"]
+        ],
+    });
 
     $("#LedgerAccountNo").select2({
         closeOnSelect: true,
@@ -15,6 +20,13 @@ $(document).ready(function () {
     $("#CategoryId").select2({
         closeOnSelect: true,
         placeholder: "Select Category",
+        width: 'resolve',
+        height: 'resolve',
+        theme: "classic"
+    });
+    $("#SubCategoryId").select2({
+        closeOnSelect: true,
+        placeholder: "Select Sub Category",
         width: 'resolve',
         height: 'resolve',
         theme: "classic"
