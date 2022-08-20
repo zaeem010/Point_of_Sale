@@ -15,10 +15,9 @@ namespace IMS.Areas.Pos.Models
         [Required(ErrorMessage ="Required")]
         public DateTime InvDate { get; set; }
         [Required(ErrorMessage = "Required")]
-        public int ThirdlevelId { get; set; }
+        public int ThirdLevelId { get; set; }
         [MaxLength(455)]
         public string Remarks { get; set; }
-        public double SubTotal { get; set; }
         public double NetTotal { get; set; }
         public double PaidTotal { get; set; }
         [MaxLength(55)]
@@ -37,6 +36,7 @@ namespace IMS.Areas.Pos.Models
         [Key]
         public long Id { get; set; }
         public long PosPurchaseMasterId { get; set; }
+        public long CategoryId { get; set; }
         public long ProductId { get; set; }
         [MaxLength(255)]
         public string ProductName { get; set; }

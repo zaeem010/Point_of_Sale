@@ -4,6 +4,7 @@ using System.Text.Json;
 using System;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
+using IMS.Areas.Pos.Models;
 
 namespace IMS.Controllers
 {
@@ -86,6 +87,28 @@ namespace IMS.Controllers
                 {
                     Id = t.Id,
                     Invid = VoucherSavemodel.dynamicid,
+                    Vtype = t.Vtype,
+                    TransDes = t.TransDes,
+                    TransDate = t.TransDate,
+                    ThirdLevelId = t.ThirdLevelId,
+                    Dr = t.Dr,
+                    Cr = t.Cr,
+                    UserId = t.UserId,
+                    HeadId=t.HeadId
+                });
+            }
+            return TranscationDetails;
+        }
+        public List<TranscationDetails> AddPosMasterintransactionid(PosPurchaseSavemodel PosPurchaseSavemodel)
+        {
+            var TranscationDetails = new List<TranscationDetails>();
+            foreach (var t in PosPurchaseSavemodel.TranscationDetailsList)
+            {
+                
+                TranscationDetails.Add(new TranscationDetails
+                {
+                    Id = t.Id,
+                    Invid = PosPurchaseSavemodel.dynamicId,
                     Vtype = t.Vtype,
                     TransDes = t.TransDes,
                     TransDate = t.TransDate,

@@ -13,6 +13,7 @@ namespace IMS.Areas.Pos.Models
         public long Id { get; set; }
         public long CategoryId { get; set; }
         public long ProductId { get; set; }
+        public long PosPurchaseMasterId { get; set; }
         public int UserId { get; set; }
         public double StockIn { get; set; }
         public double StockOut { get; set; }

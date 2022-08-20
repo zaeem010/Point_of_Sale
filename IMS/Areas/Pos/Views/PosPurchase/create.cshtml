@@ -30,17 +30,17 @@
     <hr />
     <div class="card">
         <div class="card-body">
-            <form class="row g-3" action="Javascript:Save()" method="post" id="PosPurchaseForm">
+            <form class="row g-3" action="Javascript:Save();">
                 <div class="col-md-3">
                     <label class="form-label">Supplier</label>
                     <span class="text-danger"><i class="fadeIn animated bx bx-star"></i></span>&nbsp;
                     <span class="fs-5"><a class="badge bg-primary" data-bs-toggle="modal" data-bs-target="#AddSupplier"><i class="fadeIn animated bx bx-plus-circle"></i></a> </span>
                     <div class="input-group mb-3">
-                        <select asp-for="PosPurchaseMaster.ThirdlevelId" asp-items="Model.SupplierList" class="form-control" style="width: 100%">
+                        <select asp-for="PosPurchaseMaster.ThirdLevelId" asp-items="Model.SupplierList" class="form-control" style="width: 100%">
                             <option value="">Select</option>
                         </select>
                     </div>
-                    <span asp-validation-for="PosPurchaseMaster.ThirdlevelId" class="text-danger"></span>
+                    <span asp-validation-for="PosPurchaseMaster.ThirdLevelId" class="text-danger"></span>
                 </div>
                 <div class="col-md-3">
                     <label class="form-label">Remakrs</label>
@@ -77,6 +77,7 @@
                     <div class="col-md-1">
                         <label class="form-label">Unit</label>
                         <input type="text" readonly id="Unit" class="form-control" />
+                        <input type="text" readonly id="CategoryId" class="form-control" />
                     </div>
                     <div class="col-md-2">
                         <label class="form-label">Amount</label>
@@ -91,7 +92,7 @@
                         <label class="form-label">Total</label>
                         <div class="input-group mb-3">
                             <input readonly id="total" value="0" class="form-control" />
-                            <a class="btn btn-primary"> Add</a>
+                            <a class="btn btn-primary" onclick="AddProduct()"> Add</a>
                         </div>
                     </div>
                 </div>
@@ -113,13 +114,14 @@
                                 @for (int i = 0; i < Model.PosPurchaseMaster.PosPurchaseDetailList.Count(); i++)
                                 {
                                     <tr>
-                                        <td><a class="badge bg-danger" onclick="return deleteRow(this)"><i class="bx bx-trash"></i></a></td>
+                                        <td><a class="btn bg-danger" onclick="return deleteRow(this)"><i class="bx bx-trash"></i></a><a class="btn bg-primary" onclick="return Editrow(this)"><i class="bx bx-edit"></i></a></td>
                                         <td class="d-none">@Model.PosPurchaseMaster.PosPurchaseDetailList[i].ProductId</td>
                                         <td>@Model.PosPurchaseMaster.PosPurchaseDetailList[i].ProductName</td>
                                         <td>@Model.PosPurchaseMaster.PosPurchaseDetailList[i].Unit</td>
                                         <td>@Model.PosPurchaseMaster.PosPurchaseDetailList[i].PurchasePrice</td>
                                         <td>@Model.PosPurchaseMaster.PosPurchaseDetailList[i].Qty</td>
                                         <td class="totalprice">@Model.PosPurchaseMaster.PosPurchaseDetailList[i].Total </td>
+                                        <td class="d-none">@Model.PosPurchaseMaster.PosPurchaseDetailList[i].CategoryId </td>
                                     </tr>
                                 }
                             </tbody>
@@ -128,10 +130,6 @@
                 </div>
                 <hr />
                 <div class="row">
-                    <div class="col-md-4 d-none">
-                        <label class="form-label">Sub Total</label>
-                        <input readonly class="form-control" asp-for="PosPurchaseMaster.SubTotal" />
-                    </div>
                     <div class="col-md-3">
                         <label class="form-label">Net Total</label>
                         <input readonly class="form-control" asp-for="PosPurchaseMaster.NetTotal" />

@@ -16,4 +16,11 @@ namespace IMS.Areas.Pos.Models
         public IEnumerable<SelectListItem> CategoryList { get; set; }
         public IEnumerable<SelectListItem> SubCategoryList { get; set; }
     }
+    public class PosPurchaseSavemodel
+    {
+        public PosPurchaseMaster PosPurchaseMaster { get; set; }
+        public List<TranscationDetails> TranscationDetailsList { get; set; }
+        public List<Stock> StockList { get; set; }
+        public long dynamicId { get; set; }
+    }
 }
