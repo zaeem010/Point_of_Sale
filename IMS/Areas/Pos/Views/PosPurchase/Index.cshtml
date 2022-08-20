@@ -40,12 +40,14 @@
                         {
                             <tr>
                                 <td>
-                                    <a asp-action="Edit" asp-route-Id="@Li.Id" class="badge bg-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Click To Edit"><i class="bx bx-pencil"></i></a>
+                                    <a asp-area="Pos" asp-action="Edit" asp-route-Id="@Li.Id" class="btn bg-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Click To Edit"><i class="bx bx-pencil"></i></a>
+                                    <a asp-area="Pos" asp-action="Delete" asp-route-Id="@Li.Id" onclick="return confirm('Are you sure you want to delete this Purchase?')" class="btn bg-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Click To delete"><i class="bx bx-trash-alt"></i></a>
                                 </td>
                                 <td>@Li.InvDate.ToString("dd-MMM-yyyy")</td>
                                 <td>@Li.ThirdLevel.AccountTitle</td>
                                 <td>@Li.NetTotal.ToString("#,##0")</td>
                                 <td>@Li.PaidTotal.ToString("#,##0")</td>
+                                @*<td>@Li.BalanceTotal.ToString("#,##0")</td>*@
                             </tr>
                         }
                     </tbody>

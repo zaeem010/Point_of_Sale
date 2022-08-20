@@ -314,7 +314,8 @@ function submitform() {
                 ProductId: $tr.find("td:eq(1)").text(),
                 StockIn: $tr.find("td:eq(5)").text(),
                 Date: InvDate,
-                UserId: 2
+                UserId: 2,
+                PosPurchaseMasterId: Invid
             }
             PosPurchaseDetail.push(details);
             Stock.push(stockdetails);

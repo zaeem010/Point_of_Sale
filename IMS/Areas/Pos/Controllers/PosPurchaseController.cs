@@ -100,9 +100,10 @@ namespace IMS.Areas.Pos.Controllers
                     //
                     var TranscationDetails = AddPosMasterintransactionid(PosPurchaseSavemodel);
                     var Purchasedetails = AddMasterinpurchasedetail(PosPurchaseSavemodel);
+                    var Stock = AddMasterinstock(PosPurchaseSavemodel);
                     await _db.PosPurchaseMaster.AddAsync(PosPurchaseSavemodel.PosPurchaseMaster);
                     await _db.TranscationDetails.AddRangeAsync(TranscationDetails);
-                    await _db.Stock.AddRangeAsync(PosPurchaseSavemodel.StockList);
+                    await _db.Stock.AddRangeAsync(Stock);
                     AddNotificationToView("Transaction created Successfully !", true);
                     message = "Registerd Successfully";
                 }
@@ -111,12 +112,15 @@ namespace IMS.Areas.Pos.Controllers
                     string[] _vtype = new string[] { "POSPINV", "CPVPOSPINV" };
 
                     var D = await _db.PosPurchaseDetail.Where(c => c.PosPurchaseMasterId == PosPurchaseSavemodel.PosPurchaseMaster.Id).ToListAsync();
+                    var S = await _db.Stock.Where(c => c.PosPurchaseMasterId == PosPurchaseSavemodel.PosPurchaseMaster.Id).ToListAsync();
                     var T = await _db.TranscationDetails.Where(c => c.Invid == PosPurchaseSavemodel.PosPurchaseMaster.Id && _vtype.Contains(c.Vtype)).ToListAsync();
                     _db.PosPurchaseDetail.RemoveRange(D);
                     _db.TranscationDetails.RemoveRange(T);
+                    _db.Stock.RemoveRange(S);
 
                     await _db.PosPurchaseDetail.AddRangeAsync(PosPurchaseSavemodel.PosPurchaseMaster.PosPurchaseDetailList);
                     await _db.TranscationDetails.AddRangeAsync(PosPurchaseSavemodel.TranscationDetailsList);
+                    await _db.Stock.AddRangeAsync(PosPurchaseSavemodel.StockList);
                     _db.PosPurchaseMaster.Update(PosPurchaseSavemodel.PosPurchaseMaster);
                     AddNotificationToView("Transaction Updated Successfully !", true);
                     message = "Updated Successfully";
@@ -129,6 +133,63 @@ namespace IMS.Areas.Pos.Controllers
                 message = e.Message;
             }
             return Json(new { message = message });
+        }
+        [Route("/Pos/PosPurchase/Edit-Purchases/{Id}")]
+        [HttpGet]
+        public async Task<IActionResult> Edit(long Id)
+        {
+            var PosPurchaseMaster = await _db.PosPurchaseMaster
+                .Include(z => z.PosPurchaseDetailList)
+                .SingleOrDefaultAsync(c => c.Id.Equals(Id));
+
+            IEnumerable<SelectListItem> SupplierList = _db.Supplier.Select(c => new SelectListItem
+            {
+                Value = c.ThirdLevelId.ToString(),
+                Text = c.Name
+            });
+            IEnumerable<SelectListItem> ProductList = _db.Product.Select(c => new SelectListItem
+            {
+                Value = c.Id.ToString(),
+                Text = $"{c.Name} || {c.Sku}"
+            });
+            IEnumerable<SelectListItem> CategoryList = _db.Category.Select(c => new SelectListItem
+            {
+                Value = c.Id.ToString(),
+                Text = c.Name
+            });
+            IEnumerable<SelectListItem> SubCategoryList = _db.SubCategory.Select(c => new SelectListItem
+            {
+                Value = c.Id.ToString(),
+                Text = c.Name
+            });
+            var VM = new PurchaseVM
+            {
+                SupplierList = SupplierList,
+                PosPurchaseMaster = PosPurchaseMaster,
+                CategoryList = CategoryList,
+                SubCategoryList = SubCategoryList,
+                ProductList = ProductList
+            };
+            return View("Create", VM);
+        }
+        [Route("/Pos/PosPurchase/Delete/{Id}")]
+        [HttpGet]
+        public async Task<IActionResult> Delete(long Id)
+        {
+            var PosPurchaseMaster = await _db.PosPurchaseMaster
+                .SingleOrDefaultAsync(c => c.Id.Equals(Id));
+            string[] _vtype = new string[] { "POSPINV", "CPVPOSPINV" };
+
+            var D = await _db.PosPurchaseDetail.Where(c => c.PosPurchaseMasterId == Id).ToListAsync();
+            var S = await _db.Stock.Where(c => c.PosPurchaseMasterId == Id).ToListAsync();
+            var T = await _db.TranscationDetails.Where(c => c.Invid == Id && _vtype.Contains(c.Vtype)).ToListAsync();
+            _db.PosPurchaseDetail.RemoveRange(D);
+            _db.TranscationDetails.RemoveRange(T);
+            _db.Stock.RemoveRange(S);
+            _db.PosPurchaseMaster.RemoveRange(PosPurchaseMaster);
+            await _db.SaveChangesAsync();
+            AddNotificationToView("Transaction Deleted Successfully !", true);
+            return RedirectToAction("Index");
         }
 
         public List<PosPurchaseDetail> AddMasterinpurchasedetail(PosPurchaseSavemodel PosPurchaseSavemodel)
@@ -149,6 +210,25 @@ namespace IMS.Areas.Pos.Controllers
                 });
             }
             return Purchasedetails;
+        }
+        public List<Stock> AddMasterinstock(PosPurchaseSavemodel PosPurchaseSavemodel)
+        {
+            var Stock = new List<Stock>();
+            foreach (var t in PosPurchaseSavemodel.StockList)
+            {
+                Stock.Add(new Stock
+                {
+                    Id = t.Id,
+                    PosPurchaseMasterId=PosPurchaseSavemodel.dynamicId,
+                    ProductId=t.ProductId,
+                    CategoryId=t.CategoryId,
+                    StockIn=t.StockIn,
+                    StockOut=0,
+                    UserId=t.UserId,
+                    Date = t.Date,
+                });
+            }
+            return Stock;
         }
     }
 }
