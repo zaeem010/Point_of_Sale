@@ -3,8 +3,6 @@ using IMS.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace IMS.Controllers
@@ -20,6 +18,10 @@ namespace IMS.Controllers
         public async Task<IActionResult> Index()
         {
             var Li = await _db.Cargo.ToListAsync();
+            //        var blogs = _db.Cargo
+            //.FromSqlRaw($"SELECT * FROM dbo.SearchBlogs({Li})")
+            //.AsNoTracking()
+            //.ToList();
             return View(Li);
         }
         [Route("/Cargo/Create")]
@@ -31,18 +33,27 @@ namespace IMS.Controllers
         public async Task<IActionResult> Save(Cargo Cargo)
         {
             string d;
-            if (Cargo.Id == 0)
+            try
             {
-                await _db.Cargo.AddAsync(Cargo);
-                AddNotificationToView("Registerd Successfully", true);
-                d = "Create";
+                if (Cargo.Id == 0)
+                {
+                    await _db.Cargo.AddAsync(Cargo);
+                    AddNotificationToView("Registerd Successfully", true);
+                    d = "Create";
+                }
+                else
+                {
+                    _db.Cargo.Update(Cargo);
+                    AddNotificationToView("Updated Successfully", true);
+                    d = "Index";
+                }
             }
-            else
+            catch (Exception e)
             {
-                _db.Cargo.Update(Cargo);
-                AddNotificationToView("Updated Successfully", true);
-                d = "Index";
+                AddNotificationToView("Error" + e.Message, false);
+                throw;
             }
+
             await _db.SaveChangesAsync();
             return RedirectToAction(d);
         }

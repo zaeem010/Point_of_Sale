@@ -3,7 +3,6 @@ using IMS.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -46,13 +45,13 @@ namespace IMS.Controllers
                 Supplier.Verify = true;
                 await _db.Supplier.AddAsync(Supplier);
                 await _db.ThirdLevel.AddAsync(thirdlevel);
-                
+
                 AddNotificationToView("Registerd Successfully", true);
                 d = "Create";
             }
             else
             {
-                thirdlevel = await _db.ThirdLevel.SingleOrDefaultAsync(c=>c.Id.Equals(Supplier.ThirdLevelId));
+                thirdlevel = await _db.ThirdLevel.SingleOrDefaultAsync(c => c.Id.Equals(Supplier.ThirdLevelId));
                 thirdlevel.AccountTitle = Supplier.Name;
                 _db.Supplier.Update(Supplier);
                 AddNotificationToView("Updated Successfully", true);
@@ -66,6 +65,21 @@ namespace IMS.Controllers
         {
             var Li = await _db.Supplier.SingleOrDefaultAsync(c => c.Id.Equals(Id));
             return View("Create", Li);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Delete(long Id)
+        {
+            try
+            {
+                var db = await _db.Supplier.SingleOrDefaultAsync(c => c.Id.Equals(Id));
+                AddNotificationToView("Deleted Successfully", true);
+            }
+            catch (Exception e)
+            {
+                AddNotificationToView("Error " + e.Message, true);
+                throw;
+            }
+            return RedirectToAction("Index");
         }
     }
 }
