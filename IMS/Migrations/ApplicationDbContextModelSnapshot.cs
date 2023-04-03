@@ -175,7 +175,7 @@ namespace IMS.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("PosPurchaseMasterId")
+                    b.Property<long>("PosMasterId")
                         .HasColumnType("bigint");
 
                     b.Property<long>("ProductId")

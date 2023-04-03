@@ -965,3 +965,5 @@ E:\MyProjects\IMS\IMS\obj\Debug\net5.0\staticwebassets\msbuild.IMS.Microsoft.Asp
 E:\MyProjects\IMS\IMS\obj\Debug\net5.0\staticwebassets\msbuild.build.IMS.props
 E:\MyProjects\IMS\IMS\obj\Debug\net5.0\staticwebassets\msbuild.buildMultiTargeting.IMS.props
 E:\MyProjects\IMS\IMS\obj\Debug\net5.0\staticwebassets\msbuild.buildTransitive.IMS.props
+E:\MyProjects\IMS\IMS\obj\Debug\net5.0\Razor\Views\Shared\_Sale.cshtml.g.cs
+E:\MyProjects\IMS\IMS\obj\Debug\net5.0\Razor\Areas\Pos\Views\Sale\Salescreen.cshtml.g.cs

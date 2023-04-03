@@ -1,0 +1,75 @@
+﻿@using Microsoft.AspNetCore.Http;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Sale Screen</title>
+    <meta name="description" content="Updates and statistics" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!--begin::Fonts-->
+    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" /> -->
+    <!--end::Fonts-->
+    <!-- Favicon icon -->
+    <link rel="icon" href="~/ThandapaniLogo.jpeg" type="image/x-icon">
+    <!--begin::Global Theme Styles(used by all pages)-->
+    <link href="~/Sale/assets/css/stylec619.css?v=1.0" rel="stylesheet" type="text/css" />
+
+    <!--end::Global Theme Styles-->
+
+    <link href="~/Sale/assets/api/pace/pace-theme-flat-top.css" rel="stylesheet" type="text/css" />
+    <link href="~/Sale/assets/api/mcustomscrollbar/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css" />
+
+    <link href="~/Sale/Outer/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="~/Sale/Outer/multiple-select.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/Sale/Outer/daterangepicker.css" />
+
+
+    <link rel="shortcut icon" href="~/Sale/assets/media/logos/favicon.html" />
+</head>
+<!--end::Head-->
+<!--begin::Body-->
+
+<body id="tc_body" class="header-fixed header-mobile-fixed subheader-enabled aside-enabled aside-fixed">
+    <!-- Paste this code after body tag -->
+    @RenderBody()
+    
+    
+    <script src="~/Sale/assets/js/plugin.bundle.min.js"></script>
+    <script src="~/Sale/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Sale/Outer/jquery.dataTables.min.js"></script>
+    <script src="~/Sale/Outer/multiple-select.min.js"></script>
+    <script src="~/Sale/assets/js/sweetalert.js"></script>
+    <script src="~/Sale/assets/js/sweetalert1.js"></script>
+    <script src="~/Sale/assets/js/script.bundle.js"></script>
+    <script>
+        jQuery(function () {
+            jQuery('.arabic-select').multipleSelect({
+                filter: true,
+                filterAcceptOnEnter: true
+            })
+        });
+        jQuery(function () {
+            jQuery('.js-example-basic-single').multipleSelect({
+                filter: true,
+                filterAcceptOnEnter: true
+            })
+        });
+        jQuery(document).ready(function () {
+            jQuery('#orderTable').DataTable({
+
+                "info": false,
+                "paging": false,
+                "searching": false,
+
+                "columnDefs": [{
+                    "targets": 'no-sort',
+                    "orderable": false,
+                }]
+            });
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,4 +1,5 @@
 ﻿using IMS.Areas.Pos.Models;
+using IMS.Controllers;
 using IMS.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -7,7 +8,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using IMS.Controllers;
 
 namespace IMS.Areas.Pos.Controllers
 {
@@ -40,26 +40,26 @@ namespace IMS.Areas.Pos.Controllers
             IEnumerable<SelectListItem> ProductList = _db.Product.Select(c => new SelectListItem
             {
                 Value = c.Id.ToString(),
-                Text = $"{c.Name} || {c.Sku}" 
+                Text = $"{c.Name} || {c.Sku}"
             });
             IEnumerable<SelectListItem> CategoryList = _db.Category.Select(c => new SelectListItem
             {
                 Value = c.Id.ToString(),
-                Text = c.Name 
+                Text = c.Name
             });
             IEnumerable<SelectListItem> SubCategoryList = _db.SubCategory.Select(c => new SelectListItem
             {
                 Value = c.Id.ToString(),
-                Text = c.Name 
+                Text = c.Name
             });
             PosPurchaseMaster.InvDate = DateTime.Now;
             var VM = new PurchaseVM
             {
                 SupplierList = SupplierList,
                 PosPurchaseMaster = PosPurchaseMaster,
-                CategoryList =CategoryList,
-                SubCategoryList=SubCategoryList,
-                ProductList=ProductList
+                CategoryList = CategoryList,
+                SubCategoryList = SubCategoryList,
+                ProductList = ProductList
             };
             return View(VM);
         }
@@ -67,7 +67,7 @@ namespace IMS.Areas.Pos.Controllers
         [HttpGet]
         public async Task<JsonResult> GetProductBysubList(long Id)
         {
-            var Li = await _db.Product.Where(x=>x.SubCategoryId.Equals(Id))
+            var Li = await _db.Product.Where(x => x.SubCategoryId.Equals(Id))
                 .ToListAsync();
             return Json(Li);
         }
@@ -75,7 +75,7 @@ namespace IMS.Areas.Pos.Controllers
         [HttpGet]
         public async Task<JsonResult> GetProductByCatList(long Id)
         {
-            var Li = await _db.Product.Where(x=>x.CategoryId.Equals(Id))
+            var Li = await _db.Product.Where(x => x.CategoryId.Equals(Id))
                 .ToListAsync();
             return Json(Li);
         }
@@ -112,7 +112,7 @@ namespace IMS.Areas.Pos.Controllers
                     string[] _vtype = new string[] { "POSPINV", "CPVPOSPINV" };
 
                     var D = await _db.PosPurchaseDetail.Where(c => c.PosPurchaseMasterId == PosPurchaseSavemodel.PosPurchaseMaster.Id).ToListAsync();
-                    var S = await _db.Stock.Where(c => c.PosPurchaseMasterId == PosPurchaseSavemodel.PosPurchaseMaster.Id).ToListAsync();
+                    var S = await _db.Stock.Where(c => c.PosMasterId == PosPurchaseSavemodel.PosPurchaseMaster.Id).ToListAsync();
                     var T = await _db.TranscationDetails.Where(c => c.Invid == PosPurchaseSavemodel.PosPurchaseMaster.Id && _vtype.Contains(c.Vtype)).ToListAsync();
                     _db.PosPurchaseDetail.RemoveRange(D);
                     _db.TranscationDetails.RemoveRange(T);
@@ -181,7 +181,7 @@ namespace IMS.Areas.Pos.Controllers
             string[] _vtype = new string[] { "POSPINV", "CPVPOSPINV" };
 
             var D = await _db.PosPurchaseDetail.Where(c => c.PosPurchaseMasterId == Id).ToListAsync();
-            var S = await _db.Stock.Where(c => c.PosPurchaseMasterId == Id).ToListAsync();
+            var S = await _db.Stock.Where(c => c.PosMasterId == Id).ToListAsync();
             var T = await _db.TranscationDetails.Where(c => c.Invid == Id && _vtype.Contains(c.Vtype)).ToListAsync();
             _db.PosPurchaseDetail.RemoveRange(D);
             _db.TranscationDetails.RemoveRange(T);
@@ -200,12 +200,12 @@ namespace IMS.Areas.Pos.Controllers
                 Purchasedetails.Add(new PosPurchaseDetail
                 {
                     Id = t.Id,
-                    PosPurchaseMasterId=PosPurchaseSavemodel.dynamicId,
-                    ProductId=t.ProductId,
-                    ProductName=t.ProductName,
-                    Unit=t.Unit,
-                    Qty=t.Qty,
-                    PurchasePrice=t.PurchasePrice,
+                    PosPurchaseMasterId = PosPurchaseSavemodel.dynamicId,
+                    ProductId = t.ProductId,
+                    ProductName = t.ProductName,
+                    Unit = t.Unit,
+                    Qty = t.Qty,
+                    PurchasePrice = t.PurchasePrice,
                     Total = t.Total,
                 });
             }
@@ -219,12 +219,12 @@ namespace IMS.Areas.Pos.Controllers
                 Stock.Add(new Stock
                 {
                     Id = t.Id,
-                    PosPurchaseMasterId=PosPurchaseSavemodel.dynamicId,
-                    ProductId=t.ProductId,
-                    CategoryId=t.CategoryId,
-                    StockIn=t.StockIn,
-                    StockOut=0,
-                    UserId=t.UserId,
+                    PosMasterId = PosPurchaseSavemodel.dynamicId,
+                    ProductId = t.ProductId,
+                    CategoryId = t.CategoryId,
+                    StockIn = t.StockIn,
+                    StockOut = 0,
+                    UserId = t.UserId,
                     Date = t.Date,
                 });
             }

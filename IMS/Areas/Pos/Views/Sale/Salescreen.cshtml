@@ -1,0 +1,665 @@
+﻿@{
+    ViewData["Title"] = "SaleScreen";
+    Layout = "~/Views/Shared/_Sale.cshtml";
+}
+<style>
+    .abc {
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .bgimage {
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    .donate-now {
+        list-style-type: none;
+        margin: 25px 0 0 0;
+        padding: 0;
+    }
+
+        .donate-now li {
+            float: left;
+            margin: 0 5px 0 0;
+            width: 100px;
+            height: 40px;
+            position: relative;
+        }
+
+        .donate-now label,
+        .donate-now input {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+            .donate-now input[type="radio"] {
+                opacity: 0.01;
+                z-index: 100;
+            }
+
+                .donate-now input[type="radio"]:checked + label,
+                .Checked + label {
+                    background: #ffd800;
+                }
+
+        .donate-now label {
+            padding: 5px;
+            border: 1px solid #CCC;
+            cursor: pointer;
+            z-index: 90;
+        }
+
+            .donate-now label:hover {
+                background: #DDD;
+            }
+</style>
+
+<div class="se-pre-con">
+    <div class="pre-loader">
+        <img class="img-fluid" src="~/Sale/assets/images/loadergif.gif" alt="loading">
+    </div>
+</div>
+<!-- pos header -->
+<header class="pos-header bg-white">
+    <div class="container-fluid">
+        <div class="row align-items-center" >
+            <div class="col-xl-4 col-lg-4 col-md-6">
+                @*<div class="greeting-text">
+                    <h3 class="card-label mb-0 font-weight-bold text-primary">
+                        WELCOME
+                    </h3>
+                    <h3 class="card-label mb-0 ">
+                        User
+                    </h3>
+                </div>*@
+
+            </div>
+            <div class="col-xl-4 col-lg-5 col-md-6  clock-main">
+                <div class="clock">
+                    <div class="datetime-content">
+                        <ul>
+                            <li id="hours"></li>
+                            <li id="point1">:</li>
+                            <li id="min"></li>
+                            <li id="point">:</li>
+                            <li id="sec"></li>
+                        </ul>
+                    </div>
+                    <div class="datetime-content">
+                        <div id="Date" class=""></div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="col-xl-4 col-lg-3 col-md-12  order-lg-last order-second">
+
+                <div class="topbar justify-content-end">
+                    <div class="dropdown mega-dropdown">
+
+                        <div class="dropdown-menu dropdown-menu-right calu" style="min-width: 248px;">
+                            <div class="calculator">
+                                <div class="input" id="input"></div>
+                                <div class="buttons">
+                                    <div class="operators">
+                                        <div>+</div>
+                                        <div>-</div>
+                                        <div>&times;</div>
+                                        <div>&divide;</div>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <div class="leftPanel">
+                                            <div class="numbers">
+                                                <div>7</div>
+                                                <div>8</div>
+                                                <div>9</div>
+                                            </div>
+                                            <div class="numbers">
+                                                <div>4</div>
+                                                <div>5</div>
+                                                <div>6</div>
+                                            </div>
+                                            <div class="numbers">
+                                                <div>1</div>
+                                                <div>2</div>
+                                                <div>3</div>
+                                            </div>
+                                            <div class="numbers">
+                                                <div>0</div>
+                                                <div>.</div>
+                                                <div id="clear">C</div>
+                                            </div>
+                                        </div>
+                                        <div class="equal" id="result">=</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="topbar-item folder-data">
+                        <div class="btn btn-icon  w-auto h-auto btn-clean d-flex align-items-center py-0 mr-3" data-toggle="modal" data-target="#folderpop">
+                            <span class="badge badge-pill badge-primary"></span>
+                            <span class="symbol symbol-35  symbol-light-success">
+                                <span class="symbol-label bg-warning font-size-h5 ">
+                                    <svg width="20px" height="20px" xmlns="http://www.w3.org/2000/svg" fill="#ffff" viewBox="0 0 16 16">
+                                        <path d="M9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3zm-8.322.12C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139z"></path>
+                                    </svg>
+                                </span>
+                            </span>
+                        </div>
+
+                    </div>
+
+                    <div class="dropdown">
+                        <div class="topbar-item" data-toggle="dropdown" data-display="static">
+                            <div class="btn btn-icon w-auto h-auto btn-clean d-flex align-items-center py-0">
+
+                                <span class="symbol symbol-35 symbol-light-success">
+                                    <span class="symbol-label font-size-h5 ">
+                                        <svg width="20px" height="20px" viewBox="0 0 16 16" class="bi bi-person-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"></path>
+                                        </svg>
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="dropdown-menu dropdown-menu-right" style="min-width: 150px;">
+                            <a asp-action="LogOut" asp-controller="Home" class="dropdown-item">
+                                Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="contentPOS">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-custom gutter-b bg-white border-0 table-contentpos" style="height: 150px; overflow-x: auto">
+                    <div class="card-body">
+                        <div class="form-row ">
+                           @* @foreach (var Lst in Model.CategoryList)
+                            {
+                                <div class="col-md-1 form-group" style="margin-left:20px">
+                                    <div class="productCard">
+                                        <a onclick="return get_products(@Lst.id)">
+                                            <div class="productThumb">
+                                                <img class="img-fluid" src="~/Uploads/@Lst.Img" style="height:100px;width:100px">
+                                                <p class="text-center"><b>@Lst.Name</b></p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            }*@
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-8"></div>
+            <div class="col-md-4"></div>
+            <ul class="donate-now">
+                <li style="width: 220px;height:50px">
+                    <input type="radio" onchange="yes(), getPriceQty(this.value);" id="yes" name="Zaeem" checked value="1">
+                    <label for="yes" class="text-center"><b >With Qty</b></label>
+                </li>
+                <li style="width: 220px; height: 50px">
+                    <input type="radio" onchange="no(), getPriceQty(this.value);" id="no" name="Zaeem" value="2">
+                    <label for="no" class="text-center"><b>With Price</b></label>
+                </li>
+            </ul>
+            
+        </div>
+        <div class="row">
+            <div class="col-xl-8 order-xl-first order-last">
+                <div class="card card-custom gutter-b bg-white border-0">
+                    <div class="product-items">
+                        <div class="row cc" style="padding:20px">
+                            @*<div class="col-xl-3">
+                                  <div class="productCard">
+                                      <a onclick="return add_tocart(1)">
+                                          <div class="productThumb">
+                                              <img class="img-fluid" src="/uploads/1002951764download (3).jpg">
+                                          </div>
+                                          <div class="productContent">
+                                              zaeem
+                                          </div>
+                                      </a>
+                                    </div>
+                                 <div class="btn-group">
+                                        <button type="button" onclick="inner(id ,this.id), outer(value ,this.value),add_tocart1();" class="btn btn-primary" value="1" id="2">2</button>
+                                        <button type="button" onclick="inner(id ,this.id), outer(value ,this.value),add_tocart1();" class="btn btn-primary" value="1" id="3">3</button>
+                                       <button type="button" onclick="inner(id ,this.id), outer(value ,this.value),add_tocart1();" class="btn btn-primary" value="1" id="4">4</button>
+                                       <button type="button" onclick="inner(id ,this.id), outer(value ,this.value),add_tocart1();" class="btn btn-primary" value="1" id="5">5</button>
+                                    </div>
+                                 <div class="btn-group">
+                                     <input type="number" id="ManualVal" class="form-control" value="" style="background:white;height:45px" autofocus/>
+                                     <button type="button"  onclick="outer(value ,this.value),add_tocart2();" class="btn btn-primary" value="1"><i class="fa fa-check"></i></button>
+                                 </div>
+                                </div>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-4 col-lg-8 col-md-8">
+                <button class="btn btn-primary col-md-12" style="margin-top:-100px">Total Sale's Today : 12</button>
+                
+                <form asp-action="Save" method="post" style="margin-top:-20px">
+                    <div class="card card-custom gutter-b bg-white border-0 table-contentpos">
+                        <div class="table-datapos">
+                            <div class="table-responsive" id="printableTable">
+                                <table id="invoiceItem" class="display" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Sale Price</th>
+                                            <th>Quantity</th>
+                                            <th>Subtotal</th>
+                                            <th class=" text-right no-sort"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="2"></td>
+                                            <td><b>Total</b></td>
+                                            <td colspan="2" style="width:40px !important"><input type="text" id="Total" class="form-control" readonly /></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2"></td>
+                                            <td><b>Discount</b></td>
+                                            <td style="width:40px !important" colspan="2"><input type="text" onkeyup="Sum();"  id="Dis" class="form-control" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2"></td>
+                                            <td><b>Grand Total</b></td>
+                                            <td style="width:40px !important" colspan="2"><input type="text"  id="GTotal" readonly class="form-control" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2"></td>
+                                            <td><b>Received Total</b></td>
+                                            <td style="width:40px !important" colspan="2"><input onkeyup="Balance();" type="text" name="RTotal" id="RTotal" class="form-control" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2"></td>
+                                            <td><b>Return Total</b></td>
+                                            <td style="width:40px !important" colspan="2"><input type="text" name="BTotal" id="BTotal" class="form-control" /></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group row mb-0">
+                                <div class="col-md-12 btn-submit d-flex justify-content-end">
+                                    <button type="submit" class="btn btn-secondary white pull-left">
+                                        <i class="fas fa-save mr-2"></i> Save
+                                    </button>
+                                    <button class="btn btn-secondary white" style="margin-left:30px" name="Print" value="1">
+                                        <i class="fas fa-print mr-2"></i>  Save With Print
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="proid"/>
+<input type="hidden"id="btnid"/>
+<input type="hidden"id="valid"/>
+<input type="hidden" id="PriceQty" value="1"/>
+<div class="modal fade text-left" id="folderpop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel14" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="myModalLabel14">Draft Orders</h3>
+                <button type="button" class="close rounded-pill btn btn-sm btn-icon btn-light btn-hover-primary m-0" data-dismiss="modal" aria-label="Close">
+                    <svg width="20px" height="20px" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body pos-ordermain">
+                <div class="row">
+                   @* @foreach (var lst in Model.SaleMasterList)
+                    {
+                        <div class="col-lg-4">
+                            <div class="pos-order">
+                                <h3 class="pos-order-title">Order @lst.Orderid</h3>
+                                <div class="orderdetail-pos">
+                                    <p>
+                                        <strong>Customer Name</strong>
+                                        @lst.CusName
+                                    </p>
+                                    <p>
+                                        <strong>Date And Time</strong>
+                                        @lst.Date
+                                    </p>
+                                    <p>
+                                        <strong>Net Amount</strong>
+                                        @lst.NetTotal
+                                    </p>
+                                    <p>
+                                        <strong>Discount</strong>
+                                        @lst.Discount
+                                    </p>
+                                    <p>
+                                        <strong>Total Bill</strong>
+                                        @lst.GTotal
+                                    </p>
+                                </div>
+                                <div class="d-flex justify-content-end">
+                                    <a asp-action="ChangeStatus" asp-route-id="@lst.Orderid" onclick="return confirm('Are you sure you want to Delete ?');"><i class="fas fa-trash-alt"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    }*@
+                </div>
+            </div>
+            @*<div class="modal-footer border-0">
+                    <div class="row">
+                        <div class="col-12">
+                            <a href="#" class="btn btn-primary">Submit</a>
+                        </div>
+                    </div>
+                </div>*@
+        </div>
+    </div>
+</div>
+
+<script>
+    function yes() {
+        if (document.getElementById('yes').checked) {
+            $("div#ifYes").show();
+        } 
+    }
+    function no() {
+        if (document.getElementById('no').checked) {
+            $("div#ifYes").hide();
+        } 
+    }
+    //
+    function inner(Btnid) {
+        document.getElementById("btnid").value = Btnid;
+    }
+    function getInputVal(inputvalue)
+    {
+        $('#valid').val(inputvalue);
+    };
+    function getPriceQty(PriceQty)
+    {
+        $('#PriceQty').val(PriceQty);
+    };
+    function outer(val) {
+        document.getElementById("proid").value = val;
+    };
+    //
+    function get_products(code)
+     {
+        $.ajax({
+            /**/
+            url: '@Url.Action("Check", "Home")',
+            type: "GET",
+            data: { "code": code },
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (data) {
+
+                var s = '';
+                for (var i = 0; i < data.length; i++) {
+                    s += '<div  class="col-xl-3" style="margin-top:5px;">';
+                    s += '<div class="productCard"> <a onclick="return add_tocart(' + data[i].id + ')"> ';
+                    s += '<div class="productThumb">';
+                    s += '<img class="img-fluid" src="/uploads/' + data[i].img +'" >';
+                    s += '</div>';
+                    s += '<div class="productContent text-center"><b>' + data[i].name + ' (Rs:' + data[i].sp + ' ' + data[i].unit +')</b>';
+                    s += '</div>';
+                    s += '</a></div>';
+                    s += '<div class="btn-group" id="ifYes">'
+                    s += '<button type="button"  onclick="inner(id ,this.id), outer(value ,this.value),add_tocart1();"  class="btn btn-primary" value="' + data[i].id + '" id="1">1</button>'
+                    s += '<button type="button"  onclick="inner(id ,this.id), outer(value ,this.value),add_tocart1();"  class="btn btn-primary" value="' + data[i].id + '" id="2">2</button>'
+                    s += '<button type="button"  onclick="inner(id ,this.id), outer(value ,this.value),add_tocart1();"  class="btn btn-primary" value="' + data[i].id + '" id="3">3</button>'
+                    s += '<button type="button"  onclick="inner(id ,this.id), outer(value ,this.value),add_tocart1();"  class="btn btn-primary" value="' + data[i].id + '" id="4">4</button>'
+                    //s += '<button type="button"  onclick="inner(id ,this.id), outer(value ,this.value),add_tocart1();"  class="btn btn-primary" value="' + data[i].id + '" id="5">5</button>'
+                    s +='</div >';
+                    s +='<div class="btn-group" style="margin-top:1px">';
+                    s +='<input type="number" id="ManualVal" onkeyup="getInputVal(this.value);" class="form-control" value="" style="background:white;height:45px;" autofocus/>';
+                    s += '<button type="button" onclick="outer(value ,this.value),add_tocart2();" id="buttonclick" style="height:45px;width:auto;" class="btn btn-primary" value="' + data[i].id + '"><i class="fa fa-check"></i></button>';
+                    s +=' </div> ';
+                    s += '</div>';
+
+                }
+                $('.cc').html(s);
+            }
+        });
+         $("#yes").prop("checked", true);
+         $('#PriceQty').val('1');
+    };
+    //
+    function Sum() {
+        var Total = $('#Total').val();
+        var Dis = $('#Dis').val();
+        var GTotal = parseFloat(Total) - parseFloat(Dis);
+        document.getElementById("GTotal").value = GTotal || 0;
+    }
+    function Balance() {
+
+        var RTotal = $('#RTotal').val();
+        var GTotal = $('#GTotal').val();
+        var BTotal = parseFloat(RTotal) - parseFloat(GTotal);
+        if (RTotal == 0) {
+            document.getElementById("BTotal").value = 0;
+        } else {
+            document.getElementById("BTotal").value = BTotal || 0;
+        }
+    }
+    //
+    function add_tocart1() {
+        var Proid = $('#proid').val();
+        var btnid = $('#btnid').val();
+
+        document.getElementById("Dis").value = 0;
+        document.getElementById("RTotal").value = 0;
+        document.getElementById("BTotal").value = 0;
+        $.ajax({
+            url: '@Url.Action("GetProduct1", "Home")',
+            /**/
+            type: "GET",
+            data: { "Proid": Proid, "Btnid": btnid },
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (data) {
+                $("tbody").children().remove();
+                var htmlRows = '';
+                for (var i = 0; i < data.length; i++) {
+                    htmlRows += '<tr>';
+                    htmlRows += '<td style="display:none"><input type="text"  name="item_id" value="' + data[i].itemid + '" required class="form-control" readonly autocomplete="off"></td>';
+                    htmlRows += '<td style="display:none"><input type="text"  name="item_name"  value="' + data[i].itemName + '" readonly class="form-control" autocomplete="off"></td>';
+                    htmlRows += '<td style="display:none"><input type="text"  name="sp"  value="' + data[i].sp + ' "   readonly class="form-control" autocomplete="off"></td>';
+                    htmlRows += '<td style="display:none"><input type="text"  name="qty"  value="' + data[i].qty + ' "  readonly class="form-control" autocomplete="off"></td>';
+                    htmlRows += '<td style="display:none"><input type="text"  name="net_total"  value="' + data[i].nTotal + '"  readonly class="form-control" autocomplete="off"></td>';
+                    htmlRows += '<td style="display:none"><input type="text"  name="Orderid"  value="' + data[i].orderid + '"  readonly class="form-control" autocomplete="off"></td>';
+                    htmlRows += '<td style="display:none">' + data[i].itemid + '</td>';
+                    htmlRows += '<td>' + data[i].itemName + '</td>';
+                    htmlRows += '<td>' + data[i].sp + '</td>';
+                    htmlRows += '<td>' + data[i].qty + '</td>';
+                    htmlRows += '<td>' + data[i].nTotal + '</td>';
+                    htmlRows += '<td style="width:40px !important"><a  class="btn btn-danger" style="background:red" onclick="return deleteRow(' + data[i].itemid + ')" ><i class="fa fa-trash"></i></a></td>';
+                    htmlRows += '</tr>';
+                }
+                $('#invoiceItem').append(htmlRows);
+
+                var table = document.getElementById("invoiceItem"), sumVal = 0;
+                for (var i = 1; i < table.rows.length; i++) {
+                    sumVal = sumVal + parseInt(table.rows[i].cells[10].innerHTML);
+                    document.getElementById("Total").value = sumVal;
+                    document.getElementById("GTotal").value = sumVal;
+                };
+            }
+        });
+
+    };
+    //
+    function add_tocart2() {
+        var Proid = $('#proid').val();
+        var btnid = $('#valid').val();
+        var PriceQty = $('#PriceQty').val();
+        //alert(PriceQty);
+
+
+        document.getElementById("Dis").value = 0;
+        document.getElementById("RTotal").value = 0;
+        document.getElementById("BTotal").value = 0;
+        $.ajax({
+            url: '@Url.Action("GetProduct1", "Home")',
+            /**/
+            type: "GET",
+            data: { "Proid": Proid, "Btnid": btnid, "PriceQty": PriceQty },
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (data) {
+                $("tbody").children().remove();
+                var htmlRows = '';
+                for (var i = 0; i < data.length; i++) {
+                    htmlRows += '<tr>';
+                    htmlRows += '<td style="display:none"><input type="text"  name="item_id" value="' + data[i].itemid + '" required class="form-control" readonly autocomplete="off"></td>';
+                    htmlRows += '<td style="display:none"><input type="text"  name="item_name"  value="' + data[i].itemName + '" readonly class="form-control" autocomplete="off"></td>';
+                    htmlRows += '<td style="display:none"><input type="text"  name="sp"  value="' + data[i].sp + ' "   readonly class="form-control" autocomplete="off"></td>';
+                    htmlRows += '<td style="display:none"><input type="text"  name="qty"  value="' + data[i].qty + ' "  readonly class="form-control" autocomplete="off"></td>';
+                    htmlRows += '<td style="display:none"><input type="text"  name="net_total"  value="' + data[i].nTotal + '"  readonly class="form-control" autocomplete="off"></td>';
+                    htmlRows += '<td style="display:none"><input type="text"  name="Orderid"  value="' + data[i].orderid + '"  readonly class="form-control" autocomplete="off"></td>';
+                    htmlRows += '<td style="display:none">' + data[i].itemid + '</td>';
+                    htmlRows += '<td>' + data[i].itemName + '</td>';
+                    htmlRows += '<td>' + data[i].sp + '</td>';
+                    htmlRows += '<td>' + data[i].qty + '</td>';
+                    htmlRows += '<td>' + data[i].nTotal + '</td>';
+                    htmlRows += '<td style="width:40px !important"><a  class="btn btn-danger" style="background:red" onclick="return deleteRow(' + data[i].itemid + ')" ><i class="fa fa-trash"></i></a></td>';
+                    htmlRows += '</tr>';
+                }
+                $('#invoiceItem').append(htmlRows);
+                $("input#ManualVal").val("");
+                //$('#ManualVal').val('');
+                $('#valid').val('');
+                var table = document.getElementById("invoiceItem"), sumVal = 0;
+                for (var i = 1; i < table.rows.length; i++) {
+                    sumVal = sumVal + parseInt(table.rows[i].cells[10].innerHTML);
+                    document.getElementById("Total").value = sumVal;
+                    document.getElementById("GTotal").value = sumVal;
+                };
+            }
+        });
+
+    };
+    //
+    function add_tocart(code) {
+        document.getElementById("Dis").value = 0;
+        document.getElementById("RTotal").value = 0;
+        document.getElementById("BTotal").value = 0;
+        $.ajax({
+            url: '@Url.Action("GetProduct", "Home")',
+            /**/
+            type: "GET",
+            data: { "code": code },
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (data) {
+                $("tbody").children().remove();
+                var htmlRows = '';
+                for (var i = 0; i < data.length; i++) {
+                    htmlRows += '<tr>';
+                    htmlRows += '<td style="display:none"><input type="text"  name="item_id" id="item_id"  value="' + data[i].itemid + '" required class="form-control" readonly autocomplete="off"></td>';
+                    htmlRows += '<td style="display:none"><input type="text"  name="item_name"  value="' + data[i].itemName + '" readonly class="form-control" autocomplete="off"></td>';
+                    htmlRows += '<td style="display:none"><input type="text"  name="sp"  value="' + data[i].sp + ' "   readonly class="form-control" autocomplete="off"></td>';
+                    htmlRows += '<td style="display:none"><input type="text"  name="qty"  value="' + data[i].qty + ' "  readonly class="form-control" autocomplete="off"></td>';
+                    htmlRows += '<td style="display:none"><input type="text"  name="net_total"  value="' + data[i].nTotal + '"  readonly class="form-control" autocomplete="off"></td>';
+                    htmlRows += '<td style="display:none"><input type="text"  name="Orderid"  value="' + data[i].orderid + '"  readonly class="form-control" autocomplete="off"></td>';
+                    htmlRows += '<td style="display:none">' + data[i].itemid + '</td>';
+                    htmlRows += '<td>' + data[i].itemName + '</td>';
+                    htmlRows += '<td>' + data[i].sp + '</td>';
+                    htmlRows += '<td>' + data[i].qty + '</td>';
+                    htmlRows += '<td>' + data[i].nTotal + '</td>';
+                    htmlRows += '<td style="width:40px !important"><a  class="btn btn-danger" style="background:red" onclick="return deleteRow(' + data[i].itemid + ')" ><i class="fa fa-trash"></i></a></td>';
+                    htmlRows += '</tr>';
+                }
+                $('#invoiceItem').append(htmlRows);
+
+                var table = document.getElementById("invoiceItem"), sumVal = 0;
+                for (var i = 1; i < table.rows.length; i++) {
+                    sumVal = sumVal + parseInt(table.rows[i].cells[10].innerHTML);
+                    document.getElementById("Total").value = sumVal;
+                    document.getElementById("GTotal").value = sumVal;
+
+                };
+            }
+        });
+
+    };
+    //
+    function deleteRow(code)
+    {
+        if (confirm("Are you sure want to delete the row?"))
+            document.getElementById("Total").value = 0;
+            document.getElementById("GTotal").value = 0;
+            document.getElementById("Dis").value = 0;
+            document.getElementById("RTotal").value = 0;
+            document.getElementById("BTotal").value = 0;
+        $.ajax({
+            url: '@Url.Action("Delete", "Home")',
+            /**/
+            type: "GET",
+            data: { "code": code },
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (data) {
+                $("tbody").children().remove();
+                var htmlRows = '';
+                for (var i = 0; i < data.length; i++) {
+                    htmlRows += '<tr>';
+                    htmlRows += '<td style="display:none"><input type="text"  name="item_id" id="item_id"  value="' + data[i].itemid + '" required class="form-control" readonly autocomplete="off"></td>';
+                    htmlRows += '<td style="display:none"><input type="text"  name="item_name"  value="' + data[i].itemName + '" readonly class="form-control" autocomplete="off"></td>';
+                    htmlRows += '<td style="display:none"><input type="text"  name="sp"  value="' + data[i].sp + ' "   readonly class="form-control" autocomplete="off"></td>';
+                    htmlRows += '<td style="display:none"><input type="text"  name="qty"  value="' + data[i].qty + ' "  readonly class="form-control" autocomplete="off"></td>';
+                    htmlRows += '<td style="display:none"><input type="text"  name="net_total"  value="' + data[i].nTotal + '"  readonly class="form-control" autocomplete="off"></td>';
+                    htmlRows += '<td style="display:none"><input type="text"  name="Orderid"  value="' + data[i].orderid + '"  readonly class="form-control" autocomplete="off"></td>';
+                    htmlRows += '<td style="display:none">' + data[i].itemid + '</td>';
+                    htmlRows += '<td>' + data[i].itemName + '</td>';
+                    htmlRows += '<td>' + data[i].sp + '</td>';
+                    htmlRows += '<td>' + data[i].qty + '</td>';
+                    htmlRows += '<td>' + data[i].nTotal + '</td>';
+                    htmlRows += '<td style="width:40px !important"><a  class="btn btn-danger" style="background:red" onclick="return deleteRow(' + data[i].itemid + ')" ><i class="fa fa-trash"></i></a></td>';
+                    htmlRows += '</tr>';
+                }
+                $('#invoiceItem').append(htmlRows);
+
+                var table = document.getElementById("invoiceItem"), sumVal = 0;
+                for (var i = 1; i < table.rows.length; i++) {
+                    sumVal = sumVal + parseInt(table.rows[i].cells[10].innerHTML);
+                    document.getElementById("Total").value = sumVal;
+                    document.getElementById("GTotal").value = sumVal;
+                };
+            }
+        });
+
+    }
+</script>
+
+
+
