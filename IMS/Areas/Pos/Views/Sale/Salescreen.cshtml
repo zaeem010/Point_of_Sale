@@ -1,7 +1,10 @@
-﻿@{
+﻿@model SaleScreenVM
+@{
     ViewData["Title"] = "SaleScreen";
     Layout = "~/Views/Shared/_Sale.cshtml";
+    int ca = 1, sca =1;
 }
+<script src="/js/Addeditsale.js" asp-append-version="true"></script>
 <style>
     .abc {
         overflow-x: auto;
@@ -187,31 +190,51 @@
 <div class="contentPOS">
     <div class="container-fluid">
         <div class="row">
+            
             <div class="col-md-12">
                 <div class="card card-custom gutter-b bg-white border-0 table-contentpos" style="height: 150px; overflow-x: auto">
                     <div class="card-body">
                         <div class="form-row ">
-                           @* @foreach (var Lst in Model.CategoryList)
+                            @foreach (var Lst in Model.Categorys)
                             {
+                                string imgpath = "/no-image.png";
+                                if (Lst.ImagePath != null)
+                                {
+                                    imgpath = $"/Uploads/{Lst.ImagePath}";
+                                }
                                 <div class="col-md-1 form-group" style="margin-left:20px">
                                     <div class="productCard">
-                                        <a onclick="return get_products(@Lst.id)">
+                                        <a href="javascript:Getproducts(@Lst.Id)">
                                             <div class="productThumb">
-                                                <img class="img-fluid" src="~/Uploads/@Lst.Img" style="height:100px;width:100px">
+                                                <img class="img-fluid" src="@imgpath" style="height:100px;width:100px">
                                                 <p class="text-center"><b>@Lst.Name</b></p>
                                             </div>
                                         </a>
                                     </div>
                                 </div>
-                            }*@
+                            }
                         </div>
                     </div>
                 </div>
 
             </div>
+            
+            
             <div class="col-md-8"></div>
             <div class="col-md-4"></div>
-            <ul class="donate-now">
+
+            <div class="col-md-4 mb-2">
+                <label><b>Search by Name</b></label>
+                <input type="text" class="form-control" autofocus="" />
+            </div>
+            <div class="col-md-4 mb-2">
+                <label><b>Search by Price</b></label>
+                <input type="number" class="form-control" />
+            </div>
+           
+           
+                         
+           @* <ul class="donate-now">
                 <li style="width: 220px;height:50px">
                     <input type="radio" onchange="yes(), getPriceQty(this.value);" id="yes" name="Zaeem" checked value="1">
                     <label for="yes" class="text-center"><b >With Qty</b></label>
@@ -220,7 +243,7 @@
                     <input type="radio" onchange="no(), getPriceQty(this.value);" id="no" name="Zaeem" value="2">
                     <label for="no" class="text-center"><b>With Price</b></label>
                 </li>
-            </ul>
+            </ul>*@
             
         </div>
         <div class="row">
@@ -228,28 +251,37 @@
                 <div class="card card-custom gutter-b bg-white border-0">
                     <div class="product-items">
                         <div class="row cc" style="padding:20px">
-                            @*<div class="col-xl-3">
-                                  <div class="productCard">
-                                      <a onclick="return add_tocart(1)">
-                                          <div class="productThumb">
-                                              <img class="img-fluid" src="/uploads/1002951764download (3).jpg">
-                                          </div>
-                                          <div class="productContent">
-                                              zaeem
-                                          </div>
-                                      </a>
+                            @foreach (var pro in Model.Products)
+                            {
+                                string imgpath = "/no-image.png";
+                                if (pro.ImagePath != null)
+                                {
+                                    imgpath = $"/Uploads/{pro.ImagePath}";
+                                }
+                                <div class="col-xl-3">
+                                    <div class="productCard">
+                                        <a onclick="return add_tocart(@pro.Id)">
+                                            <div class="productThumb">
+                                                <img class="img-fluid" src="@imgpath">
+                                            </div>
+                                            <div class="productContent text-center">
+                                                @pro.Name <b>Sp:@pro.SalePrice</b>
+                                            </div>
+                                        </a>
                                     </div>
-                                 <div class="btn-group">
+                                    <div class="btn-group">
                                         <button type="button" onclick="inner(id ,this.id), outer(value ,this.value),add_tocart1();" class="btn btn-primary" value="1" id="2">2</button>
                                         <button type="button" onclick="inner(id ,this.id), outer(value ,this.value),add_tocart1();" class="btn btn-primary" value="1" id="3">3</button>
-                                       <button type="button" onclick="inner(id ,this.id), outer(value ,this.value),add_tocart1();" class="btn btn-primary" value="1" id="4">4</button>
-                                       <button type="button" onclick="inner(id ,this.id), outer(value ,this.value),add_tocart1();" class="btn btn-primary" value="1" id="5">5</button>
+                                        <button type="button" onclick="inner(id ,this.id), outer(value ,this.value),add_tocart1();" class="btn btn-primary" value="1" id="4">4</button>
+                                        <button type="button" onclick="inner(id ,this.id), outer(value ,this.value),add_tocart1();" class="btn btn-primary" value="1" id="5">5</button>
                                     </div>
-                                 <div class="btn-group">
-                                     <input type="number" id="ManualVal" class="form-control" value="" style="background:white;height:45px" autofocus/>
-                                     <button type="button"  onclick="outer(value ,this.value),add_tocart2();" class="btn btn-primary" value="1"><i class="fa fa-check"></i></button>
-                                 </div>
-                                </div>*@
+                                    <div class="btn-group">
+                                        <input type="number" id="ManualVal" class="form-control" value="1" style="background:white;height:45px" autofocus />
+                                        <button type="button" onclick="outer(value ,this.value),add_tocart2();" class="btn btn-primary" value="1"><i class="fa fa-check"></i></button>
+                                    </div>
+                                </div>
+                            }
+                            
                         </div>
                     </div>
                 </div>
@@ -386,279 +418,279 @@
 </div>
 
 <script>
-    function yes() {
-        if (document.getElementById('yes').checked) {
-            $("div#ifYes").show();
-        } 
-    }
-    function no() {
-        if (document.getElementById('no').checked) {
-            $("div#ifYes").hide();
-        } 
-    }
-    //
-    function inner(Btnid) {
-        document.getElementById("btnid").value = Btnid;
-    }
-    function getInputVal(inputvalue)
-    {
-        $('#valid').val(inputvalue);
-    };
-    function getPriceQty(PriceQty)
-    {
-        $('#PriceQty').val(PriceQty);
-    };
-    function outer(val) {
-        document.getElementById("proid").value = val;
-    };
-    //
-    function get_products(code)
-     {
-        $.ajax({
-            /**/
-            url: '@Url.Action("Check", "Home")',
-            type: "GET",
-            data: { "code": code },
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            success: function (data) {
+    //function yes() {
+    //    if (document.getElementById('yes').checked) {
+    //        $("div#ifYes").show();
+    //    } 
+    //}
+    //function no() {
+    //    if (document.getElementById('no').checked) {
+    //        $("div#ifYes").hide();
+    //    } 
+    //}
+    ////
+    //function inner(Btnid) {
+    //    document.getElementById("btnid").value = Btnid;
+    //}
+    //function getInputVal(inputvalue)
+    //{
+    //    $('#valid').val(inputvalue);
+    //};
+    //function getPriceQty(PriceQty)
+    //{
+    //    $('#PriceQty').val(PriceQty);
+    //};
+    //function outer(val) {
+    //    document.getElementById("proid").value = val;
+    //};
+    ////
+    //function get_products(code)
+    // {
+    //    $.ajax({
+    //        /**/
+    //        
+    //        type: "GET",
+    //        data: { "code": code },
+    //        contentType: 'application/json; charset=utf-8',
+    //        dataType: 'json',
+    //        success: function (data) {
 
-                var s = '';
-                for (var i = 0; i < data.length; i++) {
-                    s += '<div  class="col-xl-3" style="margin-top:5px;">';
-                    s += '<div class="productCard"> <a onclick="return add_tocart(' + data[i].id + ')"> ';
-                    s += '<div class="productThumb">';
-                    s += '<img class="img-fluid" src="/uploads/' + data[i].img +'" >';
-                    s += '</div>';
-                    s += '<div class="productContent text-center"><b>' + data[i].name + ' (Rs:' + data[i].sp + ' ' + data[i].unit +')</b>';
-                    s += '</div>';
-                    s += '</a></div>';
-                    s += '<div class="btn-group" id="ifYes">'
-                    s += '<button type="button"  onclick="inner(id ,this.id), outer(value ,this.value),add_tocart1();"  class="btn btn-primary" value="' + data[i].id + '" id="1">1</button>'
-                    s += '<button type="button"  onclick="inner(id ,this.id), outer(value ,this.value),add_tocart1();"  class="btn btn-primary" value="' + data[i].id + '" id="2">2</button>'
-                    s += '<button type="button"  onclick="inner(id ,this.id), outer(value ,this.value),add_tocart1();"  class="btn btn-primary" value="' + data[i].id + '" id="3">3</button>'
-                    s += '<button type="button"  onclick="inner(id ,this.id), outer(value ,this.value),add_tocart1();"  class="btn btn-primary" value="' + data[i].id + '" id="4">4</button>'
-                    //s += '<button type="button"  onclick="inner(id ,this.id), outer(value ,this.value),add_tocart1();"  class="btn btn-primary" value="' + data[i].id + '" id="5">5</button>'
-                    s +='</div >';
-                    s +='<div class="btn-group" style="margin-top:1px">';
-                    s +='<input type="number" id="ManualVal" onkeyup="getInputVal(this.value);" class="form-control" value="" style="background:white;height:45px;" autofocus/>';
-                    s += '<button type="button" onclick="outer(value ,this.value),add_tocart2();" id="buttonclick" style="height:45px;width:auto;" class="btn btn-primary" value="' + data[i].id + '"><i class="fa fa-check"></i></button>';
-                    s +=' </div> ';
-                    s += '</div>';
+    //            var s = '';
+    //            for (var i = 0; i < data.length; i++) {
+    //                s += '<div  class="col-xl-3" style="margin-top:5px;">';
+    //                s += '<div class="productCard"> <a onclick="return add_tocart(' + data[i].id + ')"> ';
+    //                s += '<div class="productThumb">';
+    //                s += '<img class="img-fluid" src="/uploads/' + data[i].img +'" >';
+    //                s += '</div>';
+    //                s += '<div class="productContent text-center"><b>' + data[i].name + ' (Rs:' + data[i].sp + ' ' + data[i].unit +')</b>';
+    //                s += '</div>';
+    //                s += '</a></div>';
+    //                s += '<div class="btn-group" id="ifYes">'
+    //                s += '<button type="button"  onclick="inner(id ,this.id), outer(value ,this.value),add_tocart1();"  class="btn btn-primary" value="' + data[i].id + '" id="1">1</button>'
+    //                s += '<button type="button"  onclick="inner(id ,this.id), outer(value ,this.value),add_tocart1();"  class="btn btn-primary" value="' + data[i].id + '" id="2">2</button>'
+    //                s += '<button type="button"  onclick="inner(id ,this.id), outer(value ,this.value),add_tocart1();"  class="btn btn-primary" value="' + data[i].id + '" id="3">3</button>'
+    //                s += '<button type="button"  onclick="inner(id ,this.id), outer(value ,this.value),add_tocart1();"  class="btn btn-primary" value="' + data[i].id + '" id="4">4</button>'
+    //                //s += '<button type="button"  onclick="inner(id ,this.id), outer(value ,this.value),add_tocart1();"  class="btn btn-primary" value="' + data[i].id + '" id="5">5</button>'
+    //                s +='</div >';
+    //                s +='<div class="btn-group" style="margin-top:1px">';
+    //                s +='<input type="number" id="ManualVal" onkeyup="getInputVal(this.value);" class="form-control" value="" style="background:white;height:45px;" autofocus/>';
+    //                s += '<button type="button" onclick="outer(value ,this.value),add_tocart2();" id="buttonclick" style="height:45px;width:auto;" class="btn btn-primary" value="' + data[i].id + '"><i class="fa fa-check"></i></button>';
+    //                s +=' </div> ';
+    //                s += '</div>';
 
-                }
-                $('.cc').html(s);
-            }
-        });
-         $("#yes").prop("checked", true);
-         $('#PriceQty').val('1');
-    };
-    //
-    function Sum() {
-        var Total = $('#Total').val();
-        var Dis = $('#Dis').val();
-        var GTotal = parseFloat(Total) - parseFloat(Dis);
-        document.getElementById("GTotal").value = GTotal || 0;
-    }
-    function Balance() {
+    //            }
+    //            $('.cc').html(s);
+    //        }
+    //    });
+    //     $("#yes").prop("checked", true);
+    //     $('#PriceQty').val('1');
+    //};
+    ////
+    //function Sum() {
+    //    var Total = $('#Total').val();
+    //    var Dis = $('#Dis').val();
+    //    var GTotal = parseFloat(Total) - parseFloat(Dis);
+    //    document.getElementById("GTotal").value = GTotal || 0;
+    //}
+    //function Balance() {
 
-        var RTotal = $('#RTotal').val();
-        var GTotal = $('#GTotal').val();
-        var BTotal = parseFloat(RTotal) - parseFloat(GTotal);
-        if (RTotal == 0) {
-            document.getElementById("BTotal").value = 0;
-        } else {
-            document.getElementById("BTotal").value = BTotal || 0;
-        }
-    }
-    //
-    function add_tocart1() {
-        var Proid = $('#proid').val();
-        var btnid = $('#btnid').val();
+    //    var RTotal = $('#RTotal').val();
+    //    var GTotal = $('#GTotal').val();
+    //    var BTotal = parseFloat(RTotal) - parseFloat(GTotal);
+    //    if (RTotal == 0) {
+    //        document.getElementById("BTotal").value = 0;
+    //    } else {
+    //        document.getElementById("BTotal").value = BTotal || 0;
+    //    }
+    //}
+    ////
+    //function add_tocart1() {
+    //    var Proid = $('#proid').val();
+    //    var btnid = $('#btnid').val();
 
-        document.getElementById("Dis").value = 0;
-        document.getElementById("RTotal").value = 0;
-        document.getElementById("BTotal").value = 0;
-        $.ajax({
-            url: '@Url.Action("GetProduct1", "Home")',
-            /**/
-            type: "GET",
-            data: { "Proid": Proid, "Btnid": btnid },
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            success: function (data) {
-                $("tbody").children().remove();
-                var htmlRows = '';
-                for (var i = 0; i < data.length; i++) {
-                    htmlRows += '<tr>';
-                    htmlRows += '<td style="display:none"><input type="text"  name="item_id" value="' + data[i].itemid + '" required class="form-control" readonly autocomplete="off"></td>';
-                    htmlRows += '<td style="display:none"><input type="text"  name="item_name"  value="' + data[i].itemName + '" readonly class="form-control" autocomplete="off"></td>';
-                    htmlRows += '<td style="display:none"><input type="text"  name="sp"  value="' + data[i].sp + ' "   readonly class="form-control" autocomplete="off"></td>';
-                    htmlRows += '<td style="display:none"><input type="text"  name="qty"  value="' + data[i].qty + ' "  readonly class="form-control" autocomplete="off"></td>';
-                    htmlRows += '<td style="display:none"><input type="text"  name="net_total"  value="' + data[i].nTotal + '"  readonly class="form-control" autocomplete="off"></td>';
-                    htmlRows += '<td style="display:none"><input type="text"  name="Orderid"  value="' + data[i].orderid + '"  readonly class="form-control" autocomplete="off"></td>';
-                    htmlRows += '<td style="display:none">' + data[i].itemid + '</td>';
-                    htmlRows += '<td>' + data[i].itemName + '</td>';
-                    htmlRows += '<td>' + data[i].sp + '</td>';
-                    htmlRows += '<td>' + data[i].qty + '</td>';
-                    htmlRows += '<td>' + data[i].nTotal + '</td>';
-                    htmlRows += '<td style="width:40px !important"><a  class="btn btn-danger" style="background:red" onclick="return deleteRow(' + data[i].itemid + ')" ><i class="fa fa-trash"></i></a></td>';
-                    htmlRows += '</tr>';
-                }
-                $('#invoiceItem').append(htmlRows);
+    //    document.getElementById("Dis").value = 0;
+    //    document.getElementById("RTotal").value = 0;
+    //    document.getElementById("BTotal").value = 0;
+    //    $.ajax({
+    //        
+    //        /**/
+    //        type: "GET",
+    //        data: { "Proid": Proid, "Btnid": btnid },
+    //        contentType: 'application/json; charset=utf-8',
+    //        dataType: 'json',
+    //        success: function (data) {
+    //            $("tbody").children().remove();
+    //            var htmlRows = '';
+    //            for (var i = 0; i < data.length; i++) {
+    //                htmlRows += '<tr>';
+    //                htmlRows += '<td style="display:none"><input type="text"  name="item_id" value="' + data[i].itemid + '" required class="form-control" readonly autocomplete="off"></td>';
+    //                htmlRows += '<td style="display:none"><input type="text"  name="item_name"  value="' + data[i].itemName + '" readonly class="form-control" autocomplete="off"></td>';
+    //                htmlRows += '<td style="display:none"><input type="text"  name="sp"  value="' + data[i].sp + ' "   readonly class="form-control" autocomplete="off"></td>';
+    //                htmlRows += '<td style="display:none"><input type="text"  name="qty"  value="' + data[i].qty + ' "  readonly class="form-control" autocomplete="off"></td>';
+    //                htmlRows += '<td style="display:none"><input type="text"  name="net_total"  value="' + data[i].nTotal + '"  readonly class="form-control" autocomplete="off"></td>';
+    //                htmlRows += '<td style="display:none"><input type="text"  name="Orderid"  value="' + data[i].orderid + '"  readonly class="form-control" autocomplete="off"></td>';
+    //                htmlRows += '<td style="display:none">' + data[i].itemid + '</td>';
+    //                htmlRows += '<td>' + data[i].itemName + '</td>';
+    //                htmlRows += '<td>' + data[i].sp + '</td>';
+    //                htmlRows += '<td>' + data[i].qty + '</td>';
+    //                htmlRows += '<td>' + data[i].nTotal + '</td>';
+    //                htmlRows += '<td style="width:40px !important"><a  class="btn btn-danger" style="background:red" onclick="return deleteRow(' + data[i].itemid + ')" ><i class="fa fa-trash"></i></a></td>';
+    //                htmlRows += '</tr>';
+    //            }
+    //            $('#invoiceItem').append(htmlRows);
 
-                var table = document.getElementById("invoiceItem"), sumVal = 0;
-                for (var i = 1; i < table.rows.length; i++) {
-                    sumVal = sumVal + parseInt(table.rows[i].cells[10].innerHTML);
-                    document.getElementById("Total").value = sumVal;
-                    document.getElementById("GTotal").value = sumVal;
-                };
-            }
-        });
+    //            var table = document.getElementById("invoiceItem"), sumVal = 0;
+    //            for (var i = 1; i < table.rows.length; i++) {
+    //                sumVal = sumVal + parseInt(table.rows[i].cells[10].innerHTML);
+    //                document.getElementById("Total").value = sumVal;
+    //                document.getElementById("GTotal").value = sumVal;
+    //            };
+    //        }
+    //    });
 
-    };
-    //
-    function add_tocart2() {
-        var Proid = $('#proid').val();
-        var btnid = $('#valid').val();
-        var PriceQty = $('#PriceQty').val();
-        //alert(PriceQty);
+    //};
+    ////
+    //function add_tocart2() {
+    //    var Proid = $('#proid').val();
+    //    var btnid = $('#valid').val();
+    //    var PriceQty = $('#PriceQty').val();
+    //    //alert(PriceQty);
 
 
-        document.getElementById("Dis").value = 0;
-        document.getElementById("RTotal").value = 0;
-        document.getElementById("BTotal").value = 0;
-        $.ajax({
-            url: '@Url.Action("GetProduct1", "Home")',
-            /**/
-            type: "GET",
-            data: { "Proid": Proid, "Btnid": btnid, "PriceQty": PriceQty },
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            success: function (data) {
-                $("tbody").children().remove();
-                var htmlRows = '';
-                for (var i = 0; i < data.length; i++) {
-                    htmlRows += '<tr>';
-                    htmlRows += '<td style="display:none"><input type="text"  name="item_id" value="' + data[i].itemid + '" required class="form-control" readonly autocomplete="off"></td>';
-                    htmlRows += '<td style="display:none"><input type="text"  name="item_name"  value="' + data[i].itemName + '" readonly class="form-control" autocomplete="off"></td>';
-                    htmlRows += '<td style="display:none"><input type="text"  name="sp"  value="' + data[i].sp + ' "   readonly class="form-control" autocomplete="off"></td>';
-                    htmlRows += '<td style="display:none"><input type="text"  name="qty"  value="' + data[i].qty + ' "  readonly class="form-control" autocomplete="off"></td>';
-                    htmlRows += '<td style="display:none"><input type="text"  name="net_total"  value="' + data[i].nTotal + '"  readonly class="form-control" autocomplete="off"></td>';
-                    htmlRows += '<td style="display:none"><input type="text"  name="Orderid"  value="' + data[i].orderid + '"  readonly class="form-control" autocomplete="off"></td>';
-                    htmlRows += '<td style="display:none">' + data[i].itemid + '</td>';
-                    htmlRows += '<td>' + data[i].itemName + '</td>';
-                    htmlRows += '<td>' + data[i].sp + '</td>';
-                    htmlRows += '<td>' + data[i].qty + '</td>';
-                    htmlRows += '<td>' + data[i].nTotal + '</td>';
-                    htmlRows += '<td style="width:40px !important"><a  class="btn btn-danger" style="background:red" onclick="return deleteRow(' + data[i].itemid + ')" ><i class="fa fa-trash"></i></a></td>';
-                    htmlRows += '</tr>';
-                }
-                $('#invoiceItem').append(htmlRows);
-                $("input#ManualVal").val("");
-                //$('#ManualVal').val('');
-                $('#valid').val('');
-                var table = document.getElementById("invoiceItem"), sumVal = 0;
-                for (var i = 1; i < table.rows.length; i++) {
-                    sumVal = sumVal + parseInt(table.rows[i].cells[10].innerHTML);
-                    document.getElementById("Total").value = sumVal;
-                    document.getElementById("GTotal").value = sumVal;
-                };
-            }
-        });
+    //    document.getElementById("Dis").value = 0;
+    //    document.getElementById("RTotal").value = 0;
+    //    document.getElementById("BTotal").value = 0;
+    //    $.ajax({
+    //        
+    //        /**/
+    //        type: "GET",
+    //        data: { "Proid": Proid, "Btnid": btnid, "PriceQty": PriceQty },
+    //        contentType: 'application/json; charset=utf-8',
+    //        dataType: 'json',
+    //        success: function (data) {
+    //            $("tbody").children().remove();
+    //            var htmlRows = '';
+    //            for (var i = 0; i < data.length; i++) {
+    //                htmlRows += '<tr>';
+    //                htmlRows += '<td style="display:none"><input type="text"  name="item_id" value="' + data[i].itemid + '" required class="form-control" readonly autocomplete="off"></td>';
+    //                htmlRows += '<td style="display:none"><input type="text"  name="item_name"  value="' + data[i].itemName + '" readonly class="form-control" autocomplete="off"></td>';
+    //                htmlRows += '<td style="display:none"><input type="text"  name="sp"  value="' + data[i].sp + ' "   readonly class="form-control" autocomplete="off"></td>';
+    //                htmlRows += '<td style="display:none"><input type="text"  name="qty"  value="' + data[i].qty + ' "  readonly class="form-control" autocomplete="off"></td>';
+    //                htmlRows += '<td style="display:none"><input type="text"  name="net_total"  value="' + data[i].nTotal + '"  readonly class="form-control" autocomplete="off"></td>';
+    //                htmlRows += '<td style="display:none"><input type="text"  name="Orderid"  value="' + data[i].orderid + '"  readonly class="form-control" autocomplete="off"></td>';
+    //                htmlRows += '<td style="display:none">' + data[i].itemid + '</td>';
+    //                htmlRows += '<td>' + data[i].itemName + '</td>';
+    //                htmlRows += '<td>' + data[i].sp + '</td>';
+    //                htmlRows += '<td>' + data[i].qty + '</td>';
+    //                htmlRows += '<td>' + data[i].nTotal + '</td>';
+    //                htmlRows += '<td style="width:40px !important"><a  class="btn btn-danger" style="background:red" onclick="return deleteRow(' + data[i].itemid + ')" ><i class="fa fa-trash"></i></a></td>';
+    //                htmlRows += '</tr>';
+    //            }
+    //            $('#invoiceItem').append(htmlRows);
+    //            $("input#ManualVal").val("");
+    //            //$('#ManualVal').val('');
+    //            $('#valid').val('');
+    //            var table = document.getElementById("invoiceItem"), sumVal = 0;
+    //            for (var i = 1; i < table.rows.length; i++) {
+    //                sumVal = sumVal + parseInt(table.rows[i].cells[10].innerHTML);
+    //                document.getElementById("Total").value = sumVal;
+    //                document.getElementById("GTotal").value = sumVal;
+    //            };
+    //        }
+    //    });
 
-    };
-    //
-    function add_tocart(code) {
-        document.getElementById("Dis").value = 0;
-        document.getElementById("RTotal").value = 0;
-        document.getElementById("BTotal").value = 0;
-        $.ajax({
-            url: '@Url.Action("GetProduct", "Home")',
-            /**/
-            type: "GET",
-            data: { "code": code },
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            success: function (data) {
-                $("tbody").children().remove();
-                var htmlRows = '';
-                for (var i = 0; i < data.length; i++) {
-                    htmlRows += '<tr>';
-                    htmlRows += '<td style="display:none"><input type="text"  name="item_id" id="item_id"  value="' + data[i].itemid + '" required class="form-control" readonly autocomplete="off"></td>';
-                    htmlRows += '<td style="display:none"><input type="text"  name="item_name"  value="' + data[i].itemName + '" readonly class="form-control" autocomplete="off"></td>';
-                    htmlRows += '<td style="display:none"><input type="text"  name="sp"  value="' + data[i].sp + ' "   readonly class="form-control" autocomplete="off"></td>';
-                    htmlRows += '<td style="display:none"><input type="text"  name="qty"  value="' + data[i].qty + ' "  readonly class="form-control" autocomplete="off"></td>';
-                    htmlRows += '<td style="display:none"><input type="text"  name="net_total"  value="' + data[i].nTotal + '"  readonly class="form-control" autocomplete="off"></td>';
-                    htmlRows += '<td style="display:none"><input type="text"  name="Orderid"  value="' + data[i].orderid + '"  readonly class="form-control" autocomplete="off"></td>';
-                    htmlRows += '<td style="display:none">' + data[i].itemid + '</td>';
-                    htmlRows += '<td>' + data[i].itemName + '</td>';
-                    htmlRows += '<td>' + data[i].sp + '</td>';
-                    htmlRows += '<td>' + data[i].qty + '</td>';
-                    htmlRows += '<td>' + data[i].nTotal + '</td>';
-                    htmlRows += '<td style="width:40px !important"><a  class="btn btn-danger" style="background:red" onclick="return deleteRow(' + data[i].itemid + ')" ><i class="fa fa-trash"></i></a></td>';
-                    htmlRows += '</tr>';
-                }
-                $('#invoiceItem').append(htmlRows);
+    //};
+    ////
+    //function add_tocart(code) {
+    //    document.getElementById("Dis").value = 0;
+    //    document.getElementById("RTotal").value = 0;
+    //    document.getElementById("BTotal").value = 0;
+    //    $.ajax({
+    //        
+    //        /**/
+    //        type: "GET",
+    //        data: { "code": code },
+    //        contentType: 'application/json; charset=utf-8',
+    //        dataType: 'json',
+    //        success: function (data) {
+    //            $("tbody").children().remove();
+    //            var htmlRows = '';
+    //            for (var i = 0; i < data.length; i++) {
+    //                htmlRows += '<tr>';
+    //                htmlRows += '<td style="display:none"><input type="text"  name="item_id" id="item_id"  value="' + data[i].itemid + '" required class="form-control" readonly autocomplete="off"></td>';
+    //                htmlRows += '<td style="display:none"><input type="text"  name="item_name"  value="' + data[i].itemName + '" readonly class="form-control" autocomplete="off"></td>';
+    //                htmlRows += '<td style="display:none"><input type="text"  name="sp"  value="' + data[i].sp + ' "   readonly class="form-control" autocomplete="off"></td>';
+    //                htmlRows += '<td style="display:none"><input type="text"  name="qty"  value="' + data[i].qty + ' "  readonly class="form-control" autocomplete="off"></td>';
+    //                htmlRows += '<td style="display:none"><input type="text"  name="net_total"  value="' + data[i].nTotal + '"  readonly class="form-control" autocomplete="off"></td>';
+    //                htmlRows += '<td style="display:none"><input type="text"  name="Orderid"  value="' + data[i].orderid + '"  readonly class="form-control" autocomplete="off"></td>';
+    //                htmlRows += '<td style="display:none">' + data[i].itemid + '</td>';
+    //                htmlRows += '<td>' + data[i].itemName + '</td>';
+    //                htmlRows += '<td>' + data[i].sp + '</td>';
+    //                htmlRows += '<td>' + data[i].qty + '</td>';
+    //                htmlRows += '<td>' + data[i].nTotal + '</td>';
+    //                htmlRows += '<td style="width:40px !important"><a  class="btn btn-danger" style="background:red" onclick="return deleteRow(' + data[i].itemid + ')" ><i class="fa fa-trash"></i></a></td>';
+    //                htmlRows += '</tr>';
+    //            }
+    //            $('#invoiceItem').append(htmlRows);
 
-                var table = document.getElementById("invoiceItem"), sumVal = 0;
-                for (var i = 1; i < table.rows.length; i++) {
-                    sumVal = sumVal + parseInt(table.rows[i].cells[10].innerHTML);
-                    document.getElementById("Total").value = sumVal;
-                    document.getElementById("GTotal").value = sumVal;
+    //            var table = document.getElementById("invoiceItem"), sumVal = 0;
+    //            for (var i = 1; i < table.rows.length; i++) {
+    //                sumVal = sumVal + parseInt(table.rows[i].cells[10].innerHTML);
+    //                document.getElementById("Total").value = sumVal;
+    //                document.getElementById("GTotal").value = sumVal;
 
-                };
-            }
-        });
+    //            };
+    //        }
+    //    });
 
-    };
-    //
-    function deleteRow(code)
-    {
-        if (confirm("Are you sure want to delete the row?"))
-            document.getElementById("Total").value = 0;
-            document.getElementById("GTotal").value = 0;
-            document.getElementById("Dis").value = 0;
-            document.getElementById("RTotal").value = 0;
-            document.getElementById("BTotal").value = 0;
-        $.ajax({
-            url: '@Url.Action("Delete", "Home")',
-            /**/
-            type: "GET",
-            data: { "code": code },
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            success: function (data) {
-                $("tbody").children().remove();
-                var htmlRows = '';
-                for (var i = 0; i < data.length; i++) {
-                    htmlRows += '<tr>';
-                    htmlRows += '<td style="display:none"><input type="text"  name="item_id" id="item_id"  value="' + data[i].itemid + '" required class="form-control" readonly autocomplete="off"></td>';
-                    htmlRows += '<td style="display:none"><input type="text"  name="item_name"  value="' + data[i].itemName + '" readonly class="form-control" autocomplete="off"></td>';
-                    htmlRows += '<td style="display:none"><input type="text"  name="sp"  value="' + data[i].sp + ' "   readonly class="form-control" autocomplete="off"></td>';
-                    htmlRows += '<td style="display:none"><input type="text"  name="qty"  value="' + data[i].qty + ' "  readonly class="form-control" autocomplete="off"></td>';
-                    htmlRows += '<td style="display:none"><input type="text"  name="net_total"  value="' + data[i].nTotal + '"  readonly class="form-control" autocomplete="off"></td>';
-                    htmlRows += '<td style="display:none"><input type="text"  name="Orderid"  value="' + data[i].orderid + '"  readonly class="form-control" autocomplete="off"></td>';
-                    htmlRows += '<td style="display:none">' + data[i].itemid + '</td>';
-                    htmlRows += '<td>' + data[i].itemName + '</td>';
-                    htmlRows += '<td>' + data[i].sp + '</td>';
-                    htmlRows += '<td>' + data[i].qty + '</td>';
-                    htmlRows += '<td>' + data[i].nTotal + '</td>';
-                    htmlRows += '<td style="width:40px !important"><a  class="btn btn-danger" style="background:red" onclick="return deleteRow(' + data[i].itemid + ')" ><i class="fa fa-trash"></i></a></td>';
-                    htmlRows += '</tr>';
-                }
-                $('#invoiceItem').append(htmlRows);
+    //};
+    ////
+    //function deleteRow(code)
+    //{
+    //    if (confirm("Are you sure want to delete the row?"))
+    //        document.getElementById("Total").value = 0;
+    //        document.getElementById("GTotal").value = 0;
+    //        document.getElementById("Dis").value = 0;
+    //        document.getElementById("RTotal").value = 0;
+    //        document.getElementById("BTotal").value = 0;
+    //    $.ajax({
+    //        
+    //        /**/
+    //        type: "GET",
+    //        data: { "code": code },
+    //        contentType: 'application/json; charset=utf-8',
+    //        dataType: 'json',
+    //        success: function (data) {
+    //            $("tbody").children().remove();
+    //            var htmlRows = '';
+    //            for (var i = 0; i < data.length; i++) {
+    //                htmlRows += '<tr>';
+    //                htmlRows += '<td style="display:none"><input type="text"  name="item_id" id="item_id"  value="' + data[i].itemid + '" required class="form-control" readonly autocomplete="off"></td>';
+    //                htmlRows += '<td style="display:none"><input type="text"  name="item_name"  value="' + data[i].itemName + '" readonly class="form-control" autocomplete="off"></td>';
+    //                htmlRows += '<td style="display:none"><input type="text"  name="sp"  value="' + data[i].sp + ' "   readonly class="form-control" autocomplete="off"></td>';
+    //                htmlRows += '<td style="display:none"><input type="text"  name="qty"  value="' + data[i].qty + ' "  readonly class="form-control" autocomplete="off"></td>';
+    //                htmlRows += '<td style="display:none"><input type="text"  name="net_total"  value="' + data[i].nTotal + '"  readonly class="form-control" autocomplete="off"></td>';
+    //                htmlRows += '<td style="display:none"><input type="text"  name="Orderid"  value="' + data[i].orderid + '"  readonly class="form-control" autocomplete="off"></td>';
+    //                htmlRows += '<td style="display:none">' + data[i].itemid + '</td>';
+    //                htmlRows += '<td>' + data[i].itemName + '</td>';
+    //                htmlRows += '<td>' + data[i].sp + '</td>';
+    //                htmlRows += '<td>' + data[i].qty + '</td>';
+    //                htmlRows += '<td>' + data[i].nTotal + '</td>';
+    //                htmlRows += '<td style="width:40px !important"><a  class="btn btn-danger" style="background:red" onclick="return deleteRow(' + data[i].itemid + ')" ><i class="fa fa-trash"></i></a></td>';
+    //                htmlRows += '</tr>';
+    //            }
+    //            $('#invoiceItem').append(htmlRows);
 
-                var table = document.getElementById("invoiceItem"), sumVal = 0;
-                for (var i = 1; i < table.rows.length; i++) {
-                    sumVal = sumVal + parseInt(table.rows[i].cells[10].innerHTML);
-                    document.getElementById("Total").value = sumVal;
-                    document.getElementById("GTotal").value = sumVal;
-                };
-            }
-        });
+    //            var table = document.getElementById("invoiceItem"), sumVal = 0;
+    //            for (var i = 1; i < table.rows.length; i++) {
+    //                sumVal = sumVal + parseInt(table.rows[i].cells[10].innerHTML);
+    //                document.getElementById("Total").value = sumVal;
+    //                document.getElementById("GTotal").value = sumVal;
+    //            };
+    //        }
+    //    });
 
-    }
+    //}
 </script>
 
 

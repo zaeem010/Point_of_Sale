@@ -1,9 +1,6 @@
 ﻿using IMS.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace IMS.Areas.Pos.Models
 {
@@ -22,5 +19,11 @@ namespace IMS.Areas.Pos.Models
         public List<TranscationDetails> TranscationDetailsList { get; set; }
         public List<Stock> StockList { get; set; }
         public long dynamicId { get; set; }
+    }
+    public class SaleScreenVM
+    {
+        public List<Category> Categorys { get; set; }
+        public List<SubCategory> SubCategorys { get; set; }
+        public List<Product> Products { get; set; }
     }
 }

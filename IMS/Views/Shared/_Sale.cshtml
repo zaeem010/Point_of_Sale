@@ -24,8 +24,9 @@
     <link href="~/Sale/Outer/multiple-select.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="~/Sale/Outer/daterangepicker.css" />
 
-
     <link rel="shortcut icon" href="~/Sale/assets/media/logos/favicon.html" />
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
 <!--end::Head-->
 <!--begin::Body-->
@@ -37,37 +38,37 @@
     
     <script src="~/Sale/assets/js/plugin.bundle.min.js"></script>
     <script src="~/Sale/assets/js/bootstrap.bundle.min.js"></script>
-    <script src="~/Sale/Outer/jquery.dataTables.min.js"></script>
+  @*  <script src="~/Sale/Outer/jquery.dataTables.min.js"></script>
     <script src="~/Sale/Outer/multiple-select.min.js"></script>
     <script src="~/Sale/assets/js/sweetalert.js"></script>
-    <script src="~/Sale/assets/js/sweetalert1.js"></script>
+    <script src="~/Sale/assets/js/sweetalert1.js"></script>*@
     <script src="~/Sale/assets/js/script.bundle.js"></script>
     <script>
-        jQuery(function () {
-            jQuery('.arabic-select').multipleSelect({
-                filter: true,
-                filterAcceptOnEnter: true
-            })
-        });
-        jQuery(function () {
-            jQuery('.js-example-basic-single').multipleSelect({
-                filter: true,
-                filterAcceptOnEnter: true
-            })
-        });
-        jQuery(document).ready(function () {
-            jQuery('#orderTable').DataTable({
+        //jQuery(function () {
+        //    jQuery('.arabic-select').multipleSelect({
+        //        filter: true,
+        //        filterAcceptOnEnter: true
+        //    })
+        //});
+        //jQuery(function () {
+        //    jQuery('.js-example-basic-single').multipleSelect({
+        //        filter: true,
+        //        filterAcceptOnEnter: true
+        //    })
+        //});
+        //jQuery(document).ready(function () {
+        //    jQuery('#orderTable').DataTable({
 
-                "info": false,
-                "paging": false,
-                "searching": false,
+        //        "info": false,
+        //        "paging": false,
+        //        "searching": false,
 
-                "columnDefs": [{
-                    "targets": 'no-sort',
-                    "orderable": false,
-                }]
-            });
-        });
+        //        "columnDefs": [{
+        //            "targets": 'no-sort',
+        //            "orderable": false,
+        //        }]
+        //    });
+        //});
     </script>
 
 </body>
