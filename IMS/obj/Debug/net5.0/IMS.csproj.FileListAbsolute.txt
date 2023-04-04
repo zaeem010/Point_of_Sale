@@ -896,6 +896,11 @@ E:\MyProjects\IMS\IMS\obj\Debug\net5.0\IMS.RazorAssemblyInfo.cache
 E:\MyProjects\IMS\IMS\obj\Debug\net5.0\IMS.RazorAssemblyInfo.cs
 E:\MyProjects\IMS\IMS\obj\Debug\net5.0\scopedcss\bundle\IMS.styles.css
 E:\MyProjects\IMS\IMS\obj\Debug\net5.0\staticwebassets\IMS.StaticWebAssets.Manifest.cache
+E:\MyProjects\IMS\IMS\obj\Debug\net5.0\staticwebassets\IMS.StaticWebAssets.Pack.cache
+E:\MyProjects\IMS\IMS\obj\Debug\net5.0\staticwebassets\msbuild.IMS.Microsoft.AspNetCore.StaticWebAssets.props
+E:\MyProjects\IMS\IMS\obj\Debug\net5.0\staticwebassets\msbuild.build.IMS.props
+E:\MyProjects\IMS\IMS\obj\Debug\net5.0\staticwebassets\msbuild.buildMultiTargeting.IMS.props
+E:\MyProjects\IMS\IMS\obj\Debug\net5.0\staticwebassets\msbuild.buildTransitive.IMS.props
 E:\MyProjects\IMS\IMS\obj\Debug\net5.0\staticwebassets\IMS.StaticWebAssets.xml
 E:\MyProjects\IMS\IMS\obj\Debug\net5.0\IMS.TagHelpers.input.cache
 E:\MyProjects\IMS\IMS\obj\Debug\net5.0\IMS.TagHelpers.output.cache
@@ -906,6 +911,7 @@ E:\MyProjects\IMS\IMS\obj\Debug\net5.0\Razor\Areas\Pos\Views\PosPurchase\create.
 E:\MyProjects\IMS\IMS\obj\Debug\net5.0\Razor\Areas\Pos\Views\PosPurchase\Index.cshtml.g.cs
 E:\MyProjects\IMS\IMS\obj\Debug\net5.0\Razor\Areas\Pos\Views\Product\Create.cshtml.g.cs
 E:\MyProjects\IMS\IMS\obj\Debug\net5.0\Razor\Areas\Pos\Views\Product\Index.cshtml.g.cs
+E:\MyProjects\IMS\IMS\obj\Debug\net5.0\Razor\Areas\Pos\Views\Sale\Salescreen.cshtml.g.cs
 E:\MyProjects\IMS\IMS\obj\Debug\net5.0\Razor\Areas\Pos\Views\SubCategory\Create.cshtml.g.cs
 E:\MyProjects\IMS\IMS\obj\Debug\net5.0\Razor\Areas\Pos\Views\SubCategory\Index.cshtml.g.cs
 E:\MyProjects\IMS\IMS\obj\Debug\net5.0\Razor\Areas\Pos\Views\_ViewImports.cshtml.g.cs
@@ -943,6 +949,7 @@ E:\MyProjects\IMS\IMS\obj\Debug\net5.0\Razor\Views\Shared\_header.cshtml.g.cs
 E:\MyProjects\IMS\IMS\obj\Debug\net5.0\Razor\Views\Shared\_Layout.cshtml.g.cs
 E:\MyProjects\IMS\IMS\obj\Debug\net5.0\Razor\Views\Shared\_LoginPartial.cshtml.g.cs
 E:\MyProjects\IMS\IMS\obj\Debug\net5.0\Razor\Views\Shared\_Report.cshtml.g.cs
+E:\MyProjects\IMS\IMS\obj\Debug\net5.0\Razor\Views\Shared\_Sale.cshtml.g.cs
 E:\MyProjects\IMS\IMS\obj\Debug\net5.0\Razor\Views\Shared\_side.cshtml.g.cs
 E:\MyProjects\IMS\IMS\obj\Debug\net5.0\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
 E:\MyProjects\IMS\IMS\obj\Debug\net5.0\Razor\Views\Supplier\Create.cshtml.g.cs
@@ -960,10 +967,3 @@ E:\MyProjects\IMS\IMS\obj\Debug\net5.0\refint\IMS.dll
 E:\MyProjects\IMS\IMS\obj\Debug\net5.0\IMS.pdb
 E:\MyProjects\IMS\IMS\obj\Debug\net5.0\IMS.genruntimeconfig.cache
 E:\MyProjects\IMS\IMS\obj\Debug\net5.0\ref\IMS.dll
-E:\MyProjects\IMS\IMS\obj\Debug\net5.0\staticwebassets\IMS.StaticWebAssets.Pack.cache
-E:\MyProjects\IMS\IMS\obj\Debug\net5.0\staticwebassets\msbuild.IMS.Microsoft.AspNetCore.StaticWebAssets.props
-E:\MyProjects\IMS\IMS\obj\Debug\net5.0\staticwebassets\msbuild.build.IMS.props
-E:\MyProjects\IMS\IMS\obj\Debug\net5.0\staticwebassets\msbuild.buildMultiTargeting.IMS.props
-E:\MyProjects\IMS\IMS\obj\Debug\net5.0\staticwebassets\msbuild.buildTransitive.IMS.props
-E:\MyProjects\IMS\IMS\obj\Debug\net5.0\Razor\Views\Shared\_Sale.cshtml.g.cs
-E:\MyProjects\IMS\IMS\obj\Debug\net5.0\Razor\Areas\Pos\Views\Sale\Salescreen.cshtml.g.cs
