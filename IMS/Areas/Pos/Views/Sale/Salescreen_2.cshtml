@@ -1,0 +1,416 @@
+﻿@model SaleScreenVM
+@{
+    ViewData["Title"] = "SaleScreen-2";
+    Layout = "~/Views/Shared/_Sale.cshtml";
+    int ca = 1, sca = 1;
+    DateTime InvDate = DateTime.Now;
+}
+<script src="/js/SaleScreen2.js" asp-append-version="true"></script>
+<style>
+    .Product-container {
+        position: relative;
+        text-align: center;
+        color: black;
+    }
+
+    .bottom-right {
+        position: absolute;
+        bottom: 8px;
+        right: 16px;
+    }
+
+    .abc {
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .bgimage {
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .donate-now {
+        list-style-type: none;
+        margin: 25px 0 0 0;
+        padding: 0;
+    }
+
+        .donate-now li {
+            float: left;
+            margin: 0 5px 0 0;
+            width: 100px;
+            height: 40px;
+            position: relative;
+        }
+
+        .donate-now label,
+        .donate-now input {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+            .donate-now input[type="radio"] {
+                opacity: 0.01;
+                z-index: 100;
+            }
+
+                .donate-now input[type="radio"]:checked + label,
+                .Checked + label {
+                    background: #ffd800;
+                }
+
+        .donate-now label {
+            padding: 5px;
+            border: 1px solid #CCC;
+            cursor: pointer;
+            z-index: 90;
+        }
+
+            .donate-now label:hover {
+                background: #DDD;
+            }
+</style>
+
+<div class="se-pre-con">
+    <div class="pre-loader">
+        <img class="img-fluid" src="~/Sale/assets/images/loadergif.gif" alt="loading">
+    </div>
+</div>
+<!-- pos header -->
+<header class="pos-header bg-white">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col-xl-4 col-lg-4 col-md-6">
+                @*<div class="greeting-text">
+                <h3 class="card-label mb-0 font-weight-bold text-primary">
+                WELCOME
+                </h3>
+                <h3 class="card-label mb-0 ">
+                User
+                </h3>
+                </div>*@
+
+            </div>
+            <div class="col-xl-4 col-lg-5 col-md-6  clock-main">
+                <div class="clock">
+                    <div class="datetime-content">
+                        <ul>
+                            <li id="hours"></li>
+                            <li id="point1">:</li>
+                            <li id="min"></li>
+                            <li id="point">:</li>
+                            <li id="sec"></li>
+                        </ul>
+                    </div>
+                    <div class="datetime-content">
+                        <div id="Date" class=""></div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="col-xl-4 col-lg-3 col-md-12  order-lg-last order-second">
+
+                <div class="topbar justify-content-end">
+                    <div class="dropdown mega-dropdown">
+
+                        <div class="dropdown-menu dropdown-menu-right calu" style="min-width: 248px;">
+                            <div class="calculator">
+                                <div class="input" id="input"></div>
+                                <div class="buttons">
+                                    <div class="operators">
+                                        <div>+</div>
+                                        <div>-</div>
+                                        <div>&times;</div>
+                                        <div>&divide;</div>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <div class="leftPanel">
+                                            <div class="numbers">
+                                                <div>7</div>
+                                                <div>8</div>
+                                                <div>9</div>
+                                            </div>
+                                            <div class="numbers">
+                                                <div>4</div>
+                                                <div>5</div>
+                                                <div>6</div>
+                                            </div>
+                                            <div class="numbers">
+                                                <div>1</div>
+                                                <div>2</div>
+                                                <div>3</div>
+                                            </div>
+                                            <div class="numbers">
+                                                <div>0</div>
+                                                <div>.</div>
+                                                <div id="clear">C</div>
+                                            </div>
+                                        </div>
+                                        <div class="equal" id="result">=</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="topbar-item folder-data">
+                        <div class="btn btn-icon  w-auto h-auto btn-clean d-flex align-items-center py-0 mr-3" data-toggle="modal" data-target="#folderpop">
+                            <span class="badge badge-pill badge-primary"></span>
+                            <span class="symbol symbol-35  symbol-light-success">
+                                <span class="symbol-label bg-warning font-size-h5 ">
+                                    <svg width="20px" height="20px" xmlns="http://www.w3.org/2000/svg" fill="#ffff" viewBox="0 0 16 16">
+                                        <path d="M9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3zm-8.322.12C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139z"></path>
+                                    </svg>
+                                </span>
+                            </span>
+                        </div>
+
+                    </div>
+
+                    <div class="dropdown">
+                        <div class="topbar-item" data-toggle="dropdown" data-display="static">
+                            <div class="btn btn-icon w-auto h-auto btn-clean d-flex align-items-center py-0">
+
+                                <span class="symbol symbol-35 symbol-light-success">
+                                    <span class="symbol-label font-size-h5 ">
+                                        <svg width="20px" height="20px" viewBox="0 0 16 16" class="bi bi-person-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"></path>
+                                        </svg>
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="dropdown-menu dropdown-menu-right" style="min-width: 150px;">
+                            <a asp-action="LogOut" asp-controller="Home" class="dropdown-item">
+                                Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="contentPOS">
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="card card-custom gutter-b bg-white border-0 table-contentpos" style="height: 150px; overflow-x: auto">
+                    <div class="card-body">
+                        <div class="form-row ">
+                            @foreach (var Lst in Model.Categorys)
+                            {
+                                string imgpath = "/no-image.png";
+                                if (Lst.ImagePath != null)
+                                {
+                                    imgpath = $"/Uploads/{Lst.ImagePath}";
+                                }
+                                <div class="col-md-1 form-group" style="margin-left:20px">
+                                    <div class="productCard">
+                                        <a href="javascript:Getproducts(@Lst.Id)">
+                                            <div class="productThumb">
+                                                <img class="img-fluid" src="@imgpath" style="height:100px;width:100px">
+                                                <p class="text-center"><b>@Lst.Name</b></p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="col-md-8"></div>
+            <div class="col-md-4"></div>
+
+            <div class="col-md-4 mb-2">
+                <label><b>Search by Name</b></label>
+                <input type="text" id="seachbyname" class="form-control" autofocus="" />
+            </div>
+            <div class="col-md-4 mb-2">
+                <label><b>Search by Price</b></label>
+                <input type="number" id="seachbyprice" class="form-control" />
+            </div>
+            <div class="col-md-8 mb-2 text-right">
+                <label><b>Filtered By:</b></label>
+                <div id="filteredby" class="badge badge-primary"></div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-xl-8 order-xl-first order-last">
+                <div class="card card-custom gutter-b bg-white border-0">
+                    <div class="product-items">
+                        <div class="row ss2" style="padding:20px">
+                            @foreach (var pro in Model.Products)
+                            {
+                                string imgpath = "/no-image.png";
+                                if (pro.ImagePath != null)
+                                {
+                                    imgpath = $"/Uploads/{pro.ImagePath}";
+                                }
+                                <div class="col-xl-3">
+                                    <div class="productCard">
+                                        <a>
+                                            <div class="productThumb Product-container">
+                                                <img class="img-fluid" src="@imgpath">
+                                                <div class="bottom-right"><b>St:@pro.CurrentStock</b></div>
+                                            </div>
+                                            <div class="productContent text-center">
+                                                @pro.Name <b>Sp:@pro.SalePrice</b>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="btn-group">
+                                        <label class="btn font-weight-bold">Price</label>
+                                        <input type="number" id="customprice_@pro.Id" value="@pro.SalePrice" class="form-control" style="background:white;height:45px" />
+                                    </div>
+                                    <div class="btn-group">
+                                        <input type="number" id="customval_@pro.Id" class="form-control" value="1" style="background:white;height:45px" autofocus />
+                                        <button type="button" onclick="AddtocartManPrice(this);" class="btn btn-primary" categoryId="@pro.CategoryId" currentstock="@pro.CurrentStock" productname="@pro.Name" id="@pro.Id"><i class="fa fa-check"></i></button>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-4 col-lg-8 col-md-8">
+                <button class="btn btn-primary col-md-12" style="margin-top:-100px">Total Sale's Today : 0</button>
+
+                <form action="Javascript:saveinvoice();" method="post" style="margin-top:-20px">
+                    <div class="card card-custom gutter-b bg-white border-0 table-contentpos">
+                        <div class="table-datapos">
+                            <div class="table-responsive" id="printableTable">
+                                <table id="invoiceItem" class="display" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Sale Price</th>
+                                            <th>Quantity</th>
+                                            <th>Subtotal</th>
+                                            <th class=" text-right no-sort"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="invoiceItemrows">
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="2"></td>
+                                            <td><b>Total</b></td>
+                                            <td colspan="2" style="width:40px !important"><input type="text" id="Total" class="form-control" value="0" readonly /></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2"></td>
+                                            <td><b>Discount</b></td>
+                                            <td style="width:40px !important" colspan="2"><input type="text" value="0" id="Dis" class="form-control" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2"></td>
+                                            <td><b>Grand Total</b></td>
+                                            <td style="width:40px !important" colspan="2"><input type="text" id="GTotal" value="0" readonly class="form-control" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2"></td>
+                                            <td><b>Received Total</b></td>
+                                            <td style="width:40px !important" colspan="2"><input value="0" type="text" id="RTotal" class="form-control" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2"></td>
+                                            <td><b>Return Total</b></td>
+                                            <td style="width:40px !important" colspan="2"><input type="text" value="0" id="BTotal" class="form-control" /></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group row mb-0">
+                                <div class="col-md-12 btn-submit d-flex justify-content-end">
+                                    <button type="submit" class="btn btn-secondary white pull-left">
+                                        <i class="fas fa-save mr-2"></i> Save
+                                    </button>
+                                    <button class="btn btn-secondary white" style="margin-left:30px" name="Print" value="1">
+                                        <i class="fas fa-print mr-2"></i>  Save With Print
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" value="@InvDate.ToString("dd-MM-yyyy")" id="InvDate" />
+
+<div class="modal fade text-left" id="folderpop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel14" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="myModalLabel14">Draft Orders</h3>
+                <button type="button" class="close rounded-pill btn btn-sm btn-icon btn-light btn-hover-primary m-0" data-dismiss="modal" aria-label="Close">
+                    <svg width="20px" height="20px" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body pos-ordermain">
+                <div class="row">
+                    @foreach (var lst in Model.PosSaleMasters)
+                    {
+                        <div class="col-lg-4">
+                            <div class="pos-order">
+                                <h3 class="pos-order-title">Order @lst.Id</h3>
+                                <div class="orderdetail-pos">
+                                    <p>
+                                        <strong>Date And Time</strong>
+                                        @lst.InvDate
+                                    </p>
+                                    <p>
+                                        <strong>Net Amount</strong>
+                                        @lst.NetTotal
+                                    </p>
+                                    <p>
+                                        <strong>Discount</strong>
+                                        @lst.Discount
+                                    </p>
+                                    <p>
+                                        <strong>Total Bill</strong>
+                                        @lst.GrandTotal
+                                    </p>
+                                </div>
+                                <div class="d-flex justify-content-end">
+                                    <a asp-action="ChangeStatus" asp-route-id="@lst.Id" onclick="return confirm('Are you sure you want to Delete ?');"><i class="fas fa-trash-alt"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            @*<div class="modal-footer border-0">
+            <div class="row">
+            <div class="col-12">
+            <a href="#" class="btn btn-primary">Submit</a>
+            </div>
+            </div>
+            </div>*@
+        </div>
+    </div>
+</div>

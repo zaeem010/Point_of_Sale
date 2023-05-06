@@ -56,6 +56,7 @@ $(function () {
 	$('[data-bs-toggle="tooltip"]').tooltip();
 })
 
+
 function notEmpty(value) {
     return (typeof value !== 'undefined' && value.trim().length);
 }

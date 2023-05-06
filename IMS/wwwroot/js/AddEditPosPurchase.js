@@ -100,7 +100,6 @@ function GetProduct(val) {
         data: { Id: val },
         success: function (data) {
             if (data != null) {
-                debugger;
                 $('#Amount').val(data.purchasePrice);
                 $('#Unit').val(data.unit);
                 $('#CategoryId').val(data.categoryId);
@@ -224,7 +223,7 @@ function Editrow(button) {
 
 var rowcount = $('#countofdetails').text();
 $(document).keypress(function (e) {
-    if (e.which == 13 || event.keyCode == 13) {
+    if (e.which == 13 || e.keyCode == 13) {
         AddProduct();
     }
 });

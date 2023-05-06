@@ -37,7 +37,6 @@
                     <span class="fs-5"><a class="badge bg-primary" data-bs-toggle="modal" data-bs-target="#AddSupplier"><i class="fadeIn animated bx bx-plus-circle"></i></a> </span>
                     <div class="input-group mb-3">
                         <select asp-for="PosPurchaseMaster.ThirdLevelId" asp-items="Model.SupplierList" class="form-control" style="width: 100%">
-                            <option value="">Select</option>
                         </select>
                     </div>
                     <span asp-validation-for="PosPurchaseMaster.ThirdLevelId" class="text-danger"></span>
@@ -224,5 +223,5 @@
         </div>
     </div>
 </div>
-<script src="/js/AddEditPosPurchase.js" asp-append-version="true"></script>
 <partial name="_ValidationScriptsPartial" />
+<script src="/js/AddEditPosPurchase.js" asp-append-version="true"></script>

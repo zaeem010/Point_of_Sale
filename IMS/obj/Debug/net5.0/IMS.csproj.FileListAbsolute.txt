@@ -967,3 +967,5 @@ E:\MyProjects\IMS\IMS\obj\Debug\net5.0\refint\IMS.dll
 E:\MyProjects\IMS\IMS\obj\Debug\net5.0\IMS.pdb
 E:\MyProjects\IMS\IMS\obj\Debug\net5.0\IMS.genruntimeconfig.cache
 E:\MyProjects\IMS\IMS\obj\Debug\net5.0\ref\IMS.dll
+E:\MyProjects\IMS\IMS\bin\Debug\net5.0\Dapper.dll
+E:\MyProjects\IMS\IMS\obj\Debug\net5.0\Razor\Areas\Pos\Views\Sale\Salescreen_2.cshtml.g.cs

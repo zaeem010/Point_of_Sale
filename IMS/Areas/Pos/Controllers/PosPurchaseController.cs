@@ -83,8 +83,24 @@ namespace IMS.Areas.Pos.Controllers
         [HttpGet]
         public async Task<JsonResult> GetProduct(long Id)
         {
-            var Li = await _db.Product.SingleOrDefaultAsync(x => x.Id.Equals(Id));
-            return Json(Li);
+            var pro = await _db.Product
+               .Select(x => new Product
+               {
+                   Id = x.Id,
+                   Name = x.Name,
+                   Sku = x.Sku,
+                   SalePrice = x.SalePrice,
+                   PurchasePrice = x.PurchasePrice,
+                   OpeningStock = x.OpeningStock,
+                   Unit = x.Unit,
+                   ImagePath = x.ImagePath,
+                   CategoryId = x.CategoryId,
+                   SubCategoryId = x.SubCategoryId,
+                   Status = x.Status,
+                   Category = x.Category,
+                   Stock = _db.Stock.Where(z => z.ProductId.Equals(x.Id)).ToList(),
+               }).SingleOrDefaultAsync(x => x.Id.Equals(Id));
+            return Json(pro);
         }
         [Route("/Pos/PosPurchase/Save")]
         [HttpPost]

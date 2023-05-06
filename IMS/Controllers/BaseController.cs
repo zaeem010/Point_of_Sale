@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using IMS.Areas.Pos.Models;
 using IMS.Models;
-using System.Text.Json;
+using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Text.RegularExpressions;
 using System.Collections.Generic;
-using IMS.Areas.Pos.Models;
+using System.Text.Json;
+using System.Text.RegularExpressions;
 
 namespace IMS.Controllers
 {
@@ -82,7 +82,7 @@ namespace IMS.Controllers
             var TranscationDetails = new List<TranscationDetails>();
             foreach (var t in VoucherSavemodel.TranscationDetailList)
             {
-                
+
                 TranscationDetails.Add(new TranscationDetails
                 {
                     Id = t.Id,
@@ -94,7 +94,7 @@ namespace IMS.Controllers
                     Dr = t.Dr,
                     Cr = t.Cr,
                     UserId = t.UserId,
-                    HeadId=t.HeadId
+                    HeadId = t.HeadId
                 });
             }
             return TranscationDetails;
@@ -104,7 +104,7 @@ namespace IMS.Controllers
             var TranscationDetails = new List<TranscationDetails>();
             foreach (var t in PosPurchaseSavemodel.TranscationDetailsList)
             {
-                
+
                 TranscationDetails.Add(new TranscationDetails
                 {
                     Id = t.Id,
@@ -116,7 +116,29 @@ namespace IMS.Controllers
                     Dr = t.Dr,
                     Cr = t.Cr,
                     UserId = t.UserId,
-                    HeadId=t.HeadId
+                    HeadId = t.HeadId
+                });
+            }
+            return TranscationDetails;
+        }
+        public List<TranscationDetails> AddPosSaleMasterintransactionid(PosSaleSavemodel PosSaleSavemodel)
+        {
+            var TranscationDetails = new List<TranscationDetails>();
+            foreach (var t in PosSaleSavemodel.TranscationDetailsList)
+            {
+
+                TranscationDetails.Add(new TranscationDetails
+                {
+                    Id = t.Id,
+                    Invid = PosSaleSavemodel.dynamicId,
+                    Vtype = t.Vtype,
+                    TransDes = t.TransDes,
+                    TransDate = t.TransDate,
+                    ThirdLevelId = t.ThirdLevelId,
+                    Dr = t.Dr,
+                    Cr = t.Cr,
+                    UserId = t.UserId,
+                    HeadId = t.HeadId
                 });
             }
             return TranscationDetails;

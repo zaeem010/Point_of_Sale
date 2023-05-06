@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace IMS.Areas.Pos.Models
 {
@@ -10,7 +9,7 @@ namespace IMS.Areas.Pos.Models
     {
         [Key]
         public long Id { get; set; }
-        [Required (ErrorMessage ="Required")]
+        [Required(ErrorMessage = "Required")]
         [MaxLength(455)]
         public string Name { get; set; }
         [MaxLength(455)]
@@ -32,6 +31,14 @@ namespace IMS.Areas.Pos.Models
         public virtual Category Category { get; set; }
         public virtual SubCategory SubCategory { get; set; }
         public bool Status { get; set; } = true;
+        [NotMapped]
+        public List<Stock> Stock { get; set; }
+        [NotMapped]
+        public double SumStockIn => Stock.Where(x => x.ProductId.Equals(Id)).Select(x => x.StockIn).Sum();
+        [NotMapped]
+        public double SumStockOut => Stock.Where(x => x.ProductId.Equals(Id)).Select(x => x.StockOut).Sum();
+        [NotMapped]
+        public double CurrentStock => OpeningStock + (SumStockIn - SumStockOut);
     }
-    
+
 }

@@ -3,9 +3,21 @@
     ViewData["Title"] = "SaleScreen";
     Layout = "~/Views/Shared/_Sale.cshtml";
     int ca = 1, sca =1;
+    DateTime InvDate = DateTime.Now;
 }
 <script src="/js/Addeditsale.js" asp-append-version="true"></script>
 <style>
+    .Product-container {
+        position: relative;
+        text-align: center;
+        color: black;
+    }
+
+    .bottom-right {
+        position: absolute;
+        bottom: 8px;
+        right: 16px;
+    }
     .abc {
         overflow-x: auto;
         white-space: nowrap;
@@ -225,11 +237,15 @@
 
             <div class="col-md-4 mb-2">
                 <label><b>Search by Name</b></label>
-                <input type="text" class="form-control" autofocus="" />
+                <input type="text" id="seachbyname" class="form-control" autofocus="" />
             </div>
             <div class="col-md-4 mb-2">
                 <label><b>Search by Price</b></label>
-                <input type="number" class="form-control" />
+                <input type="number" id="seachbyprice" class="form-control" />
+            </div>
+            <div class="col-md-8 mb-2 text-right">
+                <label><b>Filtered By:</b></label>
+                 <div id="filteredby" class="badge badge-primary"></div>
             </div>
            
            
@@ -260,9 +276,10 @@
                                 }
                                 <div class="col-xl-3">
                                     <div class="productCard">
-                                        <a onclick="return add_tocart(@pro.Id)">
-                                            <div class="productThumb">
+                                        <a>
+                                            <div class="productThumb Product-container">
                                                 <img class="img-fluid" src="@imgpath">
+                                                <div class="bottom-right"><b>St:@pro.CurrentStock</b></div>
                                             </div>
                                             <div class="productContent text-center">
                                                 @pro.Name <b>Sp:@pro.SalePrice</b>
@@ -270,14 +287,14 @@
                                         </a>
                                     </div>
                                     <div class="btn-group">
-                                        <button type="button" onclick="inner(id ,this.id), outer(value ,this.value),add_tocart1();" class="btn btn-primary" value="1" id="2">2</button>
-                                        <button type="button" onclick="inner(id ,this.id), outer(value ,this.value),add_tocart1();" class="btn btn-primary" value="1" id="3">3</button>
-                                        <button type="button" onclick="inner(id ,this.id), outer(value ,this.value),add_tocart1();" class="btn btn-primary" value="1" id="4">4</button>
-                                        <button type="button" onclick="inner(id ,this.id), outer(value ,this.value),add_tocart1();" class="btn btn-primary" value="1" id="5">5</button>
+                                        <button type="button" onclick="Addtocart(this);" class="btn btn-primary" categoryId="@pro.CategoryId" currentstock="@pro.CurrentStock" productname="@pro.Name" saleprice="@pro.SalePrice" value="2" id="@pro.Id">2</button>
+                                        <button type="button" onclick="Addtocart(this);" class="btn btn-primary" categoryId="@pro.CategoryId" currentstock="@pro.CurrentStock" productname="@pro.Name" saleprice="@pro.SalePrice" value="3" id="@pro.Id">3</button>
+                                        <button type="button" onclick="Addtocart(this);" class="btn btn-primary" categoryId="@pro.CategoryId" currentstock="@pro.CurrentStock" productname="@pro.Name" saleprice="@pro.SalePrice" value="4" id="@pro.Id">4</button>
+                                        <button type="button" onclick="Addtocart(this);" class="btn btn-primary" categoryId="@pro.CategoryId" currentstock="@pro.CurrentStock" productname="@pro.Name" saleprice="@pro.SalePrice" value="5" id="@pro.Id">5</button>
                                     </div>
                                     <div class="btn-group">
-                                        <input type="number" id="ManualVal" class="form-control" value="1" style="background:white;height:45px" autofocus />
-                                        <button type="button" onclick="outer(value ,this.value),add_tocart2();" class="btn btn-primary" value="1"><i class="fa fa-check"></i></button>
+                                        <input type="number" id="customval_@pro.Id" class="form-control" value="1" style="background:white;height:45px" autofocus />
+                                        <button type="button" onclick="AddtocartMan(this);" class="btn btn-primary" categoryId="@pro.CategoryId" currentstock="@pro.CurrentStock" productname="@pro.Name" saleprice="@pro.SalePrice" id="@pro.Id"><i class="fa fa-check"></i></button>
                                     </div>
                                 </div>
                             }
@@ -288,9 +305,9 @@
             </div>
 
             <div class="col-xl-4 col-lg-8 col-md-8">
-                <button class="btn btn-primary col-md-12" style="margin-top:-100px">Total Sale's Today : 12</button>
+                <button class="btn btn-primary col-md-12" style="margin-top:-100px">Total Sale's Today : 0</button>
                 
-                <form asp-action="Save" method="post" style="margin-top:-20px">
+                <form action="Javascript:saveinvoice();" method="post" style="margin-top:-20px">
                     <div class="card card-custom gutter-b bg-white border-0 table-contentpos">
                         <div class="table-datapos">
                             <div class="table-responsive" id="printableTable">
@@ -304,33 +321,34 @@
                                             <th class=" text-right no-sort"></th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="invoiceItemrows">
+                                       
                                     </tbody>
                                     <tfoot>
                                         <tr>
                                             <td colspan="2"></td>
                                             <td><b>Total</b></td>
-                                            <td colspan="2" style="width:40px !important"><input type="text" id="Total" class="form-control" readonly /></td>
+                                            <td colspan="2" style="width:40px !important"><input type="text" id="Total" class="form-control" value="0" readonly /></td>
                                         </tr>
                                         <tr>
                                             <td colspan="2"></td>
                                             <td><b>Discount</b></td>
-                                            <td style="width:40px !important" colspan="2"><input type="text" onkeyup="Sum();"  id="Dis" class="form-control" /></td>
+                                            <td style="width:40px !important" colspan="2"><input type="text" value="0" id="Dis" class="form-control" /></td>
                                         </tr>
                                         <tr>
                                             <td colspan="2"></td>
                                             <td><b>Grand Total</b></td>
-                                            <td style="width:40px !important" colspan="2"><input type="text"  id="GTotal" readonly class="form-control" /></td>
+                                            <td style="width:40px !important" colspan="2"><input type="text"  id="GTotal" value="0" readonly class="form-control" /></td>
                                         </tr>
                                         <tr>
                                             <td colspan="2"></td>
                                             <td><b>Received Total</b></td>
-                                            <td style="width:40px !important" colspan="2"><input onkeyup="Balance();" type="text" name="RTotal" id="RTotal" class="form-control" /></td>
+                                            <td style="width:40px !important" colspan="2"><input value="0" type="text" id="RTotal" class="form-control" /></td>
                                         </tr>
                                         <tr>
                                             <td colspan="2"></td>
                                             <td><b>Return Total</b></td>
-                                            <td style="width:40px !important" colspan="2"><input type="text" name="BTotal" id="BTotal" class="form-control" /></td>
+                                            <td style="width:40px !important" colspan="2"><input type="text" value="0" id="BTotal" class="form-control" /></td>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -354,10 +372,8 @@
         </div>
     </div>
 </div>
-<input type="hidden" id="proid"/>
-<input type="hidden"id="btnid"/>
-<input type="hidden"id="valid"/>
-<input type="hidden" id="PriceQty" value="1"/>
+<input type="hidden" value="@InvDate.ToString("dd-MM-yyyy")" id="InvDate"/>
+
 <div class="modal fade text-left" id="folderpop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel14" style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg " role="document">
         <div class="modal-content">
@@ -371,19 +387,15 @@
             </div>
             <div class="modal-body pos-ordermain">
                 <div class="row">
-                   @* @foreach (var lst in Model.SaleMasterList)
+                    @foreach (var lst in Model.PosSaleMasters)
                     {
                         <div class="col-lg-4">
                             <div class="pos-order">
-                                <h3 class="pos-order-title">Order @lst.Orderid</h3>
+                                <h3 class="pos-order-title">Order @lst.Id</h3>
                                 <div class="orderdetail-pos">
                                     <p>
-                                        <strong>Customer Name</strong>
-                                        @lst.CusName
-                                    </p>
-                                    <p>
                                         <strong>Date And Time</strong>
-                                        @lst.Date
+                                        @lst.InvDate
                                     </p>
                                     <p>
                                         <strong>Net Amount</strong>
@@ -395,15 +407,15 @@
                                     </p>
                                     <p>
                                         <strong>Total Bill</strong>
-                                        @lst.GTotal
+                                        @lst.GrandTotal
                                     </p>
                                 </div>
                                 <div class="d-flex justify-content-end">
-                                    <a asp-action="ChangeStatus" asp-route-id="@lst.Orderid" onclick="return confirm('Are you sure you want to Delete ?');"><i class="fas fa-trash-alt"></i></a>
+                                    <a asp-action="ChangeStatus" asp-route-id="@lst.Id" onclick="return confirm('Are you sure you want to Delete ?');"><i class="fas fa-trash-alt"></i></a>
                                 </div>
                             </div>
                         </div>
-                    }*@
+                    }
                 </div>
             </div>
             @*<div class="modal-footer border-0">

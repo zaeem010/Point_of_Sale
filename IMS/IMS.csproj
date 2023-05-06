@@ -8,6 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\js\frontsite.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\js\frontsite.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.123" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.17" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.17" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.17" />
@@ -18,8 +27,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Pos\Data\" />
     <Folder Include="wwwroot\Uploads\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\js\frontsite.js" />
   </ItemGroup>
 
 </Project>

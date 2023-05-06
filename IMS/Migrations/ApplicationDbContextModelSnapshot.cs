@@ -111,6 +111,91 @@ namespace IMS.Migrations
                     b.ToTable("PosPurchaseMaster");
                 });
 
+            modelBuilder.Entity("IMS.Areas.Pos.Models.PosSaleDetail", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("CategoryId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("PosSaleMasterId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("ProductId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("ProductName")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<double>("Qty")
+                        .HasColumnType("float");
+
+                    b.Property<double>("SalePrice")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Total")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Unit")
+                        .HasMaxLength(55)
+                        .HasColumnType("nvarchar(55)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PosSaleMasterId");
+
+                    b.ToTable("PosSaleDetail");
+                });
+
+            modelBuilder.Entity("IMS.Areas.Pos.Models.PosSaleMaster", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<double>("Discount")
+                        .HasColumnType("float");
+
+                    b.Property<double>("GrandTotal")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("InvDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("NetTotal")
+                        .HasColumnType("float");
+
+                    b.Property<double>("ReceivedTotal")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Remarks")
+                        .HasMaxLength(455)
+                        .HasColumnType("nvarchar(455)");
+
+                    b.Property<double>("ReturnPrice")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Status")
+                        .HasMaxLength(55)
+                        .HasColumnType("nvarchar(55)");
+
+                    b.Property<int>("ThirdLevelId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("VType")
+                        .HasMaxLength(55)
+                        .HasColumnType("nvarchar(55)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ThirdLevelId");
+
+                    b.ToTable("PosSaleMaster");
+                });
+
             modelBuilder.Entity("IMS.Areas.Pos.Models.Product", b =>
                 {
                     b.Property<long>("Id")
@@ -1063,6 +1148,26 @@ namespace IMS.Migrations
                     b.Navigation("ThirdLevel");
                 });
 
+            modelBuilder.Entity("IMS.Areas.Pos.Models.PosSaleDetail", b =>
+                {
+                    b.HasOne("IMS.Areas.Pos.Models.PosSaleMaster", null)
+                        .WithMany("PosSaleDetails")
+                        .HasForeignKey("PosSaleMasterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("IMS.Areas.Pos.Models.PosSaleMaster", b =>
+                {
+                    b.HasOne("IMS.Models.ThirdLevel", "ThirdLevel")
+                        .WithMany()
+                        .HasForeignKey("ThirdLevelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ThirdLevel");
+                });
+
             modelBuilder.Entity("IMS.Areas.Pos.Models.Product", b =>
                 {
                     b.HasOne("IMS.Areas.Pos.Models.Category", "Category")
@@ -1364,6 +1469,11 @@ namespace IMS.Migrations
             modelBuilder.Entity("IMS.Areas.Pos.Models.PosPurchaseMaster", b =>
                 {
                     b.Navigation("PosPurchaseDetailList");
+                });
+
+            modelBuilder.Entity("IMS.Areas.Pos.Models.PosSaleMaster", b =>
+                {
+                    b.Navigation("PosSaleDetails");
                 });
 
             modelBuilder.Entity("IMS.Models.Customer", b =>

@@ -20,10 +20,18 @@ namespace IMS.Areas.Pos.Models
         public List<Stock> StockList { get; set; }
         public long dynamicId { get; set; }
     }
+    public class PosSaleSavemodel
+    {
+        public PosSaleMaster PosSaleMaster { get; set; }
+        public List<TranscationDetails> TranscationDetailsList { get; set; }
+        public List<Stock> StockList { get; set; }
+        public long dynamicId { get; set; }
+    }
     public class SaleScreenVM
     {
         public List<Category> Categorys { get; set; }
         public List<SubCategory> SubCategorys { get; set; }
         public List<Product> Products { get; set; }
+        public List<PosSaleMaster> PosSaleMasters { get; set; }
     }
 }

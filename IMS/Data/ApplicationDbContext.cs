@@ -3,9 +3,7 @@ using IMS.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Data;
 
 namespace IMS.Data
 {
@@ -14,6 +12,10 @@ namespace IMS.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+        }
+        public IDbConnection GetConnection()
+        {
+            return Database.GetDbConnection();
         }
         public DbSet<User> User { get; set; }
         public DbSet<Role> Role { get; set; }
@@ -47,5 +49,8 @@ namespace IMS.Data
         //Pos Purchase
         public DbSet<PosPurchaseMaster> PosPurchaseMaster { get; set; }
         public DbSet<PosPurchaseDetail> PosPurchaseDetail { get; set; }
+        //Sale
+        public DbSet<PosSaleMaster> PosSaleMaster { get; set; }
+        public DbSet<PosSaleDetail> PosSaleDetail { get; set; }
     }
 }
