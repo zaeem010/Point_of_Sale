@@ -767,6 +767,7 @@ E:\MyProjects\IMS\IMS\bin\Debug\net5.0\refs\System.Xml.XPath.XDocument.dll
 E:\MyProjects\IMS\IMS\bin\Debug\net5.0\refs\WindowsBase.dll
 E:\MyProjects\IMS\IMS\bin\Debug\net5.0\IMS.Views.dll
 E:\MyProjects\IMS\IMS\bin\Debug\net5.0\IMS.Views.pdb
+E:\MyProjects\IMS\IMS\bin\Debug\net5.0\Dapper.dll
 E:\MyProjects\IMS\IMS\bin\Debug\net5.0\Humanizer.dll
 E:\MyProjects\IMS\IMS\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.Internal.dll
 E:\MyProjects\IMS\IMS\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
@@ -912,6 +913,7 @@ E:\MyProjects\IMS\IMS\obj\Debug\net5.0\Razor\Areas\Pos\Views\PosPurchase\Index.c
 E:\MyProjects\IMS\IMS\obj\Debug\net5.0\Razor\Areas\Pos\Views\Product\Create.cshtml.g.cs
 E:\MyProjects\IMS\IMS\obj\Debug\net5.0\Razor\Areas\Pos\Views\Product\Index.cshtml.g.cs
 E:\MyProjects\IMS\IMS\obj\Debug\net5.0\Razor\Areas\Pos\Views\Sale\Salescreen.cshtml.g.cs
+E:\MyProjects\IMS\IMS\obj\Debug\net5.0\Razor\Areas\Pos\Views\Sale\Salescreen_2.cshtml.g.cs
 E:\MyProjects\IMS\IMS\obj\Debug\net5.0\Razor\Areas\Pos\Views\SubCategory\Create.cshtml.g.cs
 E:\MyProjects\IMS\IMS\obj\Debug\net5.0\Razor\Areas\Pos\Views\SubCategory\Index.cshtml.g.cs
 E:\MyProjects\IMS\IMS\obj\Debug\net5.0\Razor\Areas\Pos\Views\_ViewImports.cshtml.g.cs
@@ -967,5 +969,3 @@ E:\MyProjects\IMS\IMS\obj\Debug\net5.0\refint\IMS.dll
 E:\MyProjects\IMS\IMS\obj\Debug\net5.0\IMS.pdb
 E:\MyProjects\IMS\IMS\obj\Debug\net5.0\IMS.genruntimeconfig.cache
 E:\MyProjects\IMS\IMS\obj\Debug\net5.0\ref\IMS.dll
-E:\MyProjects\IMS\IMS\bin\Debug\net5.0\Dapper.dll
-E:\MyProjects\IMS\IMS\obj\Debug\net5.0\Razor\Areas\Pos\Views\Sale\Salescreen_2.cshtml.g.cs
